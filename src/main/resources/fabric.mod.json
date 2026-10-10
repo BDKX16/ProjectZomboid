@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "projectzomboid_prd",
+  "version": "${version}",
+  "name": "ProjectZomboid_PRD",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/projectzomboid_prd/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "org.example.pz.projectzomboid_prd.client.Projectzomboid_prdDataGenerator"
+    ],
+    "client": [
+      "org.example.pz.projectzomboid_prd.client.Projectzomboid_prdClient"
+    ],
+    "main": [
+      "org.example.pz.projectzomboid_prd.Projectzomboid_prd"
+    ]
+  },
+  "mixins": [
+    "projectzomboid_prd.mixins.json",
+    {
+      "config": "projectzomboid_prd.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
