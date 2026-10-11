@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bowl",
+    "minecraft:wheat",
+    "minecraft:wheat",
+    "projectzomboid_prd:basil",
+    "projectzomboid_prd:basil",
+    "projectzomboid_prd:sunflower_head"
+  ],
+  "result": {
+    "id": "projectzomboid_prd:pesto_pasta"
+  }
+}

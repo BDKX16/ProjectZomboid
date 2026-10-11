@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredient": "projectzomboid_prd:sunflower_head",
+  "result": {
+    "id": "projectzomboid_prd:roasted_sunflower_seeds"
+  }
+}

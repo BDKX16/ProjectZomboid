@@ -3,7 +3,10 @@ package org.example.pz.projectzomboid_prd.gametest.client;
 import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -14,6 +17,7 @@ import org.example.pz.projectzomboid_prd.client.screen.WeatherStationScreen;
 import org.example.pz.projectzomboid_prd.crop.CropProfile;
 import org.example.pz.projectzomboid_prd.crop.CropProfiles;
 import org.example.pz.projectzomboid_prd.registry.ModCrops;
+import org.example.pz.projectzomboid_prd.registry.ModFoods;
 import org.example.pz.projectzomboid_prd.registry.ModItems;
 import org.example.pz.projectzomboid_prd.soil.SoilManager;
 
@@ -35,7 +39,27 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
             weatherStation(context, world);
             growRoom(context, world);
             soil(context, world);
+            food(context, world);
         }
+    }
+
+    /** The meals in the hotbar and the mod's effects in the inventory screen. */
+    private static void food(ClientGameTestContext context, TestSingleplayerContext world) {
+        world.getServer().runCommand("clear @p");
+        int slot = 0;
+        for (ModFoods.Meal meal : ModFoods.ALL) {
+            world.getServer().runCommand("item replace entity @p hotbar.%d with %s".formatted(slot++,
+                    BuiltInRegistries.ITEM.getKey(meal.item())));
+        }
+        for (String effect : new String[]{"vitality", "immunity", "warmth", "nourished"}) {
+            world.getServer().runCommand("effect give @p projectzomboid_prd:" + effect + " 120");
+        }
+        context.waitTicks(20);
+        context.takeScreenshot("food_hud");
+        context.setScreen(() -> new InventoryScreen(Minecraft.getInstance().player));
+        context.waitTicks(5);
+        context.takeScreenshot("food_inventory");
+        context.setScreen(() -> null);
     }
 
     /** A tomato between basil (companion) and potatoes (antagonist), harvested twice, analysed with the soil kit. */

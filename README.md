@@ -340,3 +340,34 @@ Los productos y semillas del mod también se pueden echar al **compostador vanil
 **Código:** `soil/` (`SoilData`, `SoilRules` con tests, `SoilManager`), `block/CompostBinBlock`,
 `item/SoilAmendmentItem`, `item/SoilTestKitItem`. Gametest `SoilGameTest`: las cosechas cambian el suelo, el
 compost lo recupera, la soja fija nitrógeno, se detectan compañeras/antagonistas y la compostera da compost.
+
+### Fase 7 — Comidas compuestas y dieta variada ✅
+
+Las verduras se cocinan en comidas que dan efectos según lo que tienen. Todas se apilan de a 16, y las que van en
+bowl o botella te los devuelven al terminar.
+
+| Comida | Receta (sin forma) | Hambre | Efecto |
+|---|---|---|---|
+| **Hamburguesa** | pan + carne cocida + lechuga + tomate | **20 (barra llena)** | — |
+| **Ensalada verde** | bowl + lechuga + rúcula + tomate | 6 | **Vitalidad**: +10 % de velocidad, 2 min |
+| **Brócoli al vapor** | bowl + 2 brócoli + albahaca | 6 | Cura veneno, hambre y náuseas + **Inmunidad** contra ellos, 3 min |
+| **Guiso de soja** | bowl + 2 soja + zanahoria + papa | 8 | Fuerza I, 2 min |
+| **Sopa de zapallo** | bowl + zapallo + papa | 8 | **Calor**: la nieve polvo no te congela, 4 min |
+| **Semillas de girasol tostadas** | flor de girasol en horno, ahumador o fogata | 3 | Absorción, 30 s (se comen rápido) |
+| **Pasta al pesto** | bowl + 2 trigo + 2 albahaca + girasol | 8 | Prisa I, 3 min |
+| **Jugo de tomate** | botella + 2 tomates | 4 | Regeneración I, 10 s |
+
+**Efectos propios:** Vitalidad, Inmunidad, Calor y Bien nutrido, cada uno con su ícono.
+
+**Dieta variada.** Comer **4 verduras distintas en un mismo día** de Minecraft te da **Bien nutrido**: +2
+corazones de vida máxima durante un día.
+- Cuentan las verduras del mod crudas y las de cada comida (la ensalada suma lechuga, rúcula y tomate).
+- También cuentan las de vanilla: zanahoria, papa (también asada), remolacha (también en sopa) y zapallo (pastel
+  de calabaza).
+- Repetir la misma verdura no suma. Lo comido hace más de un día se olvida.
+- Se guarda por jugador y se reinicia al morir.
+
+**Código:** `effect/ModEffects`, `registry/ModFoods`, `food/Diet` (con tests) y `food/DietTracker`. Mixins nuevos:
+`FoodPropertiesMixin` registra cada comida y `LivingEntityMixin` hace que no te congeles con Calor. El gametest
+`FoodGameTest` comprueba que la hamburguesa llena el hambre, que la ensalada da +10 % de velocidad y devuelve el bowl,
+que el brócoli cura y bloquea el veneno, que la sopa evita el congelamiento y que la dieta variada da +2 corazones.

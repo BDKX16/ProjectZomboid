@@ -65,6 +65,9 @@ public final class ModCrops {
                         output.accept(crop.seeds());
                         output.accept(crop.produce());
                     }
+                    for (ModFoods.Meal meal : ModFoods.ALL) {
+                        output.accept(meal.item());
+                    }
                 })
                 .build());
     }

@@ -4,8 +4,11 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
 import org.example.pz.projectzomboid_prd.command.SeasonCommand;
 import org.example.pz.projectzomboid_prd.crop.CropProfiles;
+import org.example.pz.projectzomboid_prd.effect.ModEffects;
+import org.example.pz.projectzomboid_prd.food.DietTracker;
 import org.example.pz.projectzomboid_prd.registry.ModBlocks;
 import org.example.pz.projectzomboid_prd.registry.ModCrops;
+import org.example.pz.projectzomboid_prd.registry.ModFoods;
 import org.example.pz.projectzomboid_prd.registry.ModGameRules;
 import org.example.pz.projectzomboid_prd.registry.ModItems;
 import org.example.pz.projectzomboid_prd.season.SeasonManager;
@@ -31,6 +34,9 @@ public class Projectzomboid_prd implements ModInitializer {
         ModBlocks.init();
         ModCrops.init();
         ModItems.init();
+        ModEffects.init();
+        ModFoods.init();
+        DietTracker.init();
         ModWorldGen.init();
         SoilManager.init();
     }

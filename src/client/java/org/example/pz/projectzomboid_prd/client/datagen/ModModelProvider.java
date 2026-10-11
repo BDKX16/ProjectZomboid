@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.CropBlock;
 import org.example.pz.projectzomboid_prd.registry.ModBlocks;
 import org.example.pz.projectzomboid_prd.registry.ModCrops;
+import org.example.pz.projectzomboid_prd.registry.ModFoods;
 import org.example.pz.projectzomboid_prd.registry.ModItems;
 
 public class ModModelProvider extends FabricModelProvider {
@@ -71,6 +72,9 @@ public class ModModelProvider extends FabricModelProvider {
         // Seed models are created automatically as the crop blocks' items.
         for (ModCrops.Crop crop : ModCrops.ALL) {
             itemModelGenerators.generateFlatItem(crop.produce(), ModelTemplates.FLAT_ITEM);
+        }
+        for (ModFoods.Meal meal : ModFoods.ALL) {
+            itemModelGenerators.generateFlatItem(meal.item(), ModelTemplates.FLAT_ITEM);
         }
     }
 }
