@@ -11,6 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import org.example.pz.projectzomboid_prd.registry.ModBlocks;
 import org.example.pz.projectzomboid_prd.registry.ModCrops;
+import org.example.pz.projectzomboid_prd.registry.ModItems;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -46,7 +47,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                         .save(output);
 
-                // Produce → seeds, so a harvest can always be replanted.
+                // Produce â†’ seeds, so a harvest can always be replanted.
                 for (ModCrops.Crop crop : ModCrops.ALL) {
                     shapeless(RecipeCategory.MISC, crop.seeds(), crop.seedsPerCraft())
                             .requires(crop.produce())

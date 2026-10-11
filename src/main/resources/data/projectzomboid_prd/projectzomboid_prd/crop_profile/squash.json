@@ -12,5 +12,6 @@
     "max": 36
   },
   "frost_tolerant": false,
-  "growth_rate": 0.5
+  "growth_rate": 0.5,
+  "regrow_age": 5
 }

@@ -4,13 +4,13 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
+import org.example.pz.projectzomboid_prd.item.DescribedBlockItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +28,10 @@ public final class ModBlocks {
             .sound(SoundType.GLASS)
             .lightLevel(state -> 15));
 
-    /** Ventilates a grow room; needs an open shaft to the surface above it. */
+    /**
+     * Ventilates a greenhouse or grow room; needs an open shaft to the surface above it. Its top is a solar panel,
+     * which is why it regulates itself without power.
+     */
     public static final Block EXTRACTOR = register("extractor", BlockBehaviour.Properties.of()
             .mapColor(MapColor.METAL)
             .strength(3.0f)
@@ -47,7 +50,7 @@ public final class ModBlocks {
         Block block = Registry.register(BuiltInRegistries.BLOCK, blockKey, new Block(properties.setId(blockKey)));
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Projectzomboid_prd.id(name));
         Registry.register(BuiltInRegistries.ITEM, itemKey,
-                new BlockItem(block, new Item.Properties().useBlockDescriptionPrefix().setId(itemKey)));
+                new DescribedBlockItem(block, new Item.Properties().useBlockDescriptionPrefix().setId(itemKey)));
         MUTABLE_ALL.add(block);
         return block;
     }

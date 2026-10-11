@@ -89,11 +89,13 @@ el cultivo en esa posición y por qué (fuera de estación, frío, helada…).
   "seasons": ["autumn", "winter", "spring"],
   "temperature": { "min": 0, "optimal_min": 10, "optimal_max": 22, "max": 30 },
   "frost_tolerant": true,
-  "growth_rate": 1.0
+  "growth_rate": 1.0,
+  "regrow_age": 5
 }
 ```
 
-`growth_rate` (0-1) hace más lentos los cultivos de ciclo largo. Familias: `grasses`, `nightshades`, `brassicas`,
+`growth_rate` (0-1) hace más lentos los cultivos de ciclo largo. `regrow_age` (opcional, fase 4) permite cosechar
+con tijeras de poda. Familias: `grasses`, `nightshades`, `brassicas`,
 `legumes`, `umbellifers`, `amaranths`, `composites`, `cucurbits`, `alliums`, `mints` (se usan para la rotación de la fase 6).
 
 **Código:** `crop/` (`CropProfile`, `CropProfiles`, `GrowthCalculator`, `CropClimate`) y `mixin/CropBlockMixin`.
@@ -170,8 +172,23 @@ aire se vicia y **no crece nada**.
 | Bloque | Receta | Uso |
 |---|---|---|
 | Luz de cultivo | `IRI` / `GLG` — I hierro, R redstone, G panel de vidrio, L piedra luminosa | Luz 15; habilita la sala de cultivo |
-| Extractor de aire | `IBI` / `RCR` / `IBI` — I hierro, B barrotes de hierro, R redstone, C lingote de cobre | Ventila invernaderos y salas (necesita pico) |
+| Extractor de aire | `IBI` / `RCR` / `IBI` — I hierro, B barrotes de hierro, R redstone, C lingote de cobre | Ventila invernaderos y salas (necesita pico). Arriba tiene un **panel solar**: se regula solo, sin redstone ni energía. Por eso necesita la columna libre hasta el cielo |
 
-**Código:** `greenhouse/` (`Shelter`, `ShelterDetector`), `registry/ModBlocks`, `registry/ModTags`, tags en
+**Tijeras de poda** (`I I` / ` I ` / `S S` — I hierro, S palo; 238 usos). Algunas plantas se cosechan **sin
+arrancarlas**. Con las tijeras sobre la planta madura cae el producto (1-2) y la planta vuelve a una etapa anterior
+para producir otra vez:
+
+| Planta | Vuelve a la etapa | Se cosecha con tijeras |
+|---|---|---|
+| Tomate, zapallo, brócoli (brotes laterales) | 5 de 7 | sí |
+| Albahaca, lechuga, rúcula (corte y rebrote) | 4 de 7 | sí |
+| Soja, girasol | — | no: se rompen para cosechar |
+
+Si la planta no está madura o se cosecha una sola vez, las tijeras avisan en pantalla y no hacen nada. Romper la
+planta a mano sigue dando la cosecha normal. Se configura en el perfil de cada cultivo con `"regrow_age"`
+(si falta, la planta se cosecha una sola vez).
+
+**Código:** `greenhouse/` (`Shelter`, `ShelterDetector`), `item/PruningShearsItem`, `registry/ModBlocks`, `registry/ModTags`, tags en
 `data/projectzomboid_prd/tags/`. Gametest `ShelterGameTest`: arma un invernadero, le agrega un extractor, lo
 convierte en sala subterránea y le tapa el respiradero, comprobando el resultado en cada paso.
+`PruningShearsGameTest`: cosecha un tomate con tijeras (rebrota) y comprueba que la soja no se puede.

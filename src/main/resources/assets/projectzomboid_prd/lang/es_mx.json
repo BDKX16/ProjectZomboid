@@ -93,5 +93,11 @@
   "shelter.projectzomboid_prd.heated": ", calefaccionado",
   "stress.projectzomboid_prd.poor_ventilation": "invernadero sin extractor en verano: crece a la mitad",
   "stress.projectzomboid_prd.no_ventilation": "sin ventilación, el aire está viciado: no crece",
-  "commands.projectzomboid_prd.season.crop.shelter": "Lugar: %s"
+  "commands.projectzomboid_prd.season.crop.shelter": "Lugar: %s",
+  "item.projectzomboid_prd.pruning_shears": "Tijeras de poda",
+  "item.projectzomboid_prd.pruning_shears.desc": "Cosecha sin arrancar la planta: tomate, zapallo, albahaca, lechuga, rúcula y brócoli vuelven a producir.",
+  "item.projectzomboid_prd.pruning_shears.single_harvest": "Esta planta se cosecha una sola vez: rompela para cosecharla",
+  "item.projectzomboid_prd.pruning_shears.not_ripe": "Todavía no está madura",
+  "block.projectzomboid_prd.grow_light.desc": "Ilumina salas de cultivo subterráneas (ponela 1-5 bloques sobre los cultivos).",
+  "block.projectzomboid_prd.extractor.desc": "Con panel solar: regula solo la ventilación. Necesita la columna de arriba libre hasta la superficie."
 }

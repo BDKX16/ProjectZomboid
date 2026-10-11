@@ -7,7 +7,8 @@
   "entrypoints": {
     "fabric-gametest": [
       "org.example.pz.projectzomboid_prd.gametest.SeasonalCropGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.ShelterGameTest"
+      "org.example.pz.projectzomboid_prd.gametest.ShelterGameTest",
+      "org.example.pz.projectzomboid_prd.gametest.PruningShearsGameTest"
     ]
   },
   "depends": {

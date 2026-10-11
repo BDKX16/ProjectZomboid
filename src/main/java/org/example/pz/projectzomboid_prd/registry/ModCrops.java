@@ -53,6 +53,7 @@ public final class ModCrops {
                     for (Block block : ModBlocks.ALL) {
                         output.accept(block);
                     }
+                    output.accept(ModItems.PRUNING_SHEARS);
                     for (Crop crop : ALL) {
                         output.accept(crop.seeds());
                         output.accept(crop.produce());
@@ -76,13 +77,13 @@ public final class ModCrops {
                 .sound(SoundType.CROP)
                 .pushReaction(PushReaction.POPPED));
         Item seeds = registerItem(name + "_seeds", properties -> new BlockItem(block, properties), new Item.Properties());
-        block.setSeeds(seeds);
 
         Item.Properties produceProperties = new Item.Properties();
         if (food != null) {
             produceProperties.food(food);
         }
         Item produce = registerItem(produceName, Item::new, produceProperties);
+        block.setItems(seeds, produce);
 
         WildPlantBlock wild = registerBlock("wild_" + name, WildPlantBlock::new, BlockBehaviour.Properties.of()
                 .mapColor(MapColor.PLANT)
@@ -106,7 +107,7 @@ public final class ModCrops {
         return Registry.register(BuiltInRegistries.BLOCK, key, factory.apply(properties.setId(key)));
     }
 
-    private static Item registerItem(String name, Function<Item.Properties, Item> factory, Item.Properties properties) {
+    static Item registerItem(String name, Function<Item.Properties, Item> factory, Item.Properties properties) {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Projectzomboid_prd.id(name));
         return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(properties.setId(key)));
     }
