@@ -1,0 +1,39 @@
+{
+  "season.projectzomboid_prd.spring": "Spring",
+  "season.projectzomboid_prd.summer": "Summer",
+  "season.projectzomboid_prd.autumn": "Autumn",
+  "season.projectzomboid_prd.winter": "Winter",
+
+  "temperature.projectzomboid_prd.frost": "Frost",
+  "temperature.projectzomboid_prd.cold": "Cold",
+  "temperature.projectzomboid_prd.mild": "Mild",
+  "temperature.projectzomboid_prd.warm": "Warm",
+  "temperature.projectzomboid_prd.hot": "Extreme heat",
+
+  "month.projectzomboid_prd.0": "January",
+  "month.projectzomboid_prd.1": "February",
+  "month.projectzomboid_prd.2": "March",
+  "month.projectzomboid_prd.3": "April",
+  "month.projectzomboid_prd.4": "May",
+  "month.projectzomboid_prd.5": "June",
+  "month.projectzomboid_prd.6": "July",
+  "month.projectzomboid_prd.7": "August",
+  "month.projectzomboid_prd.8": "September",
+  "month.projectzomboid_prd.9": "October",
+  "month.projectzomboid_prd.10": "November",
+  "month.projectzomboid_prd.11": "December",
+  "date.projectzomboid_prd.long": "%2$s %1$s, year %3$s",
+  "date.projectzomboid_prd.short": "%2$s %1$s",
+
+  "hud.projectzomboid_prd.season": "%s · day %s/%s",
+  "hud.projectzomboid_prd.date": "%s · %s",
+
+  "commands.projectzomboid_prd.season.info": "%s, day %s of %s · %s · %s",
+  "commands.projectzomboid_prd.season.temperature": "Temperature here: %s (%s)",
+  "commands.projectzomboid_prd.season.forecast.header": "Forecast for the next %s days:",
+  "commands.projectzomboid_prd.season.forecast.day": " %s: low %s / high %s · %s",
+  "commands.projectzomboid_prd.season.forecast.frost": " ⚠ frost",
+  "commands.projectzomboid_prd.season.set": "Season changed to %s (%s)",
+
+  "gamerule.projectzomboid_prd.season_length": "Length of each season (days)"
+}
