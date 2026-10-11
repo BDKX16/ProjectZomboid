@@ -12,6 +12,7 @@ import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
 import org.example.pz.projectzomboid_prd.client.season.ClientSeasonState;
 import org.example.pz.projectzomboid_prd.greenhouse.ClimateAdvice;
 import org.example.pz.projectzomboid_prd.greenhouse.MicroClimate;
+import org.example.pz.projectzomboid_prd.greenhouse.Mold;
 import org.example.pz.projectzomboid_prd.registry.ModItems;
 import org.example.pz.projectzomboid_prd.season.ClimateModel;
 import org.example.pz.projectzomboid_prd.season.SeasonText;
@@ -70,11 +71,11 @@ public final class ThermohygrometerHud {
             return;
         }
         int innerWidth = WIDTH - 2 * PADDING;
-        List<String> adviceKeys = ClimateAdvice.advise(r);
+        List<ClimateAdvice.Advice> adviceList = ClimateAdvice.advise(r);
         List<FormattedCharSequence> place = mc.font.split(r.shelter().displayName(), innerWidth);
         List<List<FormattedCharSequence>> advice = new ArrayList<>();
-        for (String key : adviceKeys) {
-            advice.add(mc.font.split(Component.literal("• ").append(ClimateAdvice.text(key)), innerWidth));
+        for (ClimateAdvice.Advice item : adviceList) {
+            advice.add(mc.font.split(Component.literal("• ").append(item.text()), innerWidth));
         }
 
         int line = mc.font.lineHeight + 1;
@@ -109,7 +110,7 @@ public final class ThermohygrometerHud {
         }
         cy += 4;
         for (int i = 0; i < advice.size(); i++) {
-            int color = adviceKeys.get(i).equals("ok") ? OK : WARNING;
+            int color = adviceList.get(i).ok() ? OK : WARNING;
             for (FormattedCharSequence text : advice.get(i)) {
                 graphics.text(mc.font, text, cx, cy, color, false);
                 cy += line;
@@ -118,7 +119,7 @@ public final class ThermohygrometerHud {
     }
 
     private static int humidityColor(double humidity) {
-        if (humidity > ClimateAdvice.MUGGY) {
+        if (humidity > Mold.HUMIDITY) {
             return 0xFFE5533D;
         }
         if (humidity > ClimateAdvice.HUMID || humidity < ClimateAdvice.DRY) {

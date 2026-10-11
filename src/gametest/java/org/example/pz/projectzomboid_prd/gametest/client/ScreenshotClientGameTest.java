@@ -68,5 +68,11 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
         world.getServer().runCommand("execute as @p at @s run setblock ~4 ~4 ~6 stone");
         context.waitTicks(60);
         context.takeScreenshot("grow_room_no_vent");
+
+        // Speed up random ticks so the stale air has time to grow mold on the tomatoes.
+        world.getServer().runCommand("gamerule minecraft:random_tick_speed 200");
+        context.waitTicks(100);
+        world.getServer().runCommand("gamerule minecraft:random_tick_speed 3");
+        context.takeScreenshot("grow_room_mold");
     }
 }

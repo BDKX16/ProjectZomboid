@@ -82,10 +82,10 @@ class GrowthCalculatorTest {
             List.of(Season.SPRING, Season.SUMMER),
             new GrowthRequirements.TemperatureRange(10, 18, 28, 35), false, 1.0f);
 
-    private static final Shelter GREENHOUSE = new Shelter(Shelter.Type.GREENHOUSE, false, true);
-    private static final Shelter GREENHOUSE_NO_EXTRACTOR = new Shelter(Shelter.Type.GREENHOUSE, false, false);
-    private static final Shelter HEATED_GREENHOUSE = new Shelter(Shelter.Type.GREENHOUSE, true, true);
-    private static final Shelter GROW_ROOM = new Shelter(Shelter.Type.GROW_ROOM, false, true);
+    private static final Shelter GREENHOUSE = new Shelter(Shelter.Type.GREENHOUSE, false, new Shelter.Ventilation(1, 10));
+    private static final Shelter GREENHOUSE_NO_EXTRACTOR = new Shelter(Shelter.Type.GREENHOUSE, false, Shelter.Ventilation.NONE);
+    private static final Shelter HEATED_GREENHOUSE = new Shelter(Shelter.Type.GREENHOUSE, true, new Shelter.Ventilation(1, 10));
+    private static final Shelter GROW_ROOM = new Shelter(Shelter.Type.GROW_ROOM, false, new Shelter.Ventilation(1, 10));
 
     @Test
     void greenhouseLetsCropsGrowOutOfSeason() {

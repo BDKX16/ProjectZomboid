@@ -16,6 +16,9 @@ import net.minecraft.world.level.block.Block;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
 import org.example.pz.projectzomboid_prd.crop.CropClimate;
 import org.example.pz.projectzomboid_prd.crop.GrowthCalculator;
+import org.example.pz.projectzomboid_prd.greenhouse.MicroClimate;
+import org.example.pz.projectzomboid_prd.greenhouse.Mold;
+import org.example.pz.projectzomboid_prd.greenhouse.Shelter;
 import org.example.pz.projectzomboid_prd.greenhouse.ShelterDetector;
 import org.example.pz.projectzomboid_prd.season.ClimateModel;
 import org.example.pz.projectzomboid_prd.season.Season;
@@ -115,8 +118,12 @@ public final class SeasonCommand {
                 block.getName(),
                 percent,
                 growth.stress().displayName()), false);
-        source.sendSuccess(() -> Component.translatable(KEY + "crop.shelter",
-                ShelterDetector.detect(source.getLevel(), pos).displayName()), false);
+        Shelter shelter = ShelterDetector.detect(source.getLevel(), pos);
+        double humidity = MicroClimate.humidity(source.getLevel(), pos, SeasonManager.climate(source.getServer()),
+                SeasonManager.ticks(source.getServer()), shelter);
+        source.sendSuccess(() -> Component.translatable(KEY + "crop.shelter", shelter.displayName()), false);
+        source.sendSuccess(() -> Component.translatable(Mold.atRisk(shelter, humidity) ? KEY + "crop.humidity.mold" : KEY + "crop.humidity",
+                Math.round(humidity)), false);
         return percent;
     }
 

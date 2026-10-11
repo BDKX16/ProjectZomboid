@@ -9,9 +9,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
 import org.example.pz.projectzomboid_prd.block.ExtractorBlock;
 import org.example.pz.projectzomboid_prd.block.GrowLightBlock;
+import org.example.pz.projectzomboid_prd.block.MoldyCropBlock;
 import org.example.pz.projectzomboid_prd.block.WeatherStationBlock;
 import org.example.pz.projectzomboid_prd.item.DescribedBlockItem;
 
@@ -20,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
-/** Farming equipment blocks (everything that is not a crop). */
+/** Farming equipment blocks (everything that is not a crop). {@link #ALL} lists the ones with an item. */
 public final class ModBlocks {
     private static final List<Block> MUTABLE_ALL = new ArrayList<>();
     public static final List<Block> ALL = Collections.unmodifiableList(MUTABLE_ALL);
@@ -50,6 +52,16 @@ public final class ModBlocks {
             .requiresCorrectToolForDrops()
             .sound(SoundType.COPPER));
 
+    /** A crop killed by mold in a muggy greenhouse or grow room; has no item. */
+    public static final Block MOLDY_CROP = registerBlock("moldy_crop", MoldyCropBlock::new, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .noCollision()
+            .instabreak()
+            .randomTicks()
+            .noLootTable()
+            .sound(SoundType.WET_GRASS)
+            .pushReaction(PushReaction.POPPED));
+
     private ModBlocks() {
     }
 
@@ -57,9 +69,14 @@ public final class ModBlocks {
         // Loads the class so the static blocks are registered.
     }
 
+    private static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties) {
+        ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, Projectzomboid_prd.id(name));
+        return Registry.register(BuiltInRegistries.BLOCK, key, factory.apply(properties.setId(key)));
+    }
+
+    /** Registers the block with an item and lists it in {@link #ALL}. */
     private static Block register(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties) {
-        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, Projectzomboid_prd.id(name));
-        Block block = Registry.register(BuiltInRegistries.BLOCK, blockKey, factory.apply(properties.setId(blockKey)));
+        Block block = registerBlock(name, factory, properties);
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Projectzomboid_prd.id(name));
         Registry.register(BuiltInRegistries.ITEM, itemKey,
                 new DescribedBlockItem(block, new Item.Properties().useBlockDescriptionPrefix().setId(itemKey)));

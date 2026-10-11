@@ -54,10 +54,11 @@ public final class GrowthCalculator {
         }
         float factor = temperatureFactor * needs.growthRate();
 
-        // A closed greenhouse in summer gets stuffy unless it has an extractor (snowy biomes stay cool enough).
+        // A closed greenhouse in summer gets stuffy unless it has enough extractors (snowy biomes stay cool enough).
         if (shelter.type() == Shelter.Type.GREENHOUSE && !shelter.ventilated()
                 && date.season() == Season.SUMMER && biomeTemperature > Shelter.SNOWY_BIOME_TEMPERATURE) {
-            return new Growth(factor * Shelter.POOR_VENTILATION_FACTOR, Stress.POOR_VENTILATION);
+            float penalty = Shelter.POOR_VENTILATION_FACTOR + (1 - Shelter.POOR_VENTILATION_FACTOR) * shelter.ventilationRatio();
+            return new Growth(factor * penalty, Stress.POOR_VENTILATION);
         }
         return new Growth(factor, Stress.NONE);
     }
@@ -74,7 +75,7 @@ public final class GrowthCalculator {
         OUT_OF_SEASON(false),
         TOO_COLD(false),
         TOO_HOT(false),
-        /** Greenhouse without extractor in summer: grows at half speed. */
+        /** Greenhouse without enough extractors in summer: down to half speed. */
         POOR_VENTILATION(false),
         /** Grow room without a working extractor: nothing grows. */
         NO_VENTILATION(false),

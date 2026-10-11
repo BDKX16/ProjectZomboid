@@ -3,6 +3,7 @@ package org.example.pz.projectzomboid_prd.greenhouse;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.example.pz.projectzomboid_prd.registry.ModBlocks;
@@ -12,10 +13,14 @@ import org.example.pz.projectzomboid_prd.registry.ModTags;
  * Looks at the blocks around a crop to decide whether it is outdoors, in a greenhouse or in an underground grow room.
  *
  * <p>Greenhouse: the first block above the crop (within {@value #ROOF_RANGE}) is glass, and in all four directions
- * a wall is found within {@value #WALL_RANGE} blocks. It is ventilated if an extractor with a vent shaft is nearby.
+ * a wall is found within {@value #WALL_RANGE} blocks.
  *
- * <p>Grow room: no sky above (not a glass roof), a grow light within 2 blocks sideways and 1-5 above, and an
- * extractor within {@value #EXTRACTOR_RANGE} blocks whose shaft of air (or vent-passable blocks) reaches the surface.
+ * <p>Grow room: no sky above (not a glass roof), a grow light within 2 blocks sideways and 1-5 above, and at least one
+ * working extractor.
+ *
+ * <p>Ventilation: extractors whose shaft of air (or vent-passable blocks) reaches the surface, and crops, counted
+ * within {@value #EXTRACTOR_RANGE} blocks sideways, {@value #EXTRACTOR_BELOW} below and {@value #EXTRACTOR_ABOVE}
+ * above. Each extractor serves {@link Shelter#PLANTS_PER_EXTRACTOR} plants.
  */
 public final class ShelterDetector {
     private static final int ROOF_RANGE = 12;
@@ -34,15 +39,16 @@ public final class ShelterDetector {
     public static Shelter detect(Level level, BlockPos crop) {
         boolean glassRoof = hasGlassRoof(level, crop);
         if (!glassRoof && isUnderground(level, crop) && hasGrowLight(level, crop)) {
-            return isVentilated(level, crop)
-                    ? new Shelter(Shelter.Type.GROW_ROOM, false, true)
-                    : Shelter.of(Shelter.Type.GROW_ROOM_UNVENTILATED);
+            Shelter.Ventilation ventilation = ventilation(level, crop);
+            return ventilation.extractors() > 0
+                    ? new Shelter(Shelter.Type.GROW_ROOM, false, ventilation)
+                    : new Shelter(Shelter.Type.GROW_ROOM_UNVENTILATED, false, ventilation);
         }
         if (glassRoof && hasWalls(level, crop)) {
             if (level.getBiome(crop).is(ModTags.GREENHOUSE_OVERHEATS)) {
                 return Shelter.of(Shelter.Type.GREENHOUSE_OVERHEATED);
             }
-            return new Shelter(Shelter.Type.GREENHOUSE, hasHeater(level, crop), isVentilated(level, crop));
+            return new Shelter(Shelter.Type.GREENHOUSE, hasHeater(level, crop), ventilation(level, crop));
         }
         return Shelter.OPEN;
     }
@@ -100,13 +106,18 @@ public final class ShelterDetector {
         return false;
     }
 
-    private static boolean isVentilated(Level level, BlockPos crop) {
+    private static Shelter.Ventilation ventilation(Level level, BlockPos crop) {
+        int extractors = 0;
+        int plants = 0;
         for (BlockPos pos : BlockPos.betweenClosed(crop.offset(-EXTRACTOR_RANGE, -EXTRACTOR_BELOW, -EXTRACTOR_RANGE), crop.offset(EXTRACTOR_RANGE, EXTRACTOR_ABOVE, EXTRACTOR_RANGE))) {
-            if (level.getBlockState(pos).is(ModBlocks.EXTRACTOR) && hasVentShaft(level, pos)) {
-                return true;
+            BlockState state = level.getBlockState(pos);
+            if (state.getBlock() instanceof CropBlock) {
+                plants++;
+            } else if (state.is(ModBlocks.EXTRACTOR) && hasVentShaft(level, pos)) {
+                extractors++;
             }
         }
-        return false;
+        return new Shelter.Ventilation(extractors, plants);
     }
 
     /** The column above the extractor must be open (air or vent-passable blocks) all the way to the surface. */

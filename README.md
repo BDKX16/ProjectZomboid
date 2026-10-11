@@ -215,18 +215,32 @@ los perfiles sincronizados: el servidor solo avisa que se abrió la estación.
 `network/OpenWeatherStationPayload`, `client/screen/WeatherStationScreen`. El gametest de cliente
 `ScreenshotClientGameTest` saca capturas del HUD y de la pantalla en invierno y en verano.
 
-### Extra — Termohigrómetro y humedad ✅
+### Extra — Termohigrómetro, humedad, extractores y hongos ✅
 
 **Humedad relativa.** Se calcula igual que la temperatura (determinística, por lugar y hora):
 - Depende de cuánto llueve en el bioma: desierto ≈ 15-25 %, llanura ≈ 55 %, jungla/pantano ≈ 80 %.
 - Es más alta en invierno y de madrugada, y más baja en verano y a la tarde, con una variación diaria.
-- Dentro de un refugio:
-  - **Invernadero con extractor:** 45-75 %.
-  - **Invernadero sin extractor:** +25 % (casi siempre muy húmedo).
-  - **Sala de cultivo ventilada:** 60 % fijo.
-  - **Sala sin ventilación:** 95 %.
+- Dentro de un refugio, **las plantas evaporan agua** (ver capacidad de los extractores, abajo):
+  - **Invernadero bien ventilado:** 45-75 %.
+  - **Invernadero sin extractores suficientes:** hasta +25 % según cuántas plantas queden sin ventilar.
+    Un invernadero chico con 2 o 3 plantas casi no se humedece; uno grande y cerrado, sí.
+  - **Sala de cultivo:** de 60 % (bien ventilada) a 95 % (sin ventilación).
 
-Por ahora la humedad es **informativa**: sirve para diagnosticar la ventilación y no afecta el crecimiento.
+**Capacidad de los extractores.** Cada extractor ventila **20 plantas**. Se cuentan los cultivos y los extractores
+que funcionan alrededor de cada planta: 8 bloques a los costados, 2 hacia abajo y 5 hacia arriba. Con menos
+extractores de los necesarios, el lugar queda **parcialmente ventilado**:
+- la humedad sube en proporción a las plantas sin cubrir;
+- el tope de 26 °C del invernadero se aplica solo en parte;
+- la penalización de verano va del 50 % (sin extractores) al 100 % (con todos los necesarios).
+
+`/season crop` y el termohigrómetro muestran "extractores X/Y" (los que hay / los que hacen falta).
+
+**Hongos.** En un **invernadero o sala de cultivo con más de 85 % de humedad**, cada cultivo tiene un 5 % de
+chance por random tick de convertirse en un **cultivo con moho**:
+- no da cosecha;
+- **contagia** a los cultivos vecinos (30 % por tick, a uno de los 4 lados) mientras la humedad siga alta.
+
+Al aire libre no hay hongos. La solución es poner más extractores. El aire seco no penaliza el crecimiento.
 
 **Termohigrómetro** (`CGC` / `CRC` / `CKC` — C lingote de cobre, G panel de vidrio, R redstone, K brújula). Es un
 dispositivo tipo celular. **Mientras lo tenés en la mano** (principal o secundaria) aparece una pantallita abajo a
@@ -243,12 +257,16 @@ la derecha, que se actualiza cada medio segundo, con los datos de donde estás p
 | Se sobrecalienta: usá una sala subterránea | Invernadero en desierto o badlands |
 | Falta luz de cultivo | Bajo tierra sin luz de cultivo cerca |
 | Helada / calor extremo | Menos de 0 °C / más de 32 °C |
-| Humedad muy alta / aire muy seco | Más de 85 % / menos de 30 % |
+| Faltan extractores (X plantas, hay Y, hacen falta Z) | Hay extractores pero no alcanzan para todas las plantas |
+| Riesgo de hongos | Más de 85 % de humedad en un invernadero o sala |
+| Aire muy seco | Menos de 30 % (solo informativo) |
 | Condiciones OK | Nada que corregir |
 
 **Código:** `greenhouse/MicroClimate` (medición), `greenhouse/ClimateAdvice` (diagnóstico, con tests),
+`greenhouse/Mold` y `block/MoldyCropBlock` (hongos), `Shelter.Ventilation` (capacidad),
 `ClimateModel.humidityAt`, `block/GrowLightBlock`, `block/ExtractorBlock`, `client/hud/ThermohygrometerHud`. El
 modelo de la luz está hecho a mano en `assets/projectzomboid_prd/models/block/grow_light.json`. El `downfall` de los
 biomas se lee gracias a `projectzomboid_prd.classtweaker`. Gametest `EquipmentGameTest`: la luz se cae sin techo, y
-el ventilador se prende y se apaga según el respiradero. Las capturas del cliente incluyen una sala de cultivo con y
+el ventilador se prende y se apaga según el respiradero. `VentilationGameTest`: 25 cultivos necesitan 2
+extractores (con uno, 50 % de ventilación), y en una sala sin ventilación el tomate se cubre de moho. Las capturas del cliente incluyen una sala de cultivo con y
 sin ventilación.

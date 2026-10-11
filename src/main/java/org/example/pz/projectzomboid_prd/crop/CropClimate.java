@@ -6,12 +6,14 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.example.pz.projectzomboid_prd.greenhouse.Mold;
+import org.example.pz.projectzomboid_prd.greenhouse.Shelter;
 import org.example.pz.projectzomboid_prd.greenhouse.ShelterDetector;
 import org.example.pz.projectzomboid_prd.season.SeasonManager;
 
 import java.util.Optional;
 
-/** Applies seasons and climate to crops in a world. Called from {@code CropBlockMixin}. */
+/** Applies seasons, climate and mold to crops in a world. Called from {@code CropBlockMixin}. */
 public final class CropClimate {
     /** Chance per random tick that frost or heat sets a stressed crop back one stage. */
     private static final float DAMAGE_CHANCE = 0.25f;
@@ -20,13 +22,18 @@ public final class CropClimate {
     }
 
     public static Optional<GrowthCalculator.Growth> growth(ServerLevel level, BlockPos pos, Block block) {
-        return CropProfiles.get(level.registryAccess(), block).map(profile -> GrowthCalculator.evaluate(
+        return CropProfiles.get(level.registryAccess(), block)
+                .map(profile -> evaluate(level, pos, profile, ShelterDetector.detect(level, pos)));
+    }
+
+    private static GrowthCalculator.Growth evaluate(ServerLevel level, BlockPos pos, CropProfile profile, Shelter shelter) {
+        return GrowthCalculator.evaluate(
                 profile.requirements(),
                 SeasonManager.climate(level.getServer()),
                 level.getBiome(pos).value().getBaseTemperature(),
                 pos.getY(),
                 SeasonManager.ticks(level.getServer()),
-                ShelterDetector.detect(level, pos)));
+                shelter);
     }
 
     /**
@@ -35,17 +42,22 @@ public final class CropClimate {
      * @return true if vanilla growth should be skipped this tick
      */
     public static boolean onRandomTick(CropBlock crop, BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        Optional<GrowthCalculator.Growth> growth = growth(level, pos, crop);
-        if (growth.isEmpty()) {
+        Optional<CropProfile> profile = CropProfiles.get(level.registryAccess(), crop);
+        if (profile.isEmpty()) {
             return false;
         }
-        if (growth.get().damaging()) {
+        Shelter shelter = ShelterDetector.detect(level, pos);
+        if (Mold.tryInfect(level, pos, shelter, random)) {
+            return true;
+        }
+        GrowthCalculator.Growth growth = evaluate(level, pos, profile.get(), shelter);
+        if (growth.damaging()) {
             if (random.nextFloat() < DAMAGE_CHANCE) {
                 damage(crop, state, level, pos);
             }
             return true;
         }
-        return random.nextFloat() >= growth.get().factor();
+        return random.nextFloat() >= growth.factor();
     }
 
     /** @return true if bone meal should have no effect */

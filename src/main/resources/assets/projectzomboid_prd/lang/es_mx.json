@@ -89,7 +89,6 @@
   "shelter.projectzomboid_prd.greenhouse_overheated": "invernadero sobrecalentado",
   "shelter.projectzomboid_prd.grow_room": "sala de cultivo subterránea ventilada",
   "shelter.projectzomboid_prd.grow_room_unventilated": "sala de cultivo sin ventilación",
-  "shelter.projectzomboid_prd.ventilated": ", con extractor",
   "shelter.projectzomboid_prd.heated": ", calefaccionado",
   "stress.projectzomboid_prd.poor_ventilation": "invernadero sin extractor en verano: crece a la mitad",
   "stress.projectzomboid_prd.no_ventilation": "sin ventilación, el aire está viciado: no crece",
@@ -134,6 +133,11 @@
   "advice.projectzomboid_prd.needs_grow_light": "Bajo tierra sin luz de cultivo: colgá una sobre los cultivos",
   "advice.projectzomboid_prd.frost": "Helada: los cultivos sensibles se dañan",
   "advice.projectzomboid_prd.too_hot": "Calor extremo: los cultivos se marchitan",
-  "advice.projectzomboid_prd.muggy": "Humedad muy alta: falta ventilación",
-  "advice.projectzomboid_prd.dry": "Aire muy seco"
+  "advice.projectzomboid_prd.dry": "Aire muy seco",
+  "shelter.projectzomboid_prd.extractors": ", extractores %s/%s",
+  "advice.projectzomboid_prd.not_enough_extractors": "%s plantas evaporan demasiada agua: hay %s extractor(es) y hacen falta %s",
+  "advice.projectzomboid_prd.mold_risk": "Humedad muy alta: riesgo de hongos. Agregá extractores",
+  "commands.projectzomboid_prd.season.crop.humidity": "Humedad: %s%%",
+  "commands.projectzomboid_prd.season.crop.humidity.mold": "Humedad: %s%% — ¡riesgo de hongos!",
+  "block.projectzomboid_prd.moldy_crop": "Cultivo con moho"
 }

@@ -25,6 +25,8 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockModelGenerators) {
+        blockModelGenerators.createCrossBlock(ModBlocks.MOLDY_CROP, BlockModelGenerators.PlantType.NOT_TINTED);
+
         // Hand-made hanging model in resources: models/block/grow_light.json
         blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(ModBlocks.GROW_LIGHT,
                 BlockModelGenerators.plainVariant(Projectzomboid_prd.id("block/grow_light"))));
