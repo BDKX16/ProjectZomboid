@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "filled=false": {
+      "model": "projectzomboid_prd:block/curing_jar"
+    },
+    "filled=true": {
+      "model": "projectzomboid_prd:block/curing_jar_filled"
+    }
+  }
+}

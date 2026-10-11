@@ -48,6 +48,16 @@ public final class ModWorldGen {
         addWildPlant(ModCrops.SUNFLOWER, BiomeSelectors.includeByKey(Biomes.SUNFLOWER_PLAINS, Biomes.PLAINS));
         addWildPlant(ModCrops.BASIL, BiomeSelectors.tag(BiomeTags.IS_JUNGLE));
         addWildPlant(ModCrops.SQUASH, BiomeSelectors.tag(BiomeTags.IS_JUNGLE).or(BiomeSelectors.tag(BiomeTags.IS_FOREST)));
+        addWildPlant(ModCrops.ONION, BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.MEADOW));
+        addWildPlant(ModCrops.GARLIC, BiomeSelectors.includeByKey(Biomes.MEADOW, Biomes.WINDSWEPT_HILLS, Biomes.CHERRY_GROVE));
+        addWildPlant(ModCrops.CANNABIS, BiomeSelectors.tag(BiomeTags.IS_SAVANNA).or(BiomeSelectors.includeByKey(Biomes.MEADOW)));
+        addWildPlant(ModCrops.TOBACCO, BiomeSelectors.tag(BiomeTags.IS_JUNGLE).or(BiomeSelectors.tag(BiomeTags.IS_SAVANNA)));
+        addWildPlant(ModCrops.COFFEE, BiomeSelectors.tag(BiomeTags.IS_JUNGLE));
+        addWildPlant(ModCrops.CHILI, BiomeSelectors.tag(BiomeTags.IS_SAVANNA).or(BiomeSelectors.tag(BiomeTags.IS_BADLANDS)));
+        addWildPlant(ModCrops.HOP, BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST));
+        addWildPlant(ModCrops.YERBA_MATE, BiomeSelectors.tag(BiomeTags.IS_JUNGLE).or(BiomeSelectors.includeByKey(Biomes.FOREST)));
+        addWildPlant(ModCrops.CORN, BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS).or(BiomeSelectors.tag(BiomeTags.IS_SAVANNA)));
+        addWildPlant(ModCrops.BEAN, BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.FOREST, Biomes.FLOWER_FOREST));
     }
 
     private static void addWildPlant(ModCrops.Crop crop, Predicate<BiomeSelectionContext> biomes) {

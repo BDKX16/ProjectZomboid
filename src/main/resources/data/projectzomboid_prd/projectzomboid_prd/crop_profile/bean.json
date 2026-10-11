@@ -1,0 +1,25 @@
+{
+  "block": "projectzomboid_prd:bean_crop",
+  "family": "legumes",
+  "seasons": [
+    "spring",
+    "summer"
+  ],
+  "temperature": {
+    "min": 10,
+    "optimal_min": 18,
+    "optimal_max": 28,
+    "max": 32
+  },
+  "frost_tolerant": false,
+  "growth_rate": 0.7,
+  "nitrogen": 18,
+  "companions": [
+    "projectzomboid_prd:corn_crop",
+    "projectzomboid_prd:squash_crop"
+  ],
+  "antagonists": [
+    "projectzomboid_prd:onion_crop",
+    "projectzomboid_prd:garlic_crop"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "projectzomboid_prd:mate_gourd",
+    "projectzomboid_prd:yerba",
+    "minecraft:water_bucket"
+  ],
+  "result": {
+    "id": "projectzomboid_prd:mate"
+  }
+}

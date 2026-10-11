@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "projectzomboid_prd:block/onion_crop_stage0"
+  }
+}

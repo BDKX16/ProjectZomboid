@@ -15,7 +15,9 @@ class RecipesTest {
             "grow_light", "extractor", "weather_station", "compost_bin",
             "pruning_shears", "thermohygrometer", "soil_test_kit", "straw_mulch",
             "hamburger", "green_salad", "steamed_broccoli", "soy_stew", "squash_soup", "pesto_pasta", "tomato_juice",
-            "roasted_sunflower_seeds", "roasted_sunflower_seeds_from_smoking", "roasted_sunflower_seeds_from_campfire_cooking");
+            "roasted_sunflower_seeds", "roasted_sunflower_seeds_from_smoking", "roasted_sunflower_seeds_from_campfire_cooking",
+            "drying_rack", "curing_jar", "mate_gourd", "mate", "coffee", "wort", "ground_chili", "chimichurri", "asado",
+            "locro", "joint", "brownie", "cigar", "roasted_coffee", "roasted_corn");
 
     @Test
     void craftableThingsHaveRecipes() {

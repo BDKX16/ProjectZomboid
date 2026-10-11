@@ -17,6 +17,8 @@
   "nitrogen": -14,
   "companions": [
     "projectzomboid_prd:soybean_crop",
-    "projectzomboid_prd:sunflower_crop"
+    "projectzomboid_prd:sunflower_crop",
+    "projectzomboid_prd:corn_crop",
+    "projectzomboid_prd:bean_crop"
   ]
 }

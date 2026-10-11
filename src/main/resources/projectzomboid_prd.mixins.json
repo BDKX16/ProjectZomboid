@@ -6,7 +6,8 @@
   "mixins": [
     "CropBlockMixin",
     "FoodPropertiesMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "ShapelessRecipeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

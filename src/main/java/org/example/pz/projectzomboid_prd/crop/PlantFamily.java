@@ -28,7 +28,13 @@ public enum PlantFamily implements StringRepresentable {
     /** Amaryllidaceae: garlic, onion. */
     ALLIUMS,
     /** Lamiaceae: basil, mint. */
-    MINTS;
+    MINTS,
+    /** Cannabaceae: cannabis, hops. */
+    HEMPS,
+    /** Rubiaceae: coffee. */
+    MADDERS,
+    /** Aquifoliaceae: yerba mate. */
+    HOLLIES;
 
     public static final StringRepresentable.EnumCodec<PlantFamily> CODEC = StringRepresentable.fromEnum(PlantFamily::values);
 

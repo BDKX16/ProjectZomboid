@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "projectzomboid_prd:garlic_seeds"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

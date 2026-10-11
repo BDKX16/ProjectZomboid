@@ -9,12 +9,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
 import org.example.pz.projectzomboid_prd.crop.CropProfile;
 import org.example.pz.projectzomboid_prd.crop.CropProfiles;
+import org.example.pz.projectzomboid_prd.registry.ModBlocks;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -57,7 +60,21 @@ public final class SoilManager {
         soil.put(pos.immutable(), updated);
         chunk.setAttached(SOIL, Map.copyOf(soil));
         chunk.markUnsaved();
+        showMulch(level, pos, updated.mulch() > 0);
         return updated;
+    }
+
+    /** Swaps farmland and mulched farmland so the straw is visible exactly while the soil has mulch. */
+    private static void showMulch(Level level, BlockPos pos, boolean mulched) {
+        if (level.isClientSide()) {
+            return;
+        }
+        BlockState state = level.getBlockState(pos);
+        Block wanted = mulched ? ModBlocks.MULCHED_FARMLAND : Blocks.FARMLAND;
+        if (state.getBlock() instanceof FarmlandBlock && !state.is(wanted)) {
+            level.setBlock(pos, wanted.defaultBlockState().setValue(FarmlandBlock.MOISTURE, state.getValue(FarmlandBlock.MOISTURE)),
+                    Block.UPDATE_ALL);
+        }
     }
 
     /** A ripe crop was harvested at {@code crop} (broken or cut with shears). */

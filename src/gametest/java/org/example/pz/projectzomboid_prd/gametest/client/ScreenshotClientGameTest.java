@@ -40,6 +40,7 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
             growRoom(context, world);
             soil(context, world);
             food(context, world);
+            processing(context, world);
         }
     }
 
@@ -48,7 +49,7 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
         world.getServer().runCommand("clear @p");
         int slot = 0;
         for (ModFoods.Meal meal : ModFoods.ALL) {
-            world.getServer().runCommand("item replace entity @p hotbar.%d with %s".formatted(slot++,
+            world.getServer().runCommand("item replace entity @p container.%d with %s".formatted(slot++,
                     BuiltInRegistries.ITEM.getKey(meal.item())));
         }
         for (String effect : new String[]{"vitality", "immunity", "warmth", "nourished"}) {
@@ -60,6 +61,42 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
         context.waitTicks(5);
         context.takeScreenshot("food_inventory");
         context.setScreen(() -> null);
+    }
+
+    /**
+     * The ten new crops ripe on farmland (half of it mulched), their wild plants behind, drying racks in every state
+     * and curing jars; then the "Relaxed" screen tint.
+     */
+    private static void processing(ClientGameTestContext context, TestSingleplayerContext world) {
+        String[] crops = {"onion", "garlic", "cannabis", "tobacco", "coffee", "chili", "hop", "yerba_mate", "corn", "bean"};
+        world.getServer().runCommand("execute as @p at @s run tp @p ~ ~ ~-30");
+        world.getServer().runCommand("execute as @p at @s run fill ~-6 ~-1 ~1 ~6 ~3 ~8 air");
+        world.getServer().runCommand("execute as @p at @s run fill ~-6 ~-1 ~1 ~6 ~-1 ~8 grass_block");
+        for (int i = 0; i < crops.length; i++) {
+            int x = i - 5;
+            String soil = i % 2 == 0 ? "projectzomboid_prd:mulched_farmland[moisture=7]" : "farmland[moisture=7]";
+            run(world, "setblock ~%d ~-1 ~3 %s".formatted(x, soil));
+            run(world, "setblock ~%d ~ ~3 projectzomboid_prd:%s_crop[age=7]".formatted(x, crops[i]));
+            run(world, "setblock ~%d ~ ~5 projectzomboid_prd:wild_%s".formatted(x, crops[i]));
+        }
+        String[] contents = {"empty", "fresh", "dry", "spoiled"};
+        for (int i = 0; i < contents.length; i++) {
+            run(world, "setblock ~%d ~ ~7 projectzomboid_prd:drying_rack[contents=%s,facing=north]".formatted(-5 + i * 2, contents[i]));
+        }
+        run(world, "setblock ~3 ~ ~7 projectzomboid_prd:curing_jar");
+        run(world, "setblock ~4 ~ ~7 projectzomboid_prd:curing_jar[filled=true]");
+        run(world, "tp @p ~ ~4 ~-1 facing ~ ~ ~5");
+        context.waitTicks(220); // let the chat from the soil analysis fade
+        context.takeScreenshot("new_crops");
+
+        world.getServer().runCommand("effect give @p projectzomboid_prd:relaxed 60");
+        context.waitTicks(30);
+        context.takeScreenshot("relaxed");
+        world.getServer().runCommand("effect clear @p");
+    }
+
+    private static void run(TestSingleplayerContext world, String command) {
+        world.getServer().runCommand("execute as @p at @s run " + command);
     }
 
     /** A tomato between basil (companion) and potatoes (antagonist), harvested twice, analysed with the soil kit. */

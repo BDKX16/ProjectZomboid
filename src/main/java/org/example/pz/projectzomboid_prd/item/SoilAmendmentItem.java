@@ -2,6 +2,7 @@ package org.example.pz.projectzomboid_prd.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -14,6 +15,7 @@ import org.example.pz.projectzomboid_prd.soil.SoilData;
 import org.example.pz.projectzomboid_prd.soil.SoilManager;
 import org.jspecify.annotations.Nullable;
 
+import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
 /**
@@ -23,11 +25,24 @@ import java.util.function.UnaryOperator;
 public class SoilAmendmentItem extends DescribedItem {
     private final UnaryOperator<SoilData> effect;
     private final SoundEvent sound;
+    private final Predicate<SoilData> allowed;
+    private final String refusedKey;
 
     public SoilAmendmentItem(Properties properties, UnaryOperator<SoilData> effect, SoundEvent sound) {
+        this(properties, effect, sound, soil -> true, "");
+    }
+
+    /**
+     * @param allowed    whether it can be spread on soil in this state
+     * @param refusedKey translation key of the message shown when it cannot
+     */
+    public SoilAmendmentItem(Properties properties, UnaryOperator<SoilData> effect, SoundEvent sound,
+                             Predicate<SoilData> allowed, String refusedKey) {
         super(properties);
         this.effect = effect;
         this.sound = sound;
+        this.allowed = allowed;
+        this.refusedKey = refusedKey;
     }
 
     @Override
@@ -36,6 +51,12 @@ public class SoilAmendmentItem extends DescribedItem {
         BlockPos soil = farmland(level, context.getClickedPos());
         if (soil == null) {
             return InteractionResult.PASS;
+        }
+        if (!allowed.test(SoilManager.get(level, soil))) {
+            if (!level.isClientSide() && context.getPlayer() != null) {
+                context.getPlayer().sendOverlayMessage(Component.translatable(refusedKey));
+            }
+            return InteractionResult.FAIL;
         }
         if (level instanceof ServerLevel serverLevel) {
             SoilManager.update(level, soil, effect);

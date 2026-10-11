@@ -371,3 +371,99 @@ corazones de vida máxima durante un día.
 `FoodPropertiesMixin` registra cada comida y `LivingEntityMixin` hace que no te congeles con Calor. El gametest
 `FoodGameTest` comprueba que la hamburguesa llena el hambre, que la ensalada da +10 % de velocidad y devuelve el bowl,
 que el brócoli cura y bloquea el veneno, que la sopa evita el congelamiento y que la dieta variada da +2 corazones.
+
+### Fase 7.5 — Más cultivos, secado y curado ✅
+
+**10 cultivos nuevos.** Cada uno tiene planta silvestre, semillas y perfil de clima:
+
+| Cultivo | Estaciones | Familia | Notas | Silvestre en |
+|---|---|---|---|---|
+| Cebolla | otoño–primavera | aliáceas | resiste heladas | llanuras, prados |
+| Ajo | otoño–invierno | aliáceas | se planta con dientes; resiste heladas | prados, colinas, cerezos |
+| Cannabis | primavera–verano | cannabáceas | | sabanas, prados |
+| Tabaco | primavera–verano | solanáceas | antagonista del tomate y la papa | selvas, sabanas |
+| Café | primavera–otoño | rubiáceas | perenne (se cosecha con tijeras); muy sensible al frío | selvas |
+| Ají | primavera–verano | solanáceas | perenne con tijeras | sabanas, badlands |
+| Lúpulo | primavera–verano | cannabáceas | perenne con tijeras | bosques |
+| Yerba mate | primavera–otoño | aquifoliáceas | perenne con tijeras | selvas, bosques |
+| Maíz | primavera–verano | gramíneas | consume mucho nitrógeno (−16) | llanuras, sabanas |
+| Poroto | primavera–verano | leguminosas | fija nitrógeno (+18) | llanuras, bosques |
+
+**Las tres hermanas:** maíz, poroto y zapallo son compañeros entre sí (+15 % cada uno, más el bonus de policultivo).
+
+**Secadero** (`SSS` / `H H` / `S S` — S palos, H hilo). Click derecho con la cosecha para colgarla (hasta 16).
+Click con la mano vacía muestra cómo va (porcentaje, temperatura, humedad, velocidad y horas que faltan) y, cuando
+está listo, la descuelga. Agachado + click la descuelga en cualquier momento.
+
+El secado depende del aire donde está el secadero, el mismo que mide el termohigrómetro:
+- **Humedad:** con 50 % seca a velocidad normal, con 30 % ×1,5, con 70 % ×0,5 y con 90 % no seca.
+- **Temperatura:** debajo de 5 °C ×0,4, entre 5 y 15 °C ×0,7, más de 30 °C ×1,3.
+- **Lluvia:** si le llueve, no seca.
+- **Moho:** con humedad de 85 % o más (o lluvia) durante un día entero, la cosecha se arruina y sirve solo para
+  compost. Un rato de aire seco hace que vuelva a empezar la cuenta.
+
+En climas húmedos conviene secar bajo techo con extractores. El bloque muestra si está vacío, secando, seco o
+arruinado.
+
+| Fresco | Seco | Días |
+|---|---|---|
+| Ajo / cebolla | ajo / cebolla curados | 2 |
+| Hoja de tabaco | tabaco seco | 2 |
+| Cogollo de cannabis | cannabis seco | 1,5 |
+| Cerezas de café | café verde | 3 |
+| Ají | ají seco | 2 |
+| Lúpulo | lúpulo seco | 1 |
+| Hojas de yerba | yerba seca | 1 |
+| Choclo | maíz seco | 2 |
+
+**Frasco de curado** (` L ` / `V V` / `VVV` — L losa de madera, V vidrio). Lo seco se cura con el tiempo y gana
+**calidad (★ a ★★★)**:
+- Click con la mano vacía muestra el día y las estrellas.
+- Agachado + click lo saca. Si todavía no llegó a ★, sale tal como entró.
+- La calidad pasa a lo que se craftea con el producto (si se mezclan calidades, queda la menor).
+- Cada estrella alarga los efectos: ★ ×1, ★★ ×1,5, ★★★ ×2.
+
+| Entra | Sale | ★ / ★★ / ★★★ (días) |
+|---|---|---|
+| Tabaco seco | tabaco curado | 3 / 6 / 10 |
+| Cannabis seco | cannabis curado | 2 / 4 / 7 |
+| Yerba seca | yerba estacionada | 2 / 5 / 9 |
+| Mosto | cerveza | 2 / 4 / 6 |
+
+**Productos y comidas nuevas**
+
+| Item | Receta | Efecto |
+|---|---|---|
+| Café tostado | café verde en horno, ahumador o fogata | — |
+| Café | botella + 2 café tostado + balde de agua | Prisa I 3 min + Velocidad 30 s |
+| Mate (calabaza) | zapallo + pepita de hierro | se devuelve al tomar |
+| Mate | mate + yerba estacionada + balde de agua | Prisa I 2 min (según calidad) |
+| Mosto | botella + lúpulo seco + 2 trigo | se fermenta en el frasco |
+| Cerveza | del frasco | Absorción 2 min (según calidad) + mareo corto |
+| Ají molido | ají seco → 2 | — |
+| Chimichurri | botella + ajo curado + ají molido + albahaca | — |
+| Asado con chimichurri | 2 carnes cocidas + chimichurri | 14 de hambre, Fuerza I 3 min + Regeneración |
+| Locro | bowl + maíz seco + porotos + zapallo + ají molido + cebolla curada | 10 de hambre, Calor 6 min + Resistencia 2 min (cuenta 5 verduras para la dieta) |
+| Choclo asado | choclo en horno, ahumador o fogata | 6 de hambre |
+| Porro | cannabis curado + papel | **Relajado** 90 s (según calidad) |
+| Brownie | cannabis curado + cacao + trigo + huevo + azúcar → 2 | **Relajado** 3 min (según calidad) |
+| Cigarro | 2 tabaco curado | Prisa I 1 min (según calidad) |
+
+**Relajado** (efecto nuevo):
+- −15 % de velocidad, cura medio corazón cada 4 s y da hambre ("bajón").
+- Mientras dura, un halo verde-violeta tiñe los bordes de la pantalla.
+
+**Corrección del mulch (pedido en el juego):**
+- **Se ve:** la tierra con mulch pasa a ser un bloque de **tierra arada con paja**. Cuando se gastan las 4 cosechas
+  vuelve a ser tierra arada común. Si se pisa o se seca y vuelve a ser tierra, el mulch se pierde.
+- **Uno por suelo:** el mulch de paja solo se puede poner en tierra que no tenga. Si ya tiene, avisa "Este suelo ya
+  tiene mulch" y no gasta el ítem.
+
+**Código:**
+- `processing/`: `DryingRules` y `Quality` (con tests), `ProcessingRecipes` y `QualityEffectsConsumeEffect`.
+- `block/`: `DryingRackBlock`, `CuringJarBlock` y `MulchedFarmlandBlock`, más los block entities en `block/entity/`.
+- `registry/ModComponents` (componente `quality`) y `effect/RelaxedEffect`.
+- Mixin `ShapelessRecipeMixin`, para que la calidad pase al crafteo.
+- Cliente: `hud/RelaxedHud`.
+- Gametest `ProcessingGameTest`: secado, moho, curado con estrellas, calidad que alarga efectos y mulch visible y
+  único.

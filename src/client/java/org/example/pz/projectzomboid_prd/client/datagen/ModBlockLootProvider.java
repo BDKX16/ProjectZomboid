@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
 import org.example.pz.projectzomboid_prd.registry.ModBlocks;
@@ -23,6 +24,7 @@ public class ModBlockLootProvider extends FabricBlockLootSubProvider {
         for (Block block : ModBlocks.ALL) {
             dropSelf(block);
         }
+        dropOther(ModBlocks.MULCHED_FARMLAND, Blocks.DIRT);
         for (ModCrops.Crop crop : ModCrops.ALL) {
             // Mature: produce + seeds (with Fortune bonus); otherwise just the seed back.
             add(crop.block(), createCropDrops(crop.block(), crop.produce(), crop.seeds(),

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:cooked_beef",
+    "minecraft:cooked_beef",
+    "projectzomboid_prd:chimichurri"
+  ],
+  "result": {
+    "id": "projectzomboid_prd:asado"
+  }
+}

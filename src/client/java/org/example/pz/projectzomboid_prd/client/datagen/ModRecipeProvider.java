@@ -39,6 +39,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 tools();
                 soil();
                 meals();
+                processing();
 
                 // Produce -> seeds, so a harvest can always be replanted.
                 for (ModCrops.Crop crop : ModCrops.ALL) {
@@ -168,12 +169,104 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(tomato), has(tomato))
                         .save(output);
                 // Sunflower heads roast like any other food: furnace, smoker or campfire.
-                Item roasted = ModFoods.ROASTED_SUNFLOWER_SEEDS.item();
-                SimpleCookingRecipeBuilder.smelting(Ingredient.of(sunflower), RecipeCategory.FOOD, CookingBookCategory.FOOD, roasted, 0.35f, 200)
-                        .unlockedBy(getHasName(sunflower), has(sunflower))
+                roast(sunflower, ModFoods.ROASTED_SUNFLOWER_SEEDS.item());
+            }
+
+            /** Furnace, smoker and campfire. */
+            private void roast(Item input, Item result) {
+                SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.FOOD, CookingBookCategory.FOOD, result, 0.35f, 200)
+                        .unlockedBy(getHasName(input), has(input))
                         .save(output);
-                simpleCookingRecipe("smoking", SmokingRecipe::new, 100, sunflower, roasted, 0.35f);
-                simpleCookingRecipe("campfire_cooking", CampfireCookingRecipe::new, 600, sunflower, roasted, 0.35f);
+                simpleCookingRecipe("smoking", SmokingRecipe::new, 100, input, result, 0.35f);
+                simpleCookingRecipe("campfire_cooking", CampfireCookingRecipe::new, 600, input, result, 0.35f);
+            }
+
+            /** Drying rack, curing jar and what is made from dried and cured harvest. */
+            private void processing() {
+                shaped(RecipeCategory.DECORATIONS, ModBlocks.DRYING_RACK)
+                        .pattern("SSS")
+                        .pattern("T T")
+                        .pattern("S S")
+                        .define('S', Items.STICK)
+                        .define('T', Items.STRING)
+                        .unlockedBy(getHasName(Items.STRING), has(Items.STRING))
+                        .save(output);
+                shaped(RecipeCategory.DECORATIONS, ModBlocks.CURING_JAR)
+                        .pattern(" W ")
+                        .pattern("G G")
+                        .pattern("GGG")
+                        .define('W', ItemTags.WOODEN_SLABS)
+                        .define('G', Items.GLASS)
+                        .unlockedBy(getHasName(Items.GLASS), has(Items.GLASS))
+                        .save(output);
+
+                shapeless(RecipeCategory.MISC, ModItems.MATE_GOURD)
+                        .requires(ModCrops.SQUASH.produce())
+                        .requires(Items.IRON_NUGGET)
+                        .unlockedBy(getHasName(ModCrops.SQUASH.produce()), has(ModCrops.SQUASH.produce()))
+                        .save(output);
+                shapeless(RecipeCategory.FOOD, ModFoods.MATE.item())
+                        .requires(ModItems.MATE_GOURD)
+                        .requires(ModItems.YERBA)
+                        .requires(Items.WATER_BUCKET)
+                        .unlockedBy(getHasName(ModItems.YERBA), has(ModItems.YERBA))
+                        .save(output);
+                shapeless(RecipeCategory.FOOD, ModFoods.COFFEE.item())
+                        .requires(Items.GLASS_BOTTLE)
+                        .requires(ModItems.ROASTED_COFFEE, 2)
+                        .requires(Items.WATER_BUCKET)
+                        .unlockedBy(getHasName(ModItems.ROASTED_COFFEE), has(ModItems.ROASTED_COFFEE))
+                        .save(output);
+                shapeless(RecipeCategory.FOOD, ModItems.WORT)
+                        .requires(Items.GLASS_BOTTLE)
+                        .requires(ModItems.DRIED_HOPS)
+                        .requires(Items.WHEAT, 2)
+                        .unlockedBy(getHasName(ModItems.DRIED_HOPS), has(ModItems.DRIED_HOPS))
+                        .save(output);
+                shapeless(RecipeCategory.FOOD, ModItems.GROUND_CHILI, 2)
+                        .requires(ModItems.DRIED_CHILI)
+                        .unlockedBy(getHasName(ModItems.DRIED_CHILI), has(ModItems.DRIED_CHILI))
+                        .save(output);
+                shapeless(RecipeCategory.FOOD, ModItems.CHIMICHURRI)
+                        .requires(Items.GLASS_BOTTLE)
+                        .requires(ModItems.CURED_GARLIC)
+                        .requires(ModItems.GROUND_CHILI)
+                        .requires(ModCrops.BASIL.produce())
+                        .unlockedBy(getHasName(ModItems.CURED_GARLIC), has(ModItems.CURED_GARLIC))
+                        .save(output);
+                shapeless(RecipeCategory.FOOD, ModFoods.ASADO.item())
+                        .requires(Items.COOKED_BEEF, 2)
+                        .requires(ModItems.CHIMICHURRI)
+                        .unlockedBy(getHasName(ModItems.CHIMICHURRI), has(ModItems.CHIMICHURRI))
+                        .save(output);
+                shapeless(RecipeCategory.FOOD, ModFoods.LOCRO.item())
+                        .requires(Items.BOWL)
+                        .requires(ModItems.DRIED_CORN)
+                        .requires(ModCrops.BEAN.produce())
+                        .requires(ModCrops.SQUASH.produce())
+                        .requires(ModItems.GROUND_CHILI)
+                        .requires(ModItems.CURED_ONION)
+                        .unlockedBy(getHasName(ModItems.DRIED_CORN), has(ModItems.DRIED_CORN))
+                        .save(output);
+                shapeless(RecipeCategory.FOOD, ModFoods.JOINT.item())
+                        .requires(ModItems.CURED_CANNABIS)
+                        .requires(Items.PAPER)
+                        .unlockedBy(getHasName(ModItems.CURED_CANNABIS), has(ModItems.CURED_CANNABIS))
+                        .save(output);
+                shapeless(RecipeCategory.FOOD, ModFoods.BROWNIE.item(), 2)
+                        .requires(ModItems.CURED_CANNABIS)
+                        .requires(Items.COCOA_BEANS)
+                        .requires(Items.WHEAT)
+                        .requires(Items.EGG)
+                        .requires(Items.SUGAR)
+                        .unlockedBy(getHasName(ModItems.CURED_CANNABIS), has(ModItems.CURED_CANNABIS))
+                        .save(output);
+                shapeless(RecipeCategory.FOOD, ModFoods.CIGAR.item())
+                        .requires(ModItems.CURED_TOBACCO, 2)
+                        .unlockedBy(getHasName(ModItems.CURED_TOBACCO), has(ModItems.CURED_TOBACCO))
+                        .save(output);
+                roast(ModItems.DRIED_COFFEE, ModItems.ROASTED_COFFEE);
+                roast(ModCrops.CORN.produce(), ModFoods.ROASTED_CORN.item());
             }
 
             private void soil() {

@@ -6,6 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
+import org.example.pz.projectzomboid_prd.processing.Quality;
 
 import java.util.function.Consumer;
 
@@ -19,5 +20,10 @@ public class DescribedItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable(getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
+        int quality = Quality.of(stack);
+        if (quality > 0) {
+            tooltip.accept(Component.translatable("tooltip.projectzomboid_prd.quality").withStyle(ChatFormatting.GRAY)
+                    .append(Quality.stars(quality)));
+        }
     }
 }

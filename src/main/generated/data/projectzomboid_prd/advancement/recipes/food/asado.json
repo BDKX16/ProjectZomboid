@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_chimichurri": {
+      "conditions": {
+        "items": [
+          {
+            "items": "projectzomboid_prd:chimichurri"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "projectzomboid_prd:asado"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_chimichurri"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "projectzomboid_prd:asado"
+    ]
+  }
+}

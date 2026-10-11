@@ -6,15 +6,19 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
 import org.example.pz.projectzomboid_prd.block.CompostBinBlock;
+import org.example.pz.projectzomboid_prd.block.CuringJarBlock;
+import org.example.pz.projectzomboid_prd.block.DryingRackBlock;
 import org.example.pz.projectzomboid_prd.block.ExtractorBlock;
 import org.example.pz.projectzomboid_prd.block.GrowLightBlock;
 import org.example.pz.projectzomboid_prd.block.MoldyCropBlock;
+import org.example.pz.projectzomboid_prd.block.MulchedFarmlandBlock;
 import org.example.pz.projectzomboid_prd.block.WeatherStationBlock;
 import org.example.pz.projectzomboid_prd.item.DescribedBlockItem;
 
@@ -59,6 +63,20 @@ public final class ModBlocks {
             .strength(0.6f)
             .sound(SoundType.WOOD));
 
+    /** Hangs a bundle of harvest to dry; speed depends on the air around it. */
+    public static final Block DRYING_RACK = register("drying_rack", DryingRackBlock::new, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.WOOD)
+            .strength(1.0f)
+            .noOcclusion()
+            .sound(SoundType.WOOD));
+
+    /** Cures dried tobacco, cannabis and yerba, and ferments wort into beer. */
+    public static final Block CURING_JAR = register("curing_jar", CuringJarBlock::new, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.NONE)
+            .strength(0.5f)
+            .noOcclusion()
+            .sound(SoundType.GLASS));
+
     /** A crop killed by mold in a muggy greenhouse or grow room; has no item. */
     public static final Block MOLDY_CROP = registerBlock("moldy_crop", MoldyCropBlock::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
@@ -68,6 +86,10 @@ public final class ModBlocks {
             .noLootTable()
             .sound(SoundType.WET_GRASS)
             .pushReaction(PushReaction.POPPED));
+
+    /** Farmland with straw mulch on top; has no item (it appears when mulch is spread). */
+    public static final Block MULCHED_FARMLAND = registerBlock("mulched_farmland", MulchedFarmlandBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND));
 
     private ModBlocks() {
     }

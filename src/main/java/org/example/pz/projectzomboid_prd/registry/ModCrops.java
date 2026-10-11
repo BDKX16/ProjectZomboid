@@ -42,6 +42,18 @@ public final class ModCrops {
     public static final Crop SUNFLOWER = register("sunflower", "sunflower_head", null, 4);
     public static final Crop BASIL = register("basil", "basil", food(1, 0.2f), 2);
     public static final Crop SQUASH = register("squash", "squash", food(4, 0.6f), 3);
+    public static final Crop ONION = register("onion", "onion", food(2, 0.3f), 2);
+    /** Planted from cloves: the "seeds" item is a garlic clove. */
+    public static final Crop GARLIC = register("garlic", "garlic", null, 4);
+    public static final Crop CANNABIS = register("cannabis", "cannabis_bud", null, 2);
+    public static final Crop TOBACCO = register("tobacco", "tobacco_leaf", null, 3);
+    public static final Crop COFFEE = register("coffee", "coffee_cherries", food(1, 0.2f), 2);
+    public static final Crop CHILI = register("chili", "chili_pepper", food(2, 0.3f), 3);
+    public static final Crop HOP = register("hop", "hops", null, 2);
+    public static final Crop YERBA_MATE = register("yerba_mate", "yerba_leaves", null, 2);
+    public static final Crop CORN = register("corn", "corn", food(3, 0.4f), 3);
+    /** Raw beans are not edible; they go into stews. */
+    public static final Crop BEAN = register("bean", "beans", null, 3);
 
     public static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Projectzomboid_prd.id("crops"));
 
@@ -64,6 +76,9 @@ public final class ModCrops {
                     for (Crop crop : ALL) {
                         output.accept(crop.seeds());
                         output.accept(crop.produce());
+                    }
+                    for (Item product : ModItems.PRODUCTS) {
+                        output.accept(product);
                     }
                     for (ModFoods.Meal meal : ModFoods.ALL) {
                         output.accept(meal.item());
@@ -110,7 +125,7 @@ public final class ModCrops {
     }
 
     /** One of vanilla's compost chance providers ({@code data/minecraft/context_int_provider/compostable/}). */
-    private static Compostable compostable(String chance) {
+    static Compostable compostable(String chance) {
         return new Compostable(ResourceKey.create(Registries.CONTEXT_INT_PROVIDER, Identifier.withDefaultNamespace("compostable/" + chance)));
     }
 

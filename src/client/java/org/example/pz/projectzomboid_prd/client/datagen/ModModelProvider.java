@@ -7,6 +7,11 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Blocks;
+import org.example.pz.projectzomboid_prd.block.CuringJarBlock;
+import org.example.pz.projectzomboid_prd.block.DryingRackBlock;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
@@ -29,6 +34,21 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockModelGenerators) {
         blockModelGenerators.createCrossBlock(ModBlocks.MOLDY_CROP, BlockModelGenerators.PlantType.NOT_TINTED);
+        // Straw on top (mulched_farmland and mulched_farmland_moist), dirt sides like vanilla farmland
+        blockModelGenerators.createFarmland(ModBlocks.MULCHED_FARMLAND, TextureMapping.getBlockTexture(Blocks.DIRT),
+                TextureMapping.getBlockTexture(Blocks.DIRT), ModelTemplates.CUBE_BOTTOM_TOP_INDENTED);
+
+        // Hand-made models in resources: drying_rack_<contents>.json, curing_jar(_filled).json
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.dispatch(ModBlocks.DRYING_RACK)
+                .with(PropertyDispatch.initial(DryingRackBlock.CONTENTS).generate(contents ->
+                        BlockModelGenerators.plainVariant(Projectzomboid_prd.id("block/drying_rack_" + contents.getSerializedName()))))
+                .with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING));
+        blockModelGenerators.registerSimpleItemModel(ModBlocks.DRYING_RACK, Projectzomboid_prd.id("block/drying_rack_dry"));
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.dispatch(ModBlocks.CURING_JAR)
+                .with(BlockModelGenerators.createBooleanModelDispatch(CuringJarBlock.FILLED,
+                        BlockModelGenerators.plainVariant(Projectzomboid_prd.id("block/curing_jar_filled")),
+                        BlockModelGenerators.plainVariant(Projectzomboid_prd.id("block/curing_jar")))));
+        blockModelGenerators.registerSimpleItemModel(ModBlocks.CURING_JAR, Projectzomboid_prd.id("block/curing_jar_filled"));
 
         // Compost bin: own base model (models/block/compost_bin.json) + vanilla composter contents per fill level
         MultiPartGenerator compostBin = MultiPartGenerator.multiPart(ModBlocks.COMPOST_BIN)
@@ -72,6 +92,9 @@ public class ModModelProvider extends FabricModelProvider {
         // Seed models are created automatically as the crop blocks' items.
         for (ModCrops.Crop crop : ModCrops.ALL) {
             itemModelGenerators.generateFlatItem(crop.produce(), ModelTemplates.FLAT_ITEM);
+        }
+        for (Item item : ModItems.PRODUCTS) {
+            itemModelGenerators.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
         }
         for (ModFoods.Meal meal : ModFoods.ALL) {
             itemModelGenerators.generateFlatItem(meal.item(), ModelTemplates.FLAT_ITEM);

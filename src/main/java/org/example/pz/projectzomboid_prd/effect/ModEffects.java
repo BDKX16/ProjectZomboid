@@ -28,6 +28,11 @@ public final class ModEffects {
             .addAttributeModifier(Attributes.MAX_HEALTH, Projectzomboid_prd.id("effect.nourished"), 4.0,
                     AttributeModifier.Operation.ADD_VALUE));
 
+    /** Cannabis: −15 % speed, slow healing and the munchies; the screen gets a soft tint. */
+    public static final Holder<MobEffect> RELAXED = register("relaxed", new RelaxedEffect(MobEffectCategory.NEUTRAL, 0x7FAF5A)
+            .addAttributeModifier(Attributes.MOVEMENT_SPEED, Projectzomboid_prd.id("effect.relaxed"), -0.15,
+                    AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+
     /** What {@link #IMMUNITY} blocks. */
     public static final List<Holder<MobEffect>> IMMUNE_TO = List.of(MobEffects.POISON, MobEffects.HUNGER, MobEffects.NAUSEA);
 

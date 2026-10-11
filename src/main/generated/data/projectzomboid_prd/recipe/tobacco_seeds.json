@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "projectzomboid_prd:tobacco_leaf"
+  ],
+  "result": {
+    "count": 3,
+    "id": "projectzomboid_prd:tobacco_seeds"
+  }
+}
