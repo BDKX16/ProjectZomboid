@@ -1,18 +1,18 @@
 {
   "variants": {
     "contents=dry,facing=east": {
-      "model": "projectzomboid_prd:block/drying_rack_dry",
+      "model": "projectzomboid_prd:block/drying_rack_empty",
       "y": 90
     },
     "contents=dry,facing=north": {
-      "model": "projectzomboid_prd:block/drying_rack_dry"
+      "model": "projectzomboid_prd:block/drying_rack_empty"
     },
     "contents=dry,facing=south": {
-      "model": "projectzomboid_prd:block/drying_rack_dry",
+      "model": "projectzomboid_prd:block/drying_rack_empty",
       "y": 180
     },
     "contents=dry,facing=west": {
-      "model": "projectzomboid_prd:block/drying_rack_dry",
+      "model": "projectzomboid_prd:block/drying_rack_empty",
       "y": 270
     },
     "contents=empty,facing=east": {
@@ -31,33 +31,33 @@
       "y": 270
     },
     "contents=fresh,facing=east": {
-      "model": "projectzomboid_prd:block/drying_rack_fresh",
+      "model": "projectzomboid_prd:block/drying_rack_empty",
       "y": 90
     },
     "contents=fresh,facing=north": {
-      "model": "projectzomboid_prd:block/drying_rack_fresh"
+      "model": "projectzomboid_prd:block/drying_rack_empty"
     },
     "contents=fresh,facing=south": {
-      "model": "projectzomboid_prd:block/drying_rack_fresh",
+      "model": "projectzomboid_prd:block/drying_rack_empty",
       "y": 180
     },
     "contents=fresh,facing=west": {
-      "model": "projectzomboid_prd:block/drying_rack_fresh",
+      "model": "projectzomboid_prd:block/drying_rack_empty",
       "y": 270
     },
     "contents=spoiled,facing=east": {
-      "model": "projectzomboid_prd:block/drying_rack_spoiled",
+      "model": "projectzomboid_prd:block/drying_rack_empty",
       "y": 90
     },
     "contents=spoiled,facing=north": {
-      "model": "projectzomboid_prd:block/drying_rack_spoiled"
+      "model": "projectzomboid_prd:block/drying_rack_empty"
     },
     "contents=spoiled,facing=south": {
-      "model": "projectzomboid_prd:block/drying_rack_spoiled",
+      "model": "projectzomboid_prd:block/drying_rack_empty",
       "y": 180
     },
     "contents=spoiled,facing=west": {
-      "model": "projectzomboid_prd:block/drying_rack_spoiled",
+      "model": "projectzomboid_prd:block/drying_rack_empty",
       "y": 270
     }
   }

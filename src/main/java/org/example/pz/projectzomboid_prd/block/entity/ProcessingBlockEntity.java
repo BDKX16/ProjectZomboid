@@ -1,6 +1,11 @@
 package org.example.pz.projectzomboid_prd.block.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -61,7 +66,7 @@ public abstract class ProcessingBlockEntity extends BlockEntity {
         return taken;
     }
 
-    /** Saves and updates the block's look. */
+    /** Saves, updates the block's look and sends the contents to clients (they draw them). */
     protected void changed() {
         setChanged();
         if (level != null && !level.isClientSide()) {
@@ -69,7 +74,18 @@ public abstract class ProcessingBlockEntity extends BlockEntity {
             if (updated != getBlockState()) {
                 level.setBlock(worldPosition, updated, 3);
             }
+            level.sendBlockUpdated(worldPosition, updated, updated, 3);
         }
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveCustomOnly(registries);
     }
 
     @Override

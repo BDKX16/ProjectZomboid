@@ -643,3 +643,47 @@ como las demás), agregarlo a `sounds.json` y reproducirlo desde el código.
 - Fumar inhala mientras se usa y exhala al terminar (`PlaySoundConsumeEffect`).
 - La olla y el fermentador suenan de vez en cuando mientras trabajan.
 - Gametest `TradesGameTest`: los intercambios cargan y están en los pools del granjero y del comerciante errante.
+
+### Texturas definitivas de las plantas ✅
+
+Se redibujaron todas las plantas con un kit de pixel-art propio:
+- hojas con punta, nervadura y lado iluminado;
+- frutos esféricos con luz desde arriba a la izquierda y brillo;
+- contorno oscuro en los ítems, como en vanilla.
+
+Cada cultivo tiene su propia forma:
+
+| | |
+|---|---|
+| Lechuga | roseta que forma cabeza |
+| Tomate | tutor de madera con la planta enroscada y tomates con cáliz |
+| Rúcula | hojas lobuladas con flores |
+| Brócoli | hojas azuladas y pella |
+| Soja | arbusto de hojas trifoliadas con vainas |
+| Girasol | flor con pétalos y centro |
+| Albahaca | pares de hojas y espigas blancas |
+| Zapallo | guía rastrera con hojas grandes y fruto con gajos |
+| Cebolla | hojas tubulares y bulbo violeta |
+| Ajo | hojas planas, escapo enrulado y cabeza blanca |
+| Cannabis | hojas palmeadas de cinco dedos y cogollos con pistilos |
+| Tabaco | hojas grandes y flores rosas |
+| Café | arbusto con ramas y cerezas |
+| Ají | ramas con ajíes rojos y verdes |
+| Lúpulo | trepando por hilos, con conos colgando |
+| Yerba mate | arbusto leñoso |
+| Maíz | caña con hojas arqueadas, panoja y choclos con barba |
+| Poroto | trepando por tutores, con vainas |
+
+Hay 4 etapas de crecimiento: brote con cotiledones, planta joven, planta adulta (algunas con flor) y madura con
+fruto. La planta silvestre sale entre matas de pasto.
+
+Las semillas tienen forma propia: dientes de ajo, granos de maíz, porotos, semillas rayadas de girasol, etc. Los
+productos secos y curados se derivan de los dibujos nuevos cambiando el color (por ejemplo, el tabaco se pone dorado
+al secarse y marrón al curarse).
+
+**Secadero y frasco con el contenido a la vista.**
+- El secadero muestra lo que tiene colgado, hasta 3 manojos según la cantidad. Se ve cómo pasa de fresco a seco o a
+  arruinado.
+- El frasco de curado muestra lo que se está curando a través del vidrio.
+- Lo dibuja `client/render/ProcessingRenderer`, un block entity renderer como el de la fogata. El servidor sincroniza
+  el contenido con los clientes.

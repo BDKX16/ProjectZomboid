@@ -1,6 +1,9 @@
 package org.example.pz.projectzomboid_prd.client;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import org.example.pz.projectzomboid_prd.client.render.ProcessingRenderer;
+import org.example.pz.projectzomboid_prd.registry.ModBlockEntities;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import org.example.pz.projectzomboid_prd.client.hud.RelaxedHud;
 import org.example.pz.projectzomboid_prd.client.hud.SeasonHud;
@@ -19,6 +22,8 @@ public class Projectzomboid_prdClient implements ClientModInitializer {
         SeasonHud.init();
         ThermohygrometerHud.init();
         RelaxedHud.init();
+        BlockEntityRenderers.register(ModBlockEntities.DRYING_RACK, ProcessingRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntities.CURING_JAR, ProcessingRenderer::new);
         ClientPlayNetworking.registerGlobalReceiver(OpenManualPayload.TYPE,
                 (payload, context) -> context.client().setScreenAndShow(new ManualScreen()));
         ClientPlayNetworking.registerGlobalReceiver(OpenWeatherStationPayload.TYPE,

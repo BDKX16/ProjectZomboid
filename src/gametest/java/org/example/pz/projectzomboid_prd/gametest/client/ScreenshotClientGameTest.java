@@ -18,6 +18,11 @@ import org.example.pz.projectzomboid_prd.client.screen.WeatherStationScreen;
 import org.example.pz.projectzomboid_prd.crop.CropProfile;
 import org.example.pz.projectzomboid_prd.crop.CropProfiles;
 import org.example.pz.projectzomboid_prd.registry.ModCrops;
+import org.example.pz.projectzomboid_prd.registry.ModBlocks;
+import org.example.pz.projectzomboid_prd.block.entity.CuringJarBlockEntity;
+import org.example.pz.projectzomboid_prd.block.entity.DryingRackBlockEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.levelgen.Heightmap;
 import org.example.pz.projectzomboid_prd.registry.ModFoods;
 import org.example.pz.projectzomboid_prd.registry.ModItems;
 import org.example.pz.projectzomboid_prd.soil.SoilManager;
@@ -91,6 +96,39 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
         run(world, "tp @p ~ ~4 ~-1 facing ~ ~ ~5");
         context.waitTicks(220); // let the chat from the soil analysis fade
         context.takeScreenshot("new_crops");
+
+        // Racks and jars with real contents, seen up close
+        world.getServer().runOnServer(server -> {
+            ServerPlayer player = server.getPlayerList().getPlayers().getFirst();
+            BlockPos start = player.blockPosition().offset(20, 0, 0);
+            BlockPos base = player.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, start);
+            // fresh tobacco, the same dried, cannabis gone moldy, a few chilies
+            ItemStack[] racks = {new ItemStack(ModCrops.TOBACCO.produce(), 16), new ItemStack(ModCrops.TOBACCO.produce(), 16),
+                    new ItemStack(ModCrops.CANNABIS.produce(), 12), new ItemStack(ModCrops.CHILI.produce(), 4)};
+            for (int i = 0; i < racks.length; i++) {
+                BlockPos pos = base.offset(-5 + i * 2, 0, 6);
+                player.level().setBlockAndUpdate(pos, ModBlocks.DRYING_RACK.defaultBlockState());
+                if (player.level().getBlockEntity(pos) instanceof DryingRackBlockEntity rack) {
+                    rack.insert(racks[i]);
+                    if (i == 1) {
+                        rack.update(20, 40, false, 3 * 24000);
+                    } else if (i == 2) {
+                        rack.update(20, 95, false, 24000);
+                    }
+                }
+            }
+            for (int i = 0; i < 2; i++) {
+                BlockPos pos = base.offset(3 + i, 0, 6);
+                player.level().setBlockAndUpdate(pos, ModBlocks.CURING_JAR.defaultBlockState());
+                if (player.level().getBlockEntity(pos) instanceof CuringJarBlockEntity jar) {
+                    jar.insert(new ItemStack(i == 0 ? ModItems.DRIED_CANNABIS : ModItems.DRIED_YERBA, 8));
+                }
+            }
+            server.getCommands().performPrefixedCommand(server.createCommandSourceStack(),
+                    "tp @p " + base.getX() + ".5 " + (base.getY() + 1) + " " + (base.getZ() + 3) + ".5 0 25");
+        });
+        context.waitTicks(20);
+        context.takeScreenshot("drying_racks");
 
         world.getServer().runCommand("effect give @p projectzomboid_prd:relaxed 60");
         context.waitTicks(30);
