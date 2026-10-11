@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": "minecraft:copper_ingot"
+  },
+  "pattern": [
+    "C C",
+    "C C",
+    "CCC"
+  ],
+  "result": {
+    "id": "projectzomboid_prd:brew_kettle"
+  }
+}

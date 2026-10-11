@@ -12,7 +12,10 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
+import org.example.pz.projectzomboid_prd.block.BrewKettleBlock;
 import org.example.pz.projectzomboid_prd.block.CompostBinBlock;
+import org.example.pz.projectzomboid_prd.block.FermenterBlock;
+import org.example.pz.projectzomboid_prd.block.MashTunBlock;
 import org.example.pz.projectzomboid_prd.block.CuringJarBlock;
 import org.example.pz.projectzomboid_prd.block.DryingRackBlock;
 import org.example.pz.projectzomboid_prd.block.ExtractorBlock;
@@ -76,6 +79,23 @@ public final class ModBlocks {
             .strength(0.5f)
             .noOcclusion()
             .sound(SoundType.GLASS));
+
+    /** Microbrewery, all three side by side: mash tun, brew kettle (on a fire), fermenter. */
+    public static final Block MASH_TUN = register("mash_tun", MashTunBlock::new, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.METAL)
+            .strength(2.5f)
+            .noOcclusion()
+            .sound(SoundType.METAL));
+    public static final Block BREW_KETTLE = register("brew_kettle", BrewKettleBlock::new, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_ORANGE)
+            .strength(2.5f)
+            .noOcclusion()
+            .sound(SoundType.COPPER));
+    public static final Block FERMENTER = register("fermenter", FermenterBlock::new, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.METAL)
+            .strength(2.5f)
+            .noOcclusion()
+            .sound(SoundType.METAL));
 
     /** A crop killed by mold in a muggy greenhouse or grow room; has no item. */
     public static final Block MOLDY_CROP = registerBlock("moldy_crop", MoldyCropBlock::new, BlockBehaviour.Properties.of()

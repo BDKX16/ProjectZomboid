@@ -4,7 +4,13 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.ItemStack;
 import org.example.pz.projectzomboid_prd.item.DescribedItem;
+import org.example.pz.projectzomboid_prd.item.HydrometerItem;
+import org.example.pz.projectzomboid_prd.item.MateItem;
+import org.example.pz.projectzomboid_prd.item.ThermosItem;
 import org.example.pz.projectzomboid_prd.item.PruningShearsItem;
 import org.example.pz.projectzomboid_prd.item.SoilAmendmentItem;
 import org.example.pz.projectzomboid_prd.item.SoilTestKitItem;
@@ -51,29 +57,54 @@ public final class ModItems {
     public static final Item CURED_CANNABIS = ingredient("cured_cannabis");
     /** Aged ("estacionada") yerba mate. */
     public static final Item YERBA = ingredient("yerba");
-    /** Unfermented beer: goes into a curing jar to become beer. */
-    public static final Item WORT = ModCrops.registerItem("wort", DescribedItem::new,
-            new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE));
 
     // Other ingredients
     public static final Item ROASTED_COFFEE = ingredient("roasted_coffee");
     public static final Item GROUND_CHILI = ingredient("ground_chili");
     public static final Item CHIMICHURRI = ModCrops.registerItem("chimichurri", DescribedItem::new,
             new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE));
-    /** A dried squash with a metal straw: the cup for mate, given back after drinking. */
-    public static final Item MATE_GOURD = ModCrops.registerItem("mate_gourd", DescribedItem::new,
+
+    // Microbrewery
+    /** Wheat dried on the rack: what the mash tun needs. */
+    public static final Item MALT = ingredient("malt");
+    /** Left over in the mash tun; good compost. */
+    public static final Item SPENT_GRAIN = ModCrops.registerItem("spent_grain", DescribedItem::new,
+            new Item.Properties().component(DataComponents.COMPOSTABLE, ModCrops.compostable("high")));
+    public static final Item YEAST = ingredient("yeast");
+    public static final Item HYDROMETER = ModCrops.registerItem("hydrometer", HydrometerItem::new,
             new Item.Properties().stacksTo(1));
+
+    // Mate
+    /** A squash dried on the rack: becomes the mate's gourd. */
+    public static final Item CURED_GOURD = ingredient("cured_gourd");
+    public static final Item MATE = ModCrops.registerItem("mate", MateItem::new, new Item.Properties().stacksTo(1));
+    public static final Item THERMOS = ModCrops.registerItem("thermos",
+            properties -> new ThermosItem(properties, ThermosItem.Kind.EMPTY), new Item.Properties().stacksTo(1));
+    public static final Item THERMOS_COLD = ModCrops.registerItem("thermos_cold",
+            properties -> new ThermosItem(properties, ThermosItem.Kind.COLD), new Item.Properties().stacksTo(1));
+    public static final Item THERMOS_HOT = ModCrops.registerItem("thermos_hot",
+            properties -> new ThermosItem(properties, ThermosItem.Kind.HOT), new Item.Properties().stacksTo(1)
+                    .component(ModComponents.THERMOS_SERVINGS, ThermosItem.SERVINGS));
 
     /** Everything that comes out of the drying rack, the curing jar or is made from them (for the creative tab and models). */
     public static final List<Item> PRODUCTS = List.of(CURED_GARLIC, CURED_ONION, DRIED_TOBACCO, DRIED_CANNABIS, DRIED_COFFEE,
-            DRIED_CHILI, DRIED_HOPS, DRIED_YERBA, DRIED_CORN, SPOILED_HARVEST, CURED_TOBACCO, CURED_CANNABIS, YERBA, WORT,
-            ROASTED_COFFEE, GROUND_CHILI, CHIMICHURRI, MATE_GOURD);
+            DRIED_CHILI, DRIED_HOPS, DRIED_YERBA, DRIED_CORN, SPOILED_HARVEST, CURED_TOBACCO, CURED_CANNABIS, YERBA,
+            ROASTED_COFFEE, GROUND_CHILI, CHIMICHURRI, MALT, SPENT_GRAIN, YEAST, CURED_GOURD);
+    /** Tools and containers with their own 3D models. */
+    public static final List<Item> MODELLED = List.of(HYDROMETER, MATE, THERMOS, THERMOS_COLD, THERMOS_HOT);
 
     private ModItems() {
     }
 
     public static void init() {
         // Loads the class so the static items are registered.
+    }
+
+    /** Into the player's inventory, or dropped at their feet if it is full. */
+    public static void give(Player player, ItemStack stack) {
+        if (!player.getInventory().add(stack) && !stack.isEmpty()) {
+            Block.popResource(player.level(), player.blockPosition(), stack);
+        }
     }
 
     private static Item ingredient(String name) {

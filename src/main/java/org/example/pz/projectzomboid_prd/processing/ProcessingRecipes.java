@@ -1,8 +1,8 @@
 package org.example.pz.projectzomboid_prd.processing;
 
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import org.example.pz.projectzomboid_prd.registry.ModCrops;
-import org.example.pz.projectzomboid_prd.registry.ModFoods;
 import org.example.pz.projectzomboid_prd.registry.ModItems;
 
 import java.util.List;
@@ -30,13 +30,14 @@ public final class ProcessingRecipes {
             new Drying(ModCrops.CHILI.produce(), ModItems.DRIED_CHILI, 2),
             new Drying(ModCrops.HOP.produce(), ModItems.DRIED_HOPS, 1),
             new Drying(ModCrops.YERBA_MATE.produce(), ModItems.DRIED_YERBA, 1),
-            new Drying(ModCrops.CORN.produce(), ModItems.DRIED_CORN, 2));
+            new Drying(ModCrops.CORN.produce(), ModItems.DRIED_CORN, 2),
+            new Drying(Items.WHEAT, ModItems.MALT, 1),
+            new Drying(ModCrops.SQUASH.produce(), ModItems.CURED_GOURD, 4));
 
     public static final List<Curing> CURING = List.of(
             new Curing(ModItems.DRIED_TOBACCO, ModItems.CURED_TOBACCO, new int[]{3, 6, 10}),
             new Curing(ModItems.DRIED_CANNABIS, ModItems.CURED_CANNABIS, new int[]{2, 4, 7}),
-            new Curing(ModItems.DRIED_YERBA, ModItems.YERBA, new int[]{2, 5, 9}),
-            new Curing(ModItems.WORT, ModFoods.BEER.item(), new int[]{2, 4, 6}));
+            new Curing(ModItems.DRIED_YERBA, ModItems.YERBA, new int[]{2, 5, 9}));
 
     private ProcessingRecipes() {
     }

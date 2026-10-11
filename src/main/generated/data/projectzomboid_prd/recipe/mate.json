@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
   "ingredients": [
-    "projectzomboid_prd:mate_gourd",
-    "projectzomboid_prd:yerba",
-    "minecraft:water_bucket"
+    "projectzomboid_prd:cured_gourd",
+    "minecraft:iron_nugget"
   ],
   "result": {
     "id": "projectzomboid_prd:mate"

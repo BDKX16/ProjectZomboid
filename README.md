@@ -428,7 +428,6 @@ arruinado.
 | Tabaco seco | tabaco curado | 3 / 6 / 10 |
 | Cannabis seco | cannabis curado | 2 / 4 / 7 |
 | Yerba seca | yerba estacionada | 2 / 5 / 9 |
-| Mosto | cerveza | 2 / 4 / 6 |
 
 **Productos y comidas nuevas**
 
@@ -436,10 +435,7 @@ arruinado.
 |---|---|---|
 | Café tostado | café verde en horno, ahumador o fogata | — |
 | Café | botella + 2 café tostado + balde de agua | Prisa I 3 min + Velocidad 30 s |
-| Mate (calabaza) | zapallo + pepita de hierro | se devuelve al tomar |
-| Mate | mate + yerba estacionada + balde de agua | Prisa I 2 min (según calidad) |
-| Mosto | botella + lúpulo seco + 2 trigo | se fermenta en el frasco |
-| Cerveza | del frasco | Absorción 2 min (según calidad) + mareo corto |
+| Mate y cerveza | ver la fase 7.6 | |
 | Ají molido | ají seco → 2 | — |
 | Chimichurri | botella + ajo curado + ají molido + albahaca | — |
 | Asado con chimichurri | 2 carnes cocidas + chimichurri | 14 de hambre, Fuerza I 3 min + Regeneración |
@@ -467,3 +463,56 @@ arruinado.
 - Cliente: `hud/RelaxedHud`.
 - Gametest `ProcessingGameTest`: secado, moho, curado con estrellas, calidad que alarga efectos y mulch visible y
   único.
+
+### Fase 7.6 — Microcervecería y mate con termo ✅
+
+**Microcervecería.** Son tres máquinas que tienen que estar **una al lado de la otra**, con la olla en el medio
+tocando a las otras dos. Si falta alguna no funcionan y avisan "Microcervecería incompleta". El mosto pasa solo de
+una a la otra.
+
+| Máquina | Receta | Qué hace |
+|---|---|---|
+| **Macerador** | `H H` / `HBH` / `HHH` — H hierro, B barril | Balde de agua + **4 de malta** → macera 1 hora del juego → mosto. Quedan **2 de bagazo**, que van al compost |
+| **Olla de cocción** | `C C` / `C C` / `CCC` — C cobre | Recibe el mosto y le ponés **2 de lúpulo seco**. Necesita **fuego abajo** (fogata, fuego, lava, magma u horno prendido). Hierve 1 hora y pasa el mosto al fermentador |
+| **Fermentador** | `HBH` / `H H` / ` H ` — B botella | Recibe el mosto hervido. Con **levadura** fermenta **7 días**. Al terminar se llenan **8 botellas** con click con botellas vacías |
+
+- **Malta:** trigo secado 1 día en el secadero.
+- **Levadura:** pan + azúcar → 2.
+- **Calidad de la cerveza:** depende de la temperatura donde está el fermentador durante los 7 días. El ideal está
+  entre **16 y 22 °C** (★★★); a pocos grados de eso, ★★; más lejos, ★. Conviene un sótano o una sala con
+  extractores en verano. La calidad alarga los efectos de la cerveza.
+- **Densímetro** (botella + vidrio + pepita de hierro): click derecho en el fermentador. Muestra la **densidad**
+  (baja de 1,050 a 1,010), el **% de alcohol** (llega a 5,25 %), el día, la temperatura actual, la calidad que va
+  teniendo y un aviso si hace demasiado frío o calor.
+- Cada máquina tiene un **modelo 3D** propio que cambia según la etapa:
+  - **Macerador:** cuba de acero con válvula; se ve agua, el macerado con la pala o el mosto.
+  - **Olla:** de cobre, con manijas y termómetro; el mosto hierve con burbujas animadas y sale vapor.
+  - **Fermentador:** tanque cónico sobre patas con mirilla y airlock; la mirilla muestra el nivel y burbujea
+    mientras fermenta.
+- Con click con la mano vacía, cada máquina dice qué le falta.
+
+**Mate.**
+- **Calabaza:** el zapallo se cura 4 días en el secadero y da la **calabaza curada**. Con una pepita de hierro (la
+  bombilla) se hace el **mate**. El mate es reutilizable y tiene modelo 3D: calabaza con virola, bombilla y la
+  yerba seca o mojada según el estado.
+- **Cargar:** con **yerba estacionada en la otra mano**, click derecho. Rinde **10 cebadas** y conserva la calidad
+  de la yerba.
+- **Cebar:** con el **termo con agua caliente en la otra mano**, el mate se ceba solo antes de tomar y otra vez
+  después de cada sorbo, usando una cebada del termo cada vez. **Sin termo** el mate cebado rinde una sola vez.
+- **Efecto:** cada mate da Prisa I por 2 min (más con mejor yerba) y un poco de comida. Cuando la yerba se lava hay
+  que cargar de nuevo.
+- **Termo** (pepita de hierro arriba de 2 lingotes; modelo 3D verde con manija y tapa-taza):
+  - se llena de agua fría con click derecho en cualquier fuente de agua, con una botella de agua en la otra mano o
+    con un balde de agua en la mesa de crafteo;
+  - en horno, ahumador o fogata sale como **termo con agua a 85 °C**, con **10 cebadas**;
+  - cuando se acaba vuelve a ser un termo vacío.
+
+Se sacaron el mosto en frasco y la receta vieja del mate: la cerveza ahora sale de la microcervecería.
+
+**Código:**
+- `brewing/`: `BrewingRules` (densidad, alcohol y calidad, con tests), `Brewery` (conexión y fuego) y `BrewStage`.
+- `block/`: `BreweryBlock` y sus tres máquinas, con los block entities.
+- `item/`: `MateItem`, `ThermosItem` y `HydrometerItem`.
+- Los modelos 3D están en `models/block` y `models/item`.
+- Gametest `BreweryGameTest`: de la malta a la cerveza ★★★, la máquina sola no funciona, la olla necesita fuego y
+  el mate con termo.

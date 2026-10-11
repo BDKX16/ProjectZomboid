@@ -181,6 +181,67 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 simpleCookingRecipe("campfire_cooking", CampfireCookingRecipe::new, 600, input, result, 0.35f);
             }
 
+            /** Mash tun, brew kettle, fermenter, yeast and the hydrometer. */
+            private void brewery() {
+                shaped(RecipeCategory.DECORATIONS, ModBlocks.MASH_TUN)
+                        .pattern("I I")
+                        .pattern("IBI")
+                        .pattern("III")
+                        .define('I', Items.IRON_INGOT)
+                        .define('B', Items.BARREL)
+                        .unlockedBy(getHasName(ModItems.MALT), has(ModItems.MALT))
+                        .save(output);
+                shaped(RecipeCategory.DECORATIONS, ModBlocks.BREW_KETTLE)
+                        .pattern("C C")
+                        .pattern("C C")
+                        .pattern("CCC")
+                        .define('C', Items.COPPER_INGOT)
+                        .unlockedBy(getHasName(ModItems.MALT), has(ModItems.MALT))
+                        .save(output);
+                shaped(RecipeCategory.DECORATIONS, ModBlocks.FERMENTER)
+                        .pattern("IBI")
+                        .pattern("I I")
+                        .pattern(" I ")
+                        .define('I', Items.IRON_INGOT)
+                        .define('B', Items.GLASS_BOTTLE)
+                        .unlockedBy(getHasName(ModItems.MALT), has(ModItems.MALT))
+                        .save(output);
+                shapeless(RecipeCategory.MISC, ModItems.YEAST, 2)
+                        .requires(Items.BREAD)
+                        .requires(Items.SUGAR)
+                        .unlockedBy(getHasName(Items.SUGAR), has(Items.SUGAR))
+                        .save(output);
+                shapeless(RecipeCategory.TOOLS, ModItems.HYDROMETER)
+                        .requires(Items.GLASS_BOTTLE)
+                        .requires(Items.GLASS_PANE)
+                        .requires(Items.IRON_NUGGET)
+                        .unlockedBy(getHasName(ModItems.MALT), has(ModItems.MALT))
+                        .save(output);
+            }
+
+            /** Mate from a cured gourd, and the thermos (filled with a water bucket, heated in a furnace). */
+            private void mate() {
+                shapeless(RecipeCategory.TOOLS, ModItems.MATE)
+                        .requires(ModItems.CURED_GOURD)
+                        .requires(Items.IRON_NUGGET)
+                        .unlockedBy(getHasName(ModItems.CURED_GOURD), has(ModItems.CURED_GOURD))
+                        .save(output);
+                shaped(RecipeCategory.TOOLS, ModItems.THERMOS)
+                        .pattern("N")
+                        .pattern("I")
+                        .pattern("I")
+                        .define('N', Items.IRON_NUGGET)
+                        .define('I', Items.IRON_INGOT)
+                        .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                        .save(output);
+                shapeless(RecipeCategory.TOOLS, ModItems.THERMOS_COLD)
+                        .requires(ModItems.THERMOS)
+                        .requires(Items.WATER_BUCKET)
+                        .unlockedBy(getHasName(ModItems.THERMOS), has(ModItems.THERMOS))
+                        .save(output);
+                roast(ModItems.THERMOS_COLD, ModItems.THERMOS_HOT);
+            }
+
             /** Drying rack, curing jar and what is made from dried and cured harvest. */
             private void processing() {
                 shaped(RecipeCategory.DECORATIONS, ModBlocks.DRYING_RACK)
@@ -200,28 +261,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.GLASS), has(Items.GLASS))
                         .save(output);
 
-                shapeless(RecipeCategory.MISC, ModItems.MATE_GOURD)
-                        .requires(ModCrops.SQUASH.produce())
-                        .requires(Items.IRON_NUGGET)
-                        .unlockedBy(getHasName(ModCrops.SQUASH.produce()), has(ModCrops.SQUASH.produce()))
-                        .save(output);
-                shapeless(RecipeCategory.FOOD, ModFoods.MATE.item())
-                        .requires(ModItems.MATE_GOURD)
-                        .requires(ModItems.YERBA)
-                        .requires(Items.WATER_BUCKET)
-                        .unlockedBy(getHasName(ModItems.YERBA), has(ModItems.YERBA))
-                        .save(output);
                 shapeless(RecipeCategory.FOOD, ModFoods.COFFEE.item())
                         .requires(Items.GLASS_BOTTLE)
                         .requires(ModItems.ROASTED_COFFEE, 2)
                         .requires(Items.WATER_BUCKET)
                         .unlockedBy(getHasName(ModItems.ROASTED_COFFEE), has(ModItems.ROASTED_COFFEE))
-                        .save(output);
-                shapeless(RecipeCategory.FOOD, ModItems.WORT)
-                        .requires(Items.GLASS_BOTTLE)
-                        .requires(ModItems.DRIED_HOPS)
-                        .requires(Items.WHEAT, 2)
-                        .unlockedBy(getHasName(ModItems.DRIED_HOPS), has(ModItems.DRIED_HOPS))
                         .save(output);
                 shapeless(RecipeCategory.FOOD, ModItems.GROUND_CHILI, 2)
                         .requires(ModItems.DRIED_CHILI)
@@ -266,6 +310,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(ModItems.CURED_TOBACCO), has(ModItems.CURED_TOBACCO))
                         .save(output);
                 roast(ModItems.DRIED_COFFEE, ModItems.ROASTED_COFFEE);
+                brewery();
+                mate();
                 roast(ModCrops.CORN.produce(), ModFoods.ROASTED_CORN.item());
             }
 

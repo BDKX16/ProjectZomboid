@@ -80,6 +80,9 @@ public final class ModCrops {
                     for (Item product : ModItems.PRODUCTS) {
                         output.accept(product);
                     }
+                    for (Item tool : ModItems.MODELLED) {
+                        output.accept(tool);
+                    }
                     for (ModFoods.Meal meal : ModFoods.ALL) {
                         output.accept(meal.item());
                     }

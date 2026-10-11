@@ -77,9 +77,7 @@ public final class ModFoods {
             false, List.of());
 
     // Made from cured harvest: the quality of the jar carries over and lengthens the effects.
-    /** Yerba in the gourd with hot water; the gourd comes back. */
-    public static final Meal MATE = register("mate", alwaysEdible(2, 0.6f), ModItems.MATE_GOURD, Consumables.defaultDrink(),
-            List.of(new MobEffectInstance(MobEffects.HASTE, 2 * MINUTES)), true, List.of());
+    /** Bottled from the fermenter of the microbrewery. */
     public static final Meal BEER = register("beer", alwaysEdible(2, 0.2f), Items.GLASS_BOTTLE, Consumables.defaultDrink(),
             List.of(new MobEffectInstance(MobEffects.ABSORPTION, 2 * MINUTES), new MobEffectInstance(MobEffects.NAUSEA, 5 * SECONDS)),
             true, List.of());

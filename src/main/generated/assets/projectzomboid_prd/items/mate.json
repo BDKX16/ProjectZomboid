@@ -1,6 +1,24 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "projectzomboid_prd:item/mate"
+    "type": "minecraft:condition",
+    "component": "projectzomboid_prd:mate_served",
+    "on_false": {
+      "type": "minecraft:condition",
+      "component": "projectzomboid_prd:mate_yerba",
+      "on_false": {
+        "type": "minecraft:model",
+        "model": "projectzomboid_prd:item/mate"
+      },
+      "on_true": {
+        "type": "minecraft:model",
+        "model": "projectzomboid_prd:item/mate_loaded"
+      },
+      "property": "minecraft:has_component"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "projectzomboid_prd:item/mate_served"
+    },
+    "property": "minecraft:has_component"
   }
 }

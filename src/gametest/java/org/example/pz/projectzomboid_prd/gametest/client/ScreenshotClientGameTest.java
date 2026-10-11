@@ -41,6 +41,7 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
             soil(context, world);
             food(context, world);
             processing(context, world);
+            brewery(context, world);
         }
     }
 
@@ -93,6 +94,44 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
         context.waitTicks(30);
         context.takeScreenshot("relaxed");
         world.getServer().runCommand("effect clear @p");
+    }
+
+    /**
+     * Two microbreweries (one idle, one working on a campfire) seen from the front, then the mate and the thermos
+     * in the player's hands.
+     */
+    private static void brewery(ClientGameTestContext context, TestSingleplayerContext world) {
+        world.getServer().runCommand("effect clear @p");
+        world.getServer().runCommand("clear @p");
+        run(world, "tp @p ~ ~ ~-20");
+        run(world, "fill ~-5 ~-1 ~1 ~5 ~4 ~6 air");
+        run(world, "fill ~-5 ~-1 ~1 ~5 ~-1 ~6 stone_bricks");
+        String[] working = {"mash_tun[stage=working,facing=south]", "brew_kettle[stage=working,facing=south]",
+                "fermenter[stage=working,facing=south]"};
+        String[] idle = {"mash_tun[stage=filled,facing=south]", "brew_kettle[stage=done,facing=south]",
+                "fermenter[stage=done,facing=south]"};
+        for (int i = 0; i < 3; i++) {
+            run(world, "setblock ~%d ~ ~3 projectzomboid_prd:%s".formatted(-1 - i, working[i]));
+            run(world, "setblock ~%d ~ ~3 projectzomboid_prd:%s".formatted(4 - i, idle[i]));
+        }
+        run(world, "setblock ~-2 ~-1 ~3 campfire");
+        run(world, "tp @p ~0.5 ~1 ~ facing ~0.5 ~ ~3");
+        context.waitTicks(40);
+        context.takeScreenshot("brewery");
+
+        run(world, "tp @p ~ ~ ~ facing ~ ~-1 ~3");
+        world.getServer().runCommand("item replace entity @p weapon.mainhand with projectzomboid_prd:mate[projectzomboid_prd:mate_yerba=8,projectzomboid_prd:mate_served={}]");
+        world.getServer().runCommand("item replace entity @p weapon.offhand with projectzomboid_prd:thermos_hot");
+        world.getServer().runCommand("item replace entity @p hotbar.1 with projectzomboid_prd:hydrometer");
+        world.getServer().runCommand("item replace entity @p hotbar.2 with projectzomboid_prd:thermos");
+        world.getServer().runCommand("item replace entity @p hotbar.3 with projectzomboid_prd:thermos_cold");
+        world.getServer().runCommand("item replace entity @p hotbar.4 with projectzomboid_prd:mate");
+        world.getServer().runCommand("item replace entity @p hotbar.5 with projectzomboid_prd:mate[projectzomboid_prd:mate_yerba=10]");
+        world.getServer().runCommand("item replace entity @p hotbar.6 with projectzomboid_prd:mash_tun");
+        world.getServer().runCommand("item replace entity @p hotbar.7 with projectzomboid_prd:brew_kettle");
+        world.getServer().runCommand("item replace entity @p hotbar.8 with projectzomboid_prd:fermenter");
+        context.waitTicks(20);
+        context.takeScreenshot("mate_in_hands");
     }
 
     private static void run(TestSingleplayerContext world, String command) {

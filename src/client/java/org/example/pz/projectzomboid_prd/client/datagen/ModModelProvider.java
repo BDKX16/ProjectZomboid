@@ -8,6 +8,11 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.Block;
+import org.example.pz.projectzomboid_prd.block.BreweryBlock;
+import org.example.pz.projectzomboid_prd.registry.ModComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
 import org.example.pz.projectzomboid_prd.block.CuringJarBlock;
@@ -49,6 +54,16 @@ public class ModModelProvider extends FabricModelProvider {
                         BlockModelGenerators.plainVariant(Projectzomboid_prd.id("block/curing_jar_filled")),
                         BlockModelGenerators.plainVariant(Projectzomboid_prd.id("block/curing_jar")))));
         blockModelGenerators.registerSimpleItemModel(ModBlocks.CURING_JAR, Projectzomboid_prd.id("block/curing_jar_filled"));
+
+        // Microbrewery: hand-made models <name>_<stage>.json, rotated to face the player
+        for (Block machine : new Block[]{ModBlocks.MASH_TUN, ModBlocks.BREW_KETTLE, ModBlocks.FERMENTER}) {
+            String name = BuiltInRegistries.BLOCK.getKey(machine).getPath();
+            blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.dispatch(machine)
+                    .with(PropertyDispatch.initial(BreweryBlock.STAGE).generate(stage ->
+                            BlockModelGenerators.plainVariant(Projectzomboid_prd.id("block/" + name + "_" + stage.getSerializedName()))))
+                    .with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING));
+            blockModelGenerators.registerSimpleItemModel(machine, Projectzomboid_prd.id("block/" + name + "_done"));
+        }
 
         // Compost bin: own base model (models/block/compost_bin.json) + vanilla composter contents per fill level
         MultiPartGenerator compostBin = MultiPartGenerator.multiPart(ModBlocks.COMPOST_BIN)
@@ -95,6 +110,16 @@ public class ModModelProvider extends FabricModelProvider {
         }
         for (Item item : ModItems.PRODUCTS) {
             itemModelGenerators.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
+        }
+        // 3D item models in resources/models/item; the mate shows its yerba and the hot water
+        Identifier mate = Projectzomboid_prd.id("item/mate");
+        itemModelGenerators.itemModelOutput.accept(ModItems.MATE, ItemModelUtils.conditional(
+                ItemModelUtils.hasComponent(ModComponents.MATE_SERVED), ItemModelUtils.plainModel(mate.withSuffix("_served")),
+                ItemModelUtils.conditional(ItemModelUtils.hasComponent(ModComponents.MATE_YERBA),
+                        ItemModelUtils.plainModel(mate.withSuffix("_loaded")), ItemModelUtils.plainModel(mate))));
+        for (Item item : new Item[]{ModItems.HYDROMETER, ModItems.THERMOS, ModItems.THERMOS_COLD, ModItems.THERMOS_HOT}) {
+            itemModelGenerators.itemModelOutput.accept(item, ItemModelUtils.plainModel(
+                    Projectzomboid_prd.id("item/" + BuiltInRegistries.ITEM.getKey(item).getPath())));
         }
         for (ModFoods.Meal meal : ModFoods.ALL) {
             itemModelGenerators.generateFlatItem(meal.item(), ModelTemplates.FLAT_ITEM);
