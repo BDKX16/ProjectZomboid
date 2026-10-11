@@ -1,0 +1,16 @@
+{
+  "block": "minecraft:potatoes",
+  "family": "nightshades",
+  "seasons": [
+    "spring",
+    "summer"
+  ],
+  "temperature": {
+    "min": 6,
+    "optimal_min": 15,
+    "optimal_max": 24,
+    "max": 32
+  },
+  "frost_tolerant": false,
+  "growth_rate": 1.0
+}

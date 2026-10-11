@@ -2,6 +2,7 @@ package org.example.pz.projectzomboid_prd.season;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.StringRepresentable;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
 
 import java.util.Locale;
@@ -9,11 +10,13 @@ import java.util.Locale;
 /**
  * The four seasons, in calendar order. The year starts in spring (southern hemisphere: 1 September).
  */
-public enum Season {
+public enum Season implements StringRepresentable {
     SPRING(0x7BD35A),
     SUMMER(0xF5C542),
     AUTUMN(0xD9822B),
     WINTER(0x8FD3F4);
+
+    public static final StringRepresentable.EnumCodec<Season> CODEC = StringRepresentable.fromEnum(Season::values);
 
     private final int color;
 
@@ -27,6 +30,11 @@ public enum Season {
 
     public String id() {
         return name().toLowerCase(Locale.ROOT);
+    }
+
+    @Override
+    public String getSerializedName() {
+        return id();
     }
 
     public MutableComponent displayName() {

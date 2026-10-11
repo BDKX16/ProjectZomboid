@@ -1,0 +1,73 @@
+package org.example.pz.projectzomboid_prd.crop;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
+import org.example.pz.projectzomboid_prd.season.ClimateModel;
+import org.example.pz.projectzomboid_prd.season.SeasonCalendar;
+
+import java.util.Locale;
+
+/** Decides how well a crop grows right now. Pure logic: no world access. */
+public final class GrowthCalculator {
+    /** Degrees above the maximum at which plants start to wilt. */
+    private static final double HEAT_DAMAGE_MARGIN = 4.0;
+
+    private GrowthCalculator() {
+    }
+
+    /**
+     * @param biomeTemperature Minecraft biome base temperature at the crop
+     * @param y                height of the crop
+     * @param ticks            overworld clock time
+     */
+    public static Growth evaluate(GrowthRequirements needs, ClimateModel climate, float biomeTemperature, int y, long ticks) {
+        double now = climate.temperatureAt(biomeTemperature, y, ticks);
+        if (now < 0 && !needs.frostTolerant()) {
+            return new Growth(0, Stress.FROST);
+        }
+        if (now > needs.temperature().max() + HEAT_DAMAGE_MARGIN) {
+            return new Growth(0, Stress.HEAT);
+        }
+
+        SeasonCalendar.Date date = climate.calendar().dateAt(ticks);
+        if (!needs.growsIn(date.season())) {
+            return new Growth(0, Stress.OUT_OF_SEASON);
+        }
+
+        double dayMean = climate.day(biomeTemperature, y, date.day()).mean();
+        float temperatureFactor = needs.temperature().factor(dayMean);
+        if (temperatureFactor <= 0) {
+            return new Growth(0, dayMean < needs.temperature().min() ? Stress.TOO_COLD : Stress.TOO_HOT);
+        }
+        return new Growth(temperatureFactor * needs.growthRate(), Stress.NONE);
+    }
+
+    /** @param factor 0-1 chance that a growth tick goes ahead */
+    public record Growth(float factor, Stress stress) {
+        public boolean damaging() {
+            return stress.damaging;
+        }
+    }
+
+    public enum Stress {
+        NONE(false),
+        OUT_OF_SEASON(false),
+        TOO_COLD(false),
+        TOO_HOT(false),
+        /** Night below 0 °C on a frost-sensitive plant. */
+        FROST(true),
+        /** Well above the plant's maximum temperature. */
+        HEAT(true);
+
+        private final boolean damaging;
+
+        Stress(boolean damaging) {
+            this.damaging = damaging;
+        }
+
+        public MutableComponent displayName() {
+            return Component.translatable("stress." + Projectzomboid_prd.MOD_ID + "." + name().toLowerCase(Locale.ROOT));
+        }
+    }
+}

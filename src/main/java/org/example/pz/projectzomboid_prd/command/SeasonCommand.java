@@ -6,12 +6,16 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Block;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
+import org.example.pz.projectzomboid_prd.crop.CropClimate;
+import org.example.pz.projectzomboid_prd.crop.GrowthCalculator;
 import org.example.pz.projectzomboid_prd.season.ClimateModel;
 import org.example.pz.projectzomboid_prd.season.Season;
 import org.example.pz.projectzomboid_prd.season.SeasonCalendar;
@@ -22,6 +26,7 @@ import org.example.pz.projectzomboid_prd.season.TemperatureBand;
 /**
  * {@code /season} – current date and temperature;
  * {@code /season forecast [days]} – forecast at the caller's position;
+ * {@code /season crop <pos>} – how the crop at a position is growing and why;
  * {@code /season set <season>} – jump to the start of a season (operators).
  */
 public final class SeasonCommand {
@@ -47,6 +52,9 @@ public final class SeasonCommand {
                         .executes(ctx -> forecast(ctx.getSource(), 7))
                         .then(Commands.argument("days", IntegerArgumentType.integer(1, 30))
                                 .executes(ctx -> forecast(ctx.getSource(), IntegerArgumentType.getInteger(ctx, "days")))))
+                .then(Commands.literal("crop")
+                        .then(Commands.argument("pos", BlockPosArgument.blockPos())
+                                .executes(ctx -> crop(ctx.getSource(), BlockPosArgument.getLoadedBlockPos(ctx, "pos")))))
                 .then(set));
     }
 
@@ -92,6 +100,21 @@ public final class SeasonCommand {
             source.sendSuccess(() -> line, false);
         }
         return days;
+    }
+
+    private static int crop(CommandSourceStack source, BlockPos pos) {
+        Block block = source.getLevel().getBlockState(pos).getBlock();
+        GrowthCalculator.Growth growth = CropClimate.growth(source.getLevel(), pos, block).orElse(null);
+        if (growth == null) {
+            source.sendFailure(Component.translatable(KEY + "crop.none", block.getName()));
+            return 0;
+        }
+        int percent = Math.round(growth.factor() * 100);
+        source.sendSuccess(() -> Component.translatable(KEY + "crop.info",
+                block.getName(),
+                percent,
+                growth.stress().displayName()), false);
+        return percent;
     }
 
     private static int setSeason(CommandSourceStack source, Season season) {

@@ -3,6 +3,7 @@ package org.example.pz.projectzomboid_prd;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
 import org.example.pz.projectzomboid_prd.command.SeasonCommand;
+import org.example.pz.projectzomboid_prd.crop.CropProfiles;
 import org.example.pz.projectzomboid_prd.registry.ModGameRules;
 import org.example.pz.projectzomboid_prd.season.SeasonManager;
 import org.slf4j.Logger;
@@ -21,5 +22,6 @@ public class Projectzomboid_prd implements ModInitializer {
         ModGameRules.init();
         SeasonManager.init();
         SeasonCommand.init();
+        CropProfiles.init();
     }
 }

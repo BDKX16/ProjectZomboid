@@ -4,6 +4,7 @@
   "package": "org.example.pz.projectzomboid_prd.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "CropBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

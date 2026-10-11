@@ -3,13 +3,11 @@
   "season.projectzomboid_prd.summer": "Verano",
   "season.projectzomboid_prd.autumn": "Otoño",
   "season.projectzomboid_prd.winter": "Invierno",
-
   "temperature.projectzomboid_prd.frost": "Helada",
   "temperature.projectzomboid_prd.cold": "Frío",
   "temperature.projectzomboid_prd.mild": "Templado",
   "temperature.projectzomboid_prd.warm": "Cálido",
   "temperature.projectzomboid_prd.hot": "Calor extremo",
-
   "month.projectzomboid_prd.0": "enero",
   "month.projectzomboid_prd.1": "febrero",
   "month.projectzomboid_prd.2": "marzo",
@@ -24,16 +22,31 @@
   "month.projectzomboid_prd.11": "diciembre",
   "date.projectzomboid_prd.long": "%s de %s, año %s",
   "date.projectzomboid_prd.short": "%s de %s",
-
   "hud.projectzomboid_prd.season": "%s · día %s/%s",
   "hud.projectzomboid_prd.date": "%s · %s",
-
   "commands.projectzomboid_prd.season.info": "%s, día %s de %s · %s · %s",
   "commands.projectzomboid_prd.season.temperature": "Temperatura acá: %s (%s)",
   "commands.projectzomboid_prd.season.forecast.header": "Pronóstico para los próximos %s días:",
   "commands.projectzomboid_prd.season.forecast.day": " %s: mín %s / máx %s · %s",
   "commands.projectzomboid_prd.season.forecast.frost": " ⚠ helada",
   "commands.projectzomboid_prd.season.set": "Estación cambiada a %s (%s)",
-
-  "gamerule.projectzomboid_prd.season_length": "Duración de cada estación (días)"
+  "gamerule.projectzomboid_prd.season_length": "Duración de cada estación (días)",
+  "plant_family.projectzomboid_prd.grasses": "Gramíneas",
+  "plant_family.projectzomboid_prd.nightshades": "Solanáceas",
+  "plant_family.projectzomboid_prd.brassicas": "Brásicas (crucíferas)",
+  "plant_family.projectzomboid_prd.legumes": "Leguminosas",
+  "plant_family.projectzomboid_prd.umbellifers": "Umbelíferas",
+  "plant_family.projectzomboid_prd.amaranths": "Amarantáceas",
+  "plant_family.projectzomboid_prd.composites": "Compuestas",
+  "plant_family.projectzomboid_prd.cucurbits": "Cucurbitáceas",
+  "plant_family.projectzomboid_prd.alliums": "Aliáceas",
+  "plant_family.projectzomboid_prd.mints": "Lamiáceas (aromáticas)",
+  "stress.projectzomboid_prd.none": "buenas condiciones",
+  "stress.projectzomboid_prd.out_of_season": "fuera de estación, no crece",
+  "stress.projectzomboid_prd.too_cold": "hace demasiado frío para crecer",
+  "stress.projectzomboid_prd.too_hot": "hace demasiado calor para crecer",
+  "stress.projectzomboid_prd.frost": "¡helada! la planta se está dañando",
+  "stress.projectzomboid_prd.heat": "¡calor extremo! la planta se está marchitando",
+  "commands.projectzomboid_prd.season.crop.info": "%s: crece al %s%% de la velocidad normal · %s",
+  "commands.projectzomboid_prd.season.crop.none": "%s no tiene perfil de cultivo"
 }

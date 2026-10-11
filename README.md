@@ -49,3 +49,47 @@ Rangos: **Helada** (< 0 °C), **Frío** (0-10), **Templado** (10-24), **Cálido*
 
 **Código:** `season/` (`SeasonCalendar`, `ClimateModel`, `SeasonManager`), `command/SeasonCommand`,
 `client/hud/SeasonHud`. Tests en `src/test/.../season/`.
+
+### Fase 2 — Cultivos que dependen de la estación ✅
+
+Cada cultivo tiene un **perfil** que dice en qué estaciones crece y qué temperaturas tolera. Por ahora aplica a
+los cultivos vanilla; los del mod (fase 3) usan el mismo sistema.
+
+| Cultivo | Familia | Estaciones | Temp. (mín / óptima / máx) | Tolera heladas |
+|---|---|---|---|---|
+| Trigo | Gramíneas | otoño, invierno, primavera | 0 / 10-22 / 30 °C | sí |
+| Papa | Solanáceas | primavera, verano | 6 / 15-24 / 32 °C | no |
+| Zanahoria | Umbelíferas | otoño, invierno, primavera | 3 / 12-22 / 28 °C | sí |
+| Remolacha | Amarantáceas | otoño, primavera | 4 / 12-24 / 30 °C | sí |
+
+**Cómo afecta al crecimiento** (en cada *random tick* del cultivo):
+
+- **Fuera de estación:** no crece.
+- **Temperatura media del día:** crece al 100 % dentro del rango óptimo, cada vez más lento hacia el mínimo o el
+  máximo, y nada fuera de ellos.
+- **Helada** (temperatura actual < 0 °C) en plantas que no la toleran: la planta retrocede una etapa
+  (25 % por tick) y, si ya estaba recién plantada, muere.
+- **Calor extremo** (4 °C por encima de su máximo): se marchita igual que con la helada.
+- **Polvo de hueso:** no hace nada si la planta no puede crecer en ese momento (se gasta igual).
+
+**Comando de diagnóstico:** `/season crop <x y z>` muestra a qué porcentaje de la velocidad normal está creciendo
+el cultivo en esa posición y por qué (fuera de estación, frío, helada…).
+
+**Perfiles en JSON (modificables por datapack).** Están en
+`data/<namespace>/projectzomboid_prd/crop_profile/<nombre>.json`:
+
+```json
+{
+  "block": "minecraft:wheat",
+  "family": "grasses",
+  "seasons": ["autumn", "winter", "spring"],
+  "temperature": { "min": 0, "optimal_min": 10, "optimal_max": 22, "max": 30 },
+  "frost_tolerant": true,
+  "growth_rate": 1.0
+}
+```
+
+`growth_rate` (0-1) hace más lentos los cultivos de ciclo largo. Familias: `grasses`, `nightshades`, `brassicas`,
+`legumes`, `umbellifers`, `amaranths`, `composites`, `cucurbits`, `alliums`, `mints` (se usan para la rotación de la fase 6).
+
+**Código:** `crop/` (`CropProfile`, `CropProfiles`, `GrowthCalculator`, `CropClimate`) y `mixin/CropBlockMixin`.

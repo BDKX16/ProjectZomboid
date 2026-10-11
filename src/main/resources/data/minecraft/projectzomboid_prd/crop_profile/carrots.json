@@ -1,0 +1,17 @@
+{
+  "block": "minecraft:carrots",
+  "family": "umbellifers",
+  "seasons": [
+    "autumn",
+    "winter",
+    "spring"
+  ],
+  "temperature": {
+    "min": 3,
+    "optimal_min": 12,
+    "optimal_max": 22,
+    "max": 28
+  },
+  "frost_tolerant": true,
+  "growth_rate": 1.0
+}

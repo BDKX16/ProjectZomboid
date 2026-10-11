@@ -3,13 +3,11 @@
   "season.projectzomboid_prd.summer": "Summer",
   "season.projectzomboid_prd.autumn": "Autumn",
   "season.projectzomboid_prd.winter": "Winter",
-
   "temperature.projectzomboid_prd.frost": "Frost",
   "temperature.projectzomboid_prd.cold": "Cold",
   "temperature.projectzomboid_prd.mild": "Mild",
   "temperature.projectzomboid_prd.warm": "Warm",
   "temperature.projectzomboid_prd.hot": "Extreme heat",
-
   "month.projectzomboid_prd.0": "January",
   "month.projectzomboid_prd.1": "February",
   "month.projectzomboid_prd.2": "March",
@@ -24,16 +22,31 @@
   "month.projectzomboid_prd.11": "December",
   "date.projectzomboid_prd.long": "%2$s %1$s, year %3$s",
   "date.projectzomboid_prd.short": "%2$s %1$s",
-
   "hud.projectzomboid_prd.season": "%s · day %s/%s",
   "hud.projectzomboid_prd.date": "%s · %s",
-
   "commands.projectzomboid_prd.season.info": "%s, day %s of %s · %s · %s",
   "commands.projectzomboid_prd.season.temperature": "Temperature here: %s (%s)",
   "commands.projectzomboid_prd.season.forecast.header": "Forecast for the next %s days:",
   "commands.projectzomboid_prd.season.forecast.day": " %s: low %s / high %s · %s",
   "commands.projectzomboid_prd.season.forecast.frost": " ⚠ frost",
   "commands.projectzomboid_prd.season.set": "Season changed to %s (%s)",
-
-  "gamerule.projectzomboid_prd.season_length": "Length of each season (days)"
+  "gamerule.projectzomboid_prd.season_length": "Length of each season (days)",
+  "plant_family.projectzomboid_prd.grasses": "Grasses",
+  "plant_family.projectzomboid_prd.nightshades": "Nightshades",
+  "plant_family.projectzomboid_prd.brassicas": "Brassicas",
+  "plant_family.projectzomboid_prd.legumes": "Legumes",
+  "plant_family.projectzomboid_prd.umbellifers": "Umbellifers",
+  "plant_family.projectzomboid_prd.amaranths": "Amaranths",
+  "plant_family.projectzomboid_prd.composites": "Composites",
+  "plant_family.projectzomboid_prd.cucurbits": "Cucurbits",
+  "plant_family.projectzomboid_prd.alliums": "Alliums",
+  "plant_family.projectzomboid_prd.mints": "Mints (herbs)",
+  "stress.projectzomboid_prd.none": "good conditions",
+  "stress.projectzomboid_prd.out_of_season": "out of season, not growing",
+  "stress.projectzomboid_prd.too_cold": "too cold to grow",
+  "stress.projectzomboid_prd.too_hot": "too hot to grow",
+  "stress.projectzomboid_prd.frost": "frost! the plant is being damaged",
+  "stress.projectzomboid_prd.heat": "extreme heat! the plant is wilting",
+  "commands.projectzomboid_prd.season.crop.info": "%s: growing at %s%% of normal speed · %s",
+  "commands.projectzomboid_prd.season.crop.none": "%s has no crop profile"
 }
