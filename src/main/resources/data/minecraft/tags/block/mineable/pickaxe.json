@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "projectzomboid_prd:extractor"
+    "projectzomboid_prd:extractor",
+    "projectzomboid_prd:weather_station"
   ]
 }

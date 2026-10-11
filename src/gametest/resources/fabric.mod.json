@@ -9,6 +9,9 @@
       "org.example.pz.projectzomboid_prd.gametest.SeasonalCropGameTest",
       "org.example.pz.projectzomboid_prd.gametest.ShelterGameTest",
       "org.example.pz.projectzomboid_prd.gametest.PruningShearsGameTest"
+    ],
+    "fabric-client-gametest": [
+      "org.example.pz.projectzomboid_prd.gametest.client.ScreenshotClientGameTest"
     ]
   },
   "depends": {

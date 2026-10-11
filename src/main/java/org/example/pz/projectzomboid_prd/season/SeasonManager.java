@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.clock.WorldClock;
 import net.minecraft.world.clock.WorldClocks;
+import org.example.pz.projectzomboid_prd.network.OpenWeatherStationPayload;
 import org.example.pz.projectzomboid_prd.network.SeasonConfigPayload;
 import org.example.pz.projectzomboid_prd.registry.ModGameRules;
 
@@ -21,6 +22,7 @@ public final class SeasonManager {
 
     public static void init() {
         PayloadTypeRegistry.clientboundPlay().register(SeasonConfigPayload.TYPE, SeasonConfigPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(OpenWeatherStationPayload.TYPE, OpenWeatherStationPayload.CODEC);
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> sync(handler.getPlayer()));
         GameRuleEvents.changeCallback(ModGameRules.SEASON_LENGTH).register((value, server) -> syncAll(server));
     }

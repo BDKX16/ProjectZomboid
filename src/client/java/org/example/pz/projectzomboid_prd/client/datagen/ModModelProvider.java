@@ -22,6 +22,8 @@ public class ModModelProvider extends FabricModelProvider {
         blockModelGenerators.createTrivialCube(ModBlocks.GROW_LIGHT);
         // extractor_top is the solar panel, extractor_side the fan, extractor_bottom a grille
         blockModelGenerators.createTrivialBlock(ModBlocks.EXTRACTOR, TexturedModel.CUBE_BOTTOM_TOP);
+        // weather_station_top: anemometer and rain gauge, weather_station_side: display panel
+        blockModelGenerators.createTrivialBlock(ModBlocks.WEATHER_STATION, TexturedModel.CUBE_BOTTOM_TOP);
         for (ModCrops.Crop crop : ModCrops.ALL) {
             // 8 ages share 4 textures: <name>_crop_stage0..3
             blockModelGenerators.createCropBlock(crop.block(), CropBlock.AGE, 0, 0, 1, 1, 2, 2, 2, 3);

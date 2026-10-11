@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "projectzomboid_prd:block/weather_station_bottom",
+    "side": "projectzomboid_prd:block/weather_station_side",
+    "top": "projectzomboid_prd:block/weather_station_top"
+  }
+}

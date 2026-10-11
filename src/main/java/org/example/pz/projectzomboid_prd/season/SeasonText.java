@@ -24,7 +24,8 @@ public final class SeasonText {
 
     /** "3 sep" */
     public static MutableComponent shortDate(SeasonCalendar.Date date) {
-        return Component.translatable("date." + PREFIX + "short", date.dayOfMonth(), month(date.month()));
+        return Component.translatable("date." + PREFIX + "short", date.dayOfMonth(),
+                Component.translatable("month." + PREFIX + "short." + date.month()));
     }
 
     public static String time(long ticks) {
@@ -32,6 +33,7 @@ public final class SeasonText {
     }
 
     public static MutableComponent celsius(double celsius) {
-        return Component.literal(String.format(Locale.ROOT, "%.0f°C", celsius));
+        // Rounded first so that -0.4 shows as "0°C", not "-0°C".
+        return Component.literal(String.format(Locale.ROOT, "%d°C", Math.round(celsius)));
     }
 }

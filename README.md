@@ -14,6 +14,7 @@ Requisitos: JDK 25 (Gradle lo busca solo; ver `gradle/gradle-daemon-jvm.properti
 | `./gradlew build` | Compila, corre los tests y genera el jar en `build/libs/` |
 | `./gradlew test` | Solo los tests unitarios |
 | `./gradlew runGameTest` | Tests en un servidor real sin ventana (registros, datos, mixins) |
+| `./gradlew runClientGameTest` | Abre el juego, crea un mundo y guarda capturas en `build/run/clientGameTest/screenshots/` |
 | `./gradlew runDatagen` | Regenera modelos, loot tables, recetas y features en `src/main/generated/` |
 
 Los gametests aceptan automáticamente el EULA de Minecraft solo para esa ejecución de prueba (`eula = true` en
@@ -192,3 +193,24 @@ planta a mano sigue dando la cosecha normal. Se configura en el perfil de cada c
 `data/projectzomboid_prd/tags/`. Gametest `ShelterGameTest`: arma un invernadero, le agrega un extractor, lo
 convierte en sala subterránea y le tapa el respiradero, comprobando el resultado en cada paso.
 `PruningShearsGameTest`: cosecha un tomate con tijeras (rebrota) y comprueba que la soja no se puede.
+
+### Fase 5 — Estación climática ✅
+
+**Bloque "Estación climática"** (receta `CKC` / `GRG` / `III`: C lingote de cobre, K reloj, G panel de vidrio,
+R redstone, I hierro; se rompe con pico). Con click derecho abre una pantalla con los datos **del lugar donde
+está puesta** (bioma y altura):
+
+- **Hoy:** estación y día, fecha, hora, temperatura actual (grande, con el color del rango) y el nombre del bioma.
+- **Pronóstico de 7 días:** mínima y máxima, una barra de temperatura de −15 a 40 °C con el color del rango y ❄
+  los días con helada. Como el clima es determinístico, **el pronóstico siempre se cumple**.
+- **Sembrar ahora al aire libre:** cultivos que están en su estación, con temperatura media de los próximos 7 días
+  adecuada y sin heladas en el pronóstico si no las toleran. Pasando el mouse sobre un ícono se ve el nombre.
+- **Preparar semillas para la próxima estación:** cultivos que todavía no van pero sí en la estación siguiente, y
+  cuántos días faltan.
+
+La pantalla se actualiza sola cada segundo y no pausa el juego. Los datos se calculan en el cliente con el clima y
+los perfiles sincronizados: el servidor solo avisa que se abrió la estación.
+
+**Código:** `block/WeatherStationBlock`, `crop/PlantingAdvisor` (lógica de recomendaciones, con tests),
+`network/OpenWeatherStationPayload`, `client/screen/WeatherStationScreen`. El gametest de cliente
+`ScreenshotClientGameTest` saca capturas del HUD y de la pantalla en invierno y en verano.
