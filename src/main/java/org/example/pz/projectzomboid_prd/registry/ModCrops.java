@@ -54,6 +54,7 @@ public final class ModCrops {
                         output.accept(block);
                     }
                     output.accept(ModItems.PRUNING_SHEARS);
+                    output.accept(ModItems.THERMOHYGROMETER);
                     for (Crop crop : ALL) {
                         output.accept(crop.seeds());
                         output.accept(crop.produce());

@@ -172,8 +172,8 @@ aire se vicia y **no crece nada**.
 
 | Bloque | Receta | Uso |
 |---|---|---|
-| Luz de cultivo | `IRI` / `GLG` — I hierro, R redstone, G panel de vidrio, L piedra luminosa | Luz 15; habilita la sala de cultivo |
-| Extractor de aire | `IBI` / `RCR` / `IBI` — I hierro, B barrotes de hierro, R redstone, C lingote de cobre | Ventila invernaderos y salas (necesita pico). Arriba tiene un **panel solar**: se regula solo, sin redstone ni energía. Por eso necesita la columna libre hasta el cielo |
+| Luz de cultivo | `IRI` / `GLG` — I hierro, R redstone, G panel de vidrio, L piedra luminosa | Panel de LEDs **colgado del techo** con dos cables (modelo 3D). Solo se coloca debajo de un bloque y se cae si se lo sacan. Luz 15; habilita la sala de cultivo |
+| Extractor de aire | `IBI` / `RCR` / `IBI` — I hierro, B barrotes de hierro, R redstone, C lingote de cobre | Ventila invernaderos y salas (necesita pico). Arriba tiene un **panel solar**: se regula solo, sin redstone ni energía. Por eso necesita la columna libre hasta el cielo. **El ventilador gira** (textura animada) cuando el respiradero está libre; lo revisa cada 2 segundos |
 
 **Tijeras de poda** (`I I` / ` I ` / `S S` — I hierro, S palo; 238 usos). Algunas plantas se cosechan **sin
 arrancarlas**. Con las tijeras sobre la planta madura cae el producto (1-2) y la planta vuelve a una etapa anterior
@@ -214,3 +214,41 @@ los perfiles sincronizados: el servidor solo avisa que se abrió la estación.
 **Código:** `block/WeatherStationBlock`, `crop/PlantingAdvisor` (lógica de recomendaciones, con tests),
 `network/OpenWeatherStationPayload`, `client/screen/WeatherStationScreen`. El gametest de cliente
 `ScreenshotClientGameTest` saca capturas del HUD y de la pantalla en invierno y en verano.
+
+### Extra — Termohigrómetro y humedad ✅
+
+**Humedad relativa.** Se calcula igual que la temperatura (determinística, por lugar y hora):
+- Depende de cuánto llueve en el bioma: desierto ≈ 15-25 %, llanura ≈ 55 %, jungla/pantano ≈ 80 %.
+- Es más alta en invierno y de madrugada, y más baja en verano y a la tarde, con una variación diaria.
+- Dentro de un refugio:
+  - **Invernadero con extractor:** 45-75 %.
+  - **Invernadero sin extractor:** +25 % (casi siempre muy húmedo).
+  - **Sala de cultivo ventilada:** 60 % fijo.
+  - **Sala sin ventilación:** 95 %.
+
+Por ahora la humedad es **informativa**: sirve para diagnosticar la ventilación y no afecta el crecimiento.
+
+**Termohigrómetro** (`CGC` / `CRC` / `CKC` — C lingote de cobre, G panel de vidrio, R redstone, K brújula). Es un
+dispositivo tipo celular. **Mientras lo tenés en la mano** (principal o secundaria) aparece una pantallita abajo a
+la derecha, que se actualiza cada medio segundo, con los datos de donde estás parado:
+- temperatura y humedad;
+- qué tipo de lugar detecta (aire libre, invernadero con o sin extractor, sala de cultivo…);
+- un diagnóstico:
+
+| Consejo | Cuándo |
+|---|---|
+| Falta un extractor con respiradero | Sala subterránea con luces pero sin ventilación |
+| El invernadero necesita extractor | Invernadero cerrado en verano (fuera de biomas nevados) |
+| Extractor recomendado | Invernadero cerrado en otras estaciones (se acumula humedad) |
+| Se sobrecalienta: usá una sala subterránea | Invernadero en desierto o badlands |
+| Falta luz de cultivo | Bajo tierra sin luz de cultivo cerca |
+| Helada / calor extremo | Menos de 0 °C / más de 32 °C |
+| Humedad muy alta / aire muy seco | Más de 85 % / menos de 30 % |
+| Condiciones OK | Nada que corregir |
+
+**Código:** `greenhouse/MicroClimate` (medición), `greenhouse/ClimateAdvice` (diagnóstico, con tests),
+`ClimateModel.humidityAt`, `block/GrowLightBlock`, `block/ExtractorBlock`, `client/hud/ThermohygrometerHud`. El
+modelo de la luz está hecho a mano en `assets/projectzomboid_prd/models/block/grow_light.json`. El `downfall` de los
+biomas se lee gracias a `projectzomboid_prd.classtweaker`. Gametest `EquipmentGameTest`: la luz se cae sin techo, y
+el ventilador se prende y se apaga según el respiradero. Las capturas del cliente incluyen una sala de cultivo con y
+sin ventilación.

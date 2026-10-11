@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "active=false": {
       "model": "projectzomboid_prd:block/extractor"
+    },
+    "active=true": {
+      "model": "projectzomboid_prd:block/extractor_active"
     }
   }
 }

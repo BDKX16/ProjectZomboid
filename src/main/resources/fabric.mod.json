@@ -20,6 +20,7 @@
       "org.example.pz.projectzomboid_prd.Projectzomboid_prd"
     ]
   },
+  "accessWidener": "projectzomboid_prd.classtweaker",
   "mixins": [
     "projectzomboid_prd.mixins.json",
     {

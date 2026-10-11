@@ -1,0 +1,49 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "projectzomboid_prd:block/grow_light_frame",
+    "frame": "projectzomboid_prd:block/grow_light_frame",
+    "leds": "projectzomboid_prd:block/grow_light_leds",
+    "cable": "projectzomboid_prd:block/grow_light_cable"
+  },
+  "elements": [
+    {
+      "__comment": "LED panel",
+      "from": [2, 11, 2],
+      "to": [14, 13, 14],
+      "faces": {
+        "down":  {"uv": [2, 2, 14, 14], "texture": "#leds"},
+        "up":    {"uv": [2, 2, 14, 14], "texture": "#frame"},
+        "north": {"uv": [2, 3, 14, 5], "texture": "#frame"},
+        "south": {"uv": [2, 3, 14, 5], "texture": "#frame"},
+        "west":  {"uv": [2, 3, 14, 5], "texture": "#frame"},
+        "east":  {"uv": [2, 3, 14, 5], "texture": "#frame"}
+      }
+    },
+    {
+      "__comment": "Left cable",
+      "from": [3.5, 13, 7.5],
+      "to": [4.5, 16, 8.5],
+      "faces": {
+        "north": {"uv": [7, 0, 8, 3], "texture": "#cable"},
+        "south": {"uv": [7, 0, 8, 3], "texture": "#cable"},
+        "west":  {"uv": [7, 0, 8, 3], "texture": "#cable"},
+        "east":  {"uv": [7, 0, 8, 3], "texture": "#cable"},
+        "up":    {"uv": [7, 0, 8, 1], "texture": "#cable"}
+      }
+    },
+    {
+      "__comment": "Right cable",
+      "from": [11.5, 13, 7.5],
+      "to": [12.5, 16, 8.5],
+      "faces": {
+        "north": {"uv": [7, 0, 8, 3], "texture": "#cable"},
+        "south": {"uv": [7, 0, 8, 3], "texture": "#cable"},
+        "west":  {"uv": [7, 0, 8, 3], "texture": "#cable"},
+        "east":  {"uv": [7, 0, 8, 3], "texture": "#cable"},
+        "up":    {"uv": [7, 0, 8, 1], "texture": "#cable"}
+      }
+    }
+  ]
+}

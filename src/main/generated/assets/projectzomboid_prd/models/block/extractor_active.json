@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "projectzomboid_prd:block/extractor_bottom",
+    "side": "projectzomboid_prd:block/extractor_side_active",
+    "top": "projectzomboid_prd:block/extractor_top"
+  }
+}

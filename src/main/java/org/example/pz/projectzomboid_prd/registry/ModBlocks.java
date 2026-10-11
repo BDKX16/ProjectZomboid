@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
+import org.example.pz.projectzomboid_prd.block.ExtractorBlock;
+import org.example.pz.projectzomboid_prd.block.GrowLightBlock;
 import org.example.pz.projectzomboid_prd.block.WeatherStationBlock;
 import org.example.pz.projectzomboid_prd.item.DescribedBlockItem;
 
@@ -23,18 +25,19 @@ public final class ModBlocks {
     private static final List<Block> MUTABLE_ALL = new ArrayList<>();
     public static final List<Block> ALL = Collections.unmodifiableList(MUTABLE_ALL);
 
-    /** Lights an underground grow room. */
-    public static final Block GROW_LIGHT = register("grow_light", Block::new, BlockBehaviour.Properties.of()
+    /** Lights an underground grow room; hangs from the ceiling. */
+    public static final Block GROW_LIGHT = register("grow_light", GrowLightBlock::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PINK)
             .strength(0.3f)
-            .sound(SoundType.GLASS)
+            .sound(SoundType.LANTERN)
+            .noOcclusion()
             .lightLevel(state -> 15));
 
     /**
      * Ventilates a greenhouse or grow room; needs an open shaft to the surface above it. Its top is a solar panel,
      * which is why it regulates itself without power.
      */
-    public static final Block EXTRACTOR = register("extractor", Block::new, BlockBehaviour.Properties.of()
+    public static final Block EXTRACTOR = register("extractor", ExtractorBlock::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.METAL)
             .strength(3.0f)
             .requiresCorrectToolForDrops()

@@ -46,6 +46,17 @@ public record Shelter(Type type, boolean heated, boolean ventilated) {
         };
     }
 
+    /** Relative humidity (%) inside, given the outdoor one. Closed spaces without an extractor get muggy. */
+    public double adjustHumidity(double outside) {
+        return switch (type) {
+            case OPEN -> outside;
+            case GREENHOUSE -> ventilated ? Math.clamp(outside + 5, 45, 75) : Math.min(outside + 25, 98);
+            case GREENHOUSE_OVERHEATED -> Math.max(outside - 5, 5);
+            case GROW_ROOM -> 60;
+            case GROW_ROOM_UNVENTILATED -> 95;
+        };
+    }
+
     /** Whether the plant can ignore its seasons here (only temperature still matters). */
     public boolean ignoresSeasons() {
         return type == Type.GREENHOUSE || type == Type.GROW_ROOM;

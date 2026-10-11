@@ -47,4 +47,17 @@ class ClimateModelTest {
         assertEquals(25.0, ClimateModel.annualMeanCelsius(2.0f), 0.01);
         assertTrue(ClimateModel.annualMeanCelsius(0.0f) < 2);
     }
+
+    @Test
+    void humidityFollowsBiomeAndTimeOfDay() {
+        long day = 20;
+        long dawn = SeasonCalendar.startOfDay(day) + 5000;
+        long afternoon = SeasonCalendar.startOfDay(day) + 15000;
+        double desert = climate.humidityAt(0.0f, false, afternoon);
+        double jungle = climate.humidityAt(0.9f, true, afternoon);
+        assertTrue(desert < 35, "desert afternoon should be dry: " + desert);
+        assertTrue(jungle > desert + 30, "jungle much more humid than desert");
+        assertTrue(climate.humidityAt(0.4f, true, dawn) > climate.humidityAt(0.4f, true, afternoon), "dawn more humid");
+        assertEquals(climate.humidityAt(0.4f, true, dawn), new ClimateModel(new SeasonCalendar(15), 12345L).humidityAt(0.4f, true, dawn));
+    }
 }

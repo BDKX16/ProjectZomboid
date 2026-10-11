@@ -16,8 +16,12 @@ public final class ClimateModel {
     /** Height above which air gets colder. */
     private static final int LAPSE_START_Y = 70;
     private static final double LAPSE_PER_BLOCK = 0.06;
-    /** Hour of the day with the highest temperature. */
+    /** Hour of the day with the highest temperature (and lowest humidity). */
     private static final double WARMEST_HOUR = 15.0;
+    /** Humidity swing between wet winters and dry summers, in percentage points. */
+    private static final double HUMIDITY_SEASONAL = 8.0;
+    private static final double HUMIDITY_DAILY_SWING = 12.0;
+    private static final double HUMIDITY_ANOMALY_SD = 8.0;
 
     private final SeasonCalendar calendar;
     private final long seed;
@@ -79,6 +83,23 @@ public final class ClimateModel {
         double hour = SeasonCalendar.ticksIntoDay(ticks) / 1000.0;
         double curve = Math.cos(2 * Math.PI * (hour - WARMEST_HOUR) / 24.0);
         return climate.mean() + (climate.max() - climate.mean()) * curve;
+    }
+
+    /**
+     * Relative humidity (%) at an exact moment. Wet biomes (high downfall) are humid, deserts dry; winters and
+     * nights are more humid than summers and afternoons. Deterministic like temperature.
+     *
+     * @param downfall      biome downfall (0 desert … 1 jungle/swamp)
+     * @param precipitation whether the biome gets rain or snow at all
+     */
+    public double humidityAt(float downfall, boolean precipitation, long ticks) {
+        long day = SeasonCalendar.absoluteDay(ticks);
+        double base = precipitation ? 35.0 + 50.0 * downfall : 15.0 + 10.0 * downfall;
+        double seasonal = -HUMIDITY_SEASONAL * seasonalOffset(day) / SEASONAL_AMPLITUDE;
+        double anomaly = new Random(mix(seed ^ mix(day) ^ 0x4875L)).nextGaussian() * HUMIDITY_ANOMALY_SD;
+        double hour = SeasonCalendar.ticksIntoDay(ticks) / 1000.0;
+        double daily = -HUMIDITY_DAILY_SWING * Math.cos(2 * Math.PI * (hour - WARMEST_HOUR) / 24.0);
+        return Math.clamp(base + seasonal + anomaly + daily, 5.0, 100.0);
     }
 
     /** SplitMix64 finaliser: turns nearby inputs into unrelated outputs. */

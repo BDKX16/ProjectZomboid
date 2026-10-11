@@ -87,11 +87,11 @@ public final class ShelterDetector {
         return false;
     }
 
-    private static boolean isUnderground(Level level, BlockPos crop) {
+    public static boolean isUnderground(Level level, BlockPos crop) {
         return crop.getY() + 1 < level.getHeight(Heightmap.Types.WORLD_SURFACE, crop.getX(), crop.getZ());
     }
 
-    private static boolean hasGrowLight(Level level, BlockPos crop) {
+    public static boolean hasGrowLight(Level level, BlockPos crop) {
         for (BlockPos pos : BlockPos.betweenClosed(crop.offset(-LIGHT_RANGE_XZ, 1, -LIGHT_RANGE_XZ), crop.offset(LIGHT_RANGE_XZ, LIGHT_RANGE_UP, LIGHT_RANGE_XZ))) {
             if (level.getBlockState(pos).is(ModBlocks.GROW_LIGHT)) {
                 return true;
