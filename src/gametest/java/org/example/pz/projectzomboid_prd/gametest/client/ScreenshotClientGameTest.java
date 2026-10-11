@@ -4,7 +4,18 @@ import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import org.example.pz.projectzomboid_prd.client.screen.WeatherStationScreen;
+import org.example.pz.projectzomboid_prd.crop.CropProfile;
+import org.example.pz.projectzomboid_prd.crop.CropProfiles;
+import org.example.pz.projectzomboid_prd.registry.ModCrops;
+import org.example.pz.projectzomboid_prd.registry.ModItems;
+import org.example.pz.projectzomboid_prd.soil.SoilManager;
 
 /**
  * Opens a real client, creates a world and saves screenshots of the HUD, the weather station screen and a grow
@@ -23,7 +34,37 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
 
             weatherStation(context, world);
             growRoom(context, world);
+            soil(context, world);
         }
+    }
+
+    /** A tomato between basil (companion) and potatoes (antagonist), harvested twice, analysed with the soil kit. */
+    private static void soil(ClientGameTestContext context, TestSingleplayerContext world) {
+        String[] commands = {
+                "tp @p ~20 ~ ~",
+                "fill ~-3 ~-1 ~2 ~3 ~-1 ~2 farmland",
+                "setblock ~-1 ~ ~2 projectzomboid_prd:basil_crop[age=7]",
+                "setblock ~ ~ ~2 projectzomboid_prd:tomato_crop[age=7]",
+                "setblock ~1 ~ ~2 potatoes[age=7]",
+                "setblock ~3 ~ ~4 projectzomboid_prd:compost_bin[level=5]",
+                "item replace entity @p weapon.mainhand with projectzomboid_prd:soil_test_kit",
+                "tp @p ~ ~ ~ facing ~ ~-0.5 ~2"
+        };
+        for (String command : commands) {
+            world.getServer().runCommand("execute as @p at @s run " + command);
+        }
+        context.waitTicks(20);
+        world.getServer().runOnServer(server -> {
+            ServerPlayer player = server.getPlayerList().getPlayers().getFirst();
+            BlockPos tomato = player.blockPosition().offset(0, 0, 2);
+            CropProfile profile = CropProfiles.get(server.registryAccess(), ModCrops.TOMATO.block()).orElseThrow();
+            SoilManager.onHarvest(player.level(), tomato, profile);
+            SoilManager.onHarvest(player.level(), tomato, profile);
+            ModItems.SOIL_TEST_KIT.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND,
+                    new BlockHitResult(Vec3.atCenterOf(tomato), Direction.UP, tomato, false)));
+        });
+        context.waitTicks(10);
+        context.takeScreenshot("soil_analysis");
     }
 
     private static void weatherStation(ClientGameTestContext context, TestSingleplayerContext world) {

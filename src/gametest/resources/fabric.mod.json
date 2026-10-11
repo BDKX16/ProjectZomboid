@@ -10,7 +10,8 @@
       "org.example.pz.projectzomboid_prd.gametest.ShelterGameTest",
       "org.example.pz.projectzomboid_prd.gametest.PruningShearsGameTest",
       "org.example.pz.projectzomboid_prd.gametest.EquipmentGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.VentilationGameTest"
+      "org.example.pz.projectzomboid_prd.gametest.VentilationGameTest",
+      "org.example.pz.projectzomboid_prd.gametest.SoilGameTest"
     ],
     "fabric-client-gametest": [
       "org.example.pz.projectzomboid_prd.gametest.client.ScreenshotClientGameTest"

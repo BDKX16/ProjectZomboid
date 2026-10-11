@@ -20,6 +20,7 @@ import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
 import org.example.pz.projectzomboid_prd.block.SeasonalCropBlock;
 import org.example.pz.projectzomboid_prd.crop.CropProfile;
 import org.example.pz.projectzomboid_prd.crop.CropProfiles;
+import org.example.pz.projectzomboid_prd.soil.SoilManager;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -50,7 +51,8 @@ public class PruningShearsItem extends Item {
         }
 
         Player player = context.getPlayer();
-        Optional<Integer> regrowAge = CropProfiles.get(level.registryAccess(), crop).flatMap(CropProfile::regrowAge);
+        Optional<CropProfile> profile = CropProfiles.get(level.registryAccess(), crop);
+        Optional<Integer> regrowAge = profile.flatMap(CropProfile::regrowAge);
         if (regrowAge.isEmpty()) {
             message(level, player, "single_harvest");
             return InteractionResult.FAIL;
@@ -63,6 +65,7 @@ public class PruningShearsItem extends Item {
         if (level instanceof ServerLevel) {
             Block.popResource(level, pos, new ItemStack(crop.getProduce(), 1 + level.getRandom().nextInt(2)));
             level.setBlock(pos, crop.getStateForAge(regrowAge.get()), Block.UPDATE_ALL);
+            SoilManager.onHarvest(level, pos, profile.get());
             level.playSound(null, pos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1.0f, 1.2f);
             if (player != null) {
                 context.getItemInHand().hurtAndBreak(1, player, context.getHand());

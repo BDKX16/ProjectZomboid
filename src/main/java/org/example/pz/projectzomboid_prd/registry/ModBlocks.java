@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
+import org.example.pz.projectzomboid_prd.block.CompostBinBlock;
 import org.example.pz.projectzomboid_prd.block.ExtractorBlock;
 import org.example.pz.projectzomboid_prd.block.GrowLightBlock;
 import org.example.pz.projectzomboid_prd.block.MoldyCropBlock;
@@ -51,6 +52,12 @@ public final class ModBlocks {
             .strength(2.0f)
             .requiresCorrectToolForDrops()
             .sound(SoundType.COPPER));
+
+    /** Compost bin: like a composter, but yields compost for the soil. */
+    public static final Block COMPOST_BIN = register("compost_bin", CompostBinBlock::new, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.WOOD)
+            .strength(0.6f)
+            .sound(SoundType.WOOD));
 
     /** A crop killed by mold in a muggy greenhouse or grow room; has no item. */
     public static final Block MOLDY_CROP = registerBlock("moldy_crop", MoldyCropBlock::new, BlockBehaviour.Properties.of()

@@ -10,10 +10,13 @@ import org.example.pz.projectzomboid_prd.greenhouse.Mold;
 import org.example.pz.projectzomboid_prd.greenhouse.Shelter;
 import org.example.pz.projectzomboid_prd.greenhouse.ShelterDetector;
 import org.example.pz.projectzomboid_prd.season.SeasonManager;
+import org.example.pz.projectzomboid_prd.soil.SoilData;
+import org.example.pz.projectzomboid_prd.soil.SoilManager;
+import org.example.pz.projectzomboid_prd.soil.SoilRules;
 
 import java.util.Optional;
 
-/** Applies seasons, climate and mold to crops in a world. Called from {@code CropBlockMixin}. */
+/** Applies seasons, climate, mold and soil to crops in a world. Called from {@code CropBlockMixin}. */
 public final class CropClimate {
     /** Chance per random tick that frost or heat sets a stressed crop back one stage. */
     private static final float DAMAGE_CHANCE = 0.25f;
@@ -51,13 +54,30 @@ public final class CropClimate {
             return true;
         }
         GrowthCalculator.Growth growth = evaluate(level, pos, profile.get(), shelter);
+        SoilData soil = SoilManager.get(level, pos.below());
         if (growth.damaging()) {
-            if (random.nextFloat() < DAMAGE_CHANCE) {
+            if (!protectedByMulch(level, pos, shelter, growth, soil) && random.nextFloat() < DAMAGE_CHANCE) {
                 damage(crop, state, level, pos);
             }
             return true;
         }
-        return random.nextFloat() >= growth.factor();
+        float factor = growth.factor() * soilMultiplier(level, pos, profile.get(), soil);
+        return random.nextFloat() >= factor;
+    }
+
+    /** Growth multiplier from the soil below and the crops around. */
+    public static float soilMultiplier(ServerLevel level, BlockPos pos, CropProfile profile, SoilData soil) {
+        return SoilRules.multiplier(soil, profile.family(), SoilManager.neighbourhood(level, pos, profile));
+    }
+
+    /** Mulch keeps the soil warm enough to shrug off a light frost. */
+    private static boolean protectedByMulch(ServerLevel level, BlockPos pos, Shelter shelter, GrowthCalculator.Growth growth, SoilData soil) {
+        if (growth.stress() != GrowthCalculator.Stress.FROST || soil.mulch() <= 0) {
+            return false;
+        }
+        double now = shelter.adjust(SeasonManager.climate(level.getServer()).temperatureAt(
+                level.getBiome(pos).value().getBaseTemperature(), pos.getY(), SeasonManager.ticks(level.getServer())));
+        return now >= SoilRules.MULCH_FROST_PROTECTION;
     }
 
     /** @return true if bone meal should have no effect */

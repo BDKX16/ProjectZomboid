@@ -12,5 +12,10 @@
     "max": 32
   },
   "frost_tolerant": false,
-  "growth_rate": 1.0
+  "growth_rate": 1.0,
+  "nitrogen": -12,
+  "antagonists": [
+    "projectzomboid_prd:tomato_crop",
+    "projectzomboid_prd:sunflower_crop"
+  ]
 }

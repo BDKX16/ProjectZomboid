@@ -14,5 +14,9 @@
   },
   "frost_tolerant": true,
   "growth_rate": 1.0,
-  "regrow_age": 4
+  "regrow_age": 4,
+  "nitrogen": -5,
+  "companions": [
+    "projectzomboid_prd:lettuce_crop"
+  ]
 }

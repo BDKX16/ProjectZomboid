@@ -3,14 +3,17 @@ package org.example.pz.projectzomboid_prd.registry;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.Compostable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -55,6 +58,9 @@ public final class ModCrops {
                     }
                     output.accept(ModItems.PRUNING_SHEARS);
                     output.accept(ModItems.THERMOHYGROMETER);
+                    output.accept(ModItems.SOIL_TEST_KIT);
+                    output.accept(ModItems.COMPOST);
+                    output.accept(ModItems.STRAW_MULCH);
                     for (Crop crop : ALL) {
                         output.accept(crop.seeds());
                         output.accept(crop.produce());
@@ -77,9 +83,10 @@ public final class ModCrops {
                 .instabreak()
                 .sound(SoundType.CROP)
                 .pushReaction(PushReaction.POPPED));
-        Item seeds = registerItem(name + "_seeds", properties -> new BlockItem(block, properties), new Item.Properties());
+        Item seeds = registerItem(name + "_seeds", properties -> new BlockItem(block, properties),
+                new Item.Properties().component(DataComponents.COMPOSTABLE, compostable("low")));
 
-        Item.Properties produceProperties = new Item.Properties();
+        Item.Properties produceProperties = new Item.Properties().component(DataComponents.COMPOSTABLE, compostable("medium"));
         if (food != null) {
             produceProperties.food(food);
         }
@@ -97,6 +104,11 @@ public final class ModCrops {
         Crop crop = new Crop(name, block, seeds, produce, wild, seedsPerCraft);
         MUTABLE_ALL.add(crop);
         return crop;
+    }
+
+    /** One of vanilla's compost chance providers ({@code data/minecraft/context_int_provider/compostable/}). */
+    private static Compostable compostable(String chance) {
+        return new Compostable(ResourceKey.create(Registries.CONTEXT_INT_PROVIDER, Identifier.withDefaultNamespace("compostable/" + chance)));
     }
 
     private static FoodProperties food(int nutrition, float saturation) {

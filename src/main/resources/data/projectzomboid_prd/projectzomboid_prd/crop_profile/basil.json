@@ -13,5 +13,9 @@
   },
   "frost_tolerant": false,
   "growth_rate": 0.8,
-  "regrow_age": 4
+  "regrow_age": 4,
+  "nitrogen": -4,
+  "companions": [
+    "projectzomboid_prd:tomato_crop"
+  ]
 }

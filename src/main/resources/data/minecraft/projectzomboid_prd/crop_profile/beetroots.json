@@ -12,5 +12,10 @@
     "max": 30
   },
   "frost_tolerant": true,
-  "growth_rate": 1.0
+  "growth_rate": 1.0,
+  "nitrogen": -8,
+  "companions": [
+    "projectzomboid_prd:lettuce_crop",
+    "projectzomboid_prd:broccoli_crop"
+  ]
 }

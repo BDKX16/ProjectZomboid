@@ -9,6 +9,7 @@ import org.example.pz.projectzomboid_prd.registry.ModCrops;
 import org.example.pz.projectzomboid_prd.registry.ModGameRules;
 import org.example.pz.projectzomboid_prd.registry.ModItems;
 import org.example.pz.projectzomboid_prd.season.SeasonManager;
+import org.example.pz.projectzomboid_prd.soil.SoilManager;
 import org.example.pz.projectzomboid_prd.worldgen.ModWorldGen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,5 +32,6 @@ public class Projectzomboid_prd implements ModInitializer {
         ModCrops.init();
         ModItems.init();
         ModWorldGen.init();
+        SoilManager.init();
     }
 }

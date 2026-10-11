@@ -13,5 +13,10 @@
   },
   "frost_tolerant": false,
   "growth_rate": 0.5,
-  "regrow_age": 5
+  "regrow_age": 5,
+  "nitrogen": -14,
+  "companions": [
+    "projectzomboid_prd:soybean_crop",
+    "projectzomboid_prd:sunflower_crop"
+  ]
 }

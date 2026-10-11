@@ -13,5 +13,9 @@
     "max": 30
   },
   "frost_tolerant": true,
-  "growth_rate": 1.0
+  "growth_rate": 1.0,
+  "nitrogen": -10,
+  "companions": [
+    "projectzomboid_prd:soybean_crop"
+  ]
 }

@@ -270,3 +270,73 @@ biomas se lee gracias a `projectzomboid_prd.classtweaker`. Gametest `EquipmentGa
 el ventilador se prende y se apaga según el respiradero. `VentilationGameTest`: 25 cultivos necesitan 2
 extractores (con uno, 50 % de ventilación), y en una sala sin ventilación el tomate se cubre de moho. Las capturas del cliente incluyen una sala de cultivo con y
 sin ventilación.
+
+### Fase 6 — Suelo regenerativo ✅
+
+Cada bloque de **tierra arada** guarda su propio estado. Se guarda con el mundo, dentro del chunk, y sigue ahí
+aunque vuelvas a arar.
+
+| Dato | Rango | Qué hace |
+|---|---|---|
+| Nitrógeno | 0-100 (empieza en 60) | Fertilidad: con 50 o más, crecimiento al 100 %; en 0, solo al 40 % |
+| Materia orgánica | 0-100 (empieza en 30) | Hasta +15 % de crecimiento y libera nitrógeno con cada cosecha |
+| Historial | últimas 3 familias | Para la rotación |
+| Mulch | cosechas restantes | Protección contra heladas y aporte de materia orgánica |
+
+**Cosechar cambia el suelo.** Pasa al romper un cultivo maduro o al cortarlo con las tijeras:
+- se suma o se resta el nitrógeno del cultivo (`"nitrogen"` en su perfil);
+- la materia orgánica libera 1 de nitrógeno cada 20 puntos y se descompone 2 puntos;
+- la familia se anota en el historial.
+
+| Cultivo | Nitrógeno por cosecha |
+|---|---|
+| **Soja** (leguminosa) | **+20** (fija nitrógeno del aire) |
+| Albahaca, rúcula, lechuga, zanahoria | −4 a −6 |
+| Remolacha, trigo, girasol | −8 a −10 |
+| Tomate, papa | −12 |
+| Brócoli, zapallo | −14 |
+
+**Rotación.** Volver a plantar la misma familia donde se cosechó la última vez → **−30 %**. Tres cosechas
+seguidas de la misma familia (monocultivo) → **−50 %**. La idea es alternar, por ejemplo tomate → soja → lechuga.
+
+**Asociación de cultivos (policultivo).** Se miran los cultivos a 2 bloques o menos, al mismo nivel:
+- **planta compañera** cerca → **+15 %**;
+- **antagonista** cerca → **−25 %**;
+- **3 especies distintas o más** (contando la propia) → **+10 %**.
+
+| Cultivo | Compañeras | Antagonistas |
+|---|---|---|
+| Tomate | albahaca, zanahoria | papa, brócoli |
+| Albahaca | tomate | — |
+| Lechuga | zanahoria, rúcula, remolacha | — |
+| Rúcula | lechuga | — |
+| Brócoli | lechuga, remolacha | tomate |
+| Soja | trigo, zapallo | — |
+| Zapallo | soja, girasol | — |
+| Girasol | zapallo | papa |
+| Papa | — | tomate, girasol |
+| Trigo | soja | — |
+| Zanahoria | lechuga, tomate | — |
+| Remolacha | lechuga, brócoli | — |
+
+Todo esto está en los perfiles JSON (`"companions"`, `"antagonists"`, `"nitrogen"`), así que se puede cambiar con
+datapacks.
+
+**Bloques e ítems nuevos**
+
+| | Receta | Uso |
+|---|---|---|
+| **Compostera** | `P P` / `PDP` / `PPP` — P tablas, D tierra | Se llena como el compostador (acepta los productos y semillas del mod); cuando está lista da **2 de compost** en vez de polvo de hueso. Las tolvas no pueden sacar polvo de hueso de ella |
+| **Compost** | de la compostera | Click derecho en tierra arada (o en el cultivo): **+25 materia orgánica, +15 nitrógeno** |
+| **Mulch de paja** | 3 trigo → 2 | Cubre la tierra arada por **4 cosechas**: los cultivos no sufren heladas de hasta −5 °C y cada cosecha suma +3 de materia orgánica |
+| **Kit de análisis de suelo** | frasco + papel + redstone | Click derecho en tierra arada o en un cultivo: nitrógeno, materia orgánica, fertilidad, mulch, historial, rotación, vecinos y efecto total |
+
+Los productos y semillas del mod también se pueden echar al **compostador vanilla**.
+
+**Corrección:** durante las fases 4 y 5 las recetas de la **estación climática**, las **tijeras de poda** y el
+**termohigrómetro** no se estaban generando (un error de codificación en un script de edición). Ya están, y el test
+`RecipesTest` comprueba que exista la receta de cada bloque y herramienta.
+
+**Código:** `soil/` (`SoilData`, `SoilRules` con tests, `SoilManager`), `block/CompostBinBlock`,
+`item/SoilAmendmentItem`, `item/SoilTestKitItem`. Gametest `SoilGameTest`: las cosechas cambian el suelo, el
+compost lo recupera, la soja fija nitrógeno, se detectan compañeras/antagonistas y la compostera da compost.

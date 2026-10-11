@@ -12,5 +12,12 @@
     "max": 38
   },
   "frost_tolerant": false,
-  "growth_rate": 0.7
+  "growth_rate": 0.7,
+  "nitrogen": -10,
+  "companions": [
+    "projectzomboid_prd:squash_crop"
+  ],
+  "antagonists": [
+    "minecraft:potatoes"
+  ]
 }
