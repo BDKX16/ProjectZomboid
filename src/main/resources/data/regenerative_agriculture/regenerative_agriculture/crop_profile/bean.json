@@ -1,0 +1,25 @@
+{
+  "block": "regenerative_agriculture:bean_crop",
+  "family": "legumes",
+  "seasons": [
+    "spring",
+    "summer"
+  ],
+  "temperature": {
+    "min": 10,
+    "optimal_min": 18,
+    "optimal_max": 28,
+    "max": 32
+  },
+  "frost_tolerant": false,
+  "growth_rate": 0.7,
+  "nitrogen": 18,
+  "companions": [
+    "regenerative_agriculture:corn_crop",
+    "regenerative_agriculture:squash_crop"
+  ],
+  "antagonists": [
+    "regenerative_agriculture:onion_crop",
+    "regenerative_agriculture:garlic_crop"
+  ]
+}

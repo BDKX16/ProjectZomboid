@@ -1,0 +1,21 @@
+{
+  "block": "regenerative_agriculture:soybean_crop",
+  "family": "legumes",
+  "seasons": [
+    "spring",
+    "summer"
+  ],
+  "temperature": {
+    "min": 10,
+    "optimal_min": 20,
+    "optimal_max": 30,
+    "max": 36
+  },
+  "frost_tolerant": false,
+  "growth_rate": 0.7,
+  "nitrogen": 20,
+  "companions": [
+    "minecraft:wheat",
+    "regenerative_agriculture:squash_crop"
+  ]
+}

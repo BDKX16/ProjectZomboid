@@ -1,0 +1,34 @@
+{
+  "parent": "regenerative_agriculture:route/brewery",
+  "criteria": {
+    "beer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:beer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.beer.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "regenerative_agriculture:beer"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.beer"
+    }
+  },
+  "requirements": [
+    [
+      "beer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

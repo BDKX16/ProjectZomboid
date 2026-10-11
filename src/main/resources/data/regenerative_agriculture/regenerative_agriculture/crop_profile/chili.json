@@ -1,0 +1,26 @@
+{
+  "block": "regenerative_agriculture:chili_crop",
+  "family": "nightshades",
+  "seasons": [
+    "spring",
+    "summer"
+  ],
+  "temperature": {
+    "min": 12,
+    "optimal_min": 20,
+    "optimal_max": 30,
+    "max": 35
+  },
+  "frost_tolerant": false,
+  "growth_rate": 0.55,
+  "regrow_age": 5,
+  "nitrogen": -10,
+  "companions": [
+    "regenerative_agriculture:basil_crop",
+    "regenerative_agriculture:onion_crop"
+  ],
+  "antagonists": [
+    "regenerative_agriculture:bean_crop",
+    "regenerative_agriculture:tobacco_crop"
+  ]
+}

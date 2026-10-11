@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bread",
+    "minecraft:cooked_beef",
+    "regenerative_agriculture:lettuce",
+    "regenerative_agriculture:tomato"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:hamburger"
+  }
+}

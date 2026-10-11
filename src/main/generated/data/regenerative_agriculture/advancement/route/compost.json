@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/soil_test",
+  "criteria": {
+    "compost": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:compost"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.compost.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:compost"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.compost"
+    }
+  },
+  "requirements": [
+    [
+      "compost"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

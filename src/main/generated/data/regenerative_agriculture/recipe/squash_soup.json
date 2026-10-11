@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bowl",
+    "regenerative_agriculture:squash",
+    "minecraft:potato"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:squash_soup"
+  }
+}

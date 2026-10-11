@@ -12,10 +12,10 @@ base {
 
 loom {
     splitEnvironmentSourceSets()
-    accessWidenerPath = file("src/main/resources/projectzomboid_prd.classtweaker")
+    accessWidenerPath = file("src/main/resources/regenerative_agriculture.classtweaker")
 
     mods {
-        "projectzomboid_prd" {
+        "regenerative_agriculture" {
             sourceSet sourceSets.main
             sourceSet sourceSets.client
         }
@@ -30,7 +30,7 @@ fabricApi {
     // ./gradlew runClientGameTest (opens a game window, saves screenshots)
     configureTests {
         createSourceSet = true
-        modId = "projectzomboid_prd_gametest"
+        modId = "regenerative_agriculture_gametest"
         enableGameTests = true
         enableClientGameTests = true
         eula = true

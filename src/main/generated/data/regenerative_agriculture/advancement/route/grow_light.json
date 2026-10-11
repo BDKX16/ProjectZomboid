@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/thermohygrometer",
+  "criteria": {
+    "grow_light": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:grow_light"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.grow_light.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:grow_light"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.grow_light"
+    }
+  },
+  "requirements": [
+    [
+      "grow_light"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "moisture=0": {
+      "model": "regenerative_agriculture:block/mulched_farmland"
+    },
+    "moisture=1": {
+      "model": "regenerative_agriculture:block/mulched_farmland"
+    },
+    "moisture=2": {
+      "model": "regenerative_agriculture:block/mulched_farmland"
+    },
+    "moisture=3": {
+      "model": "regenerative_agriculture:block/mulched_farmland"
+    },
+    "moisture=4": {
+      "model": "regenerative_agriculture:block/mulched_farmland"
+    },
+    "moisture=5": {
+      "model": "regenerative_agriculture:block/mulched_farmland"
+    },
+    "moisture=6": {
+      "model": "regenerative_agriculture:block/mulched_farmland"
+    },
+    "moisture=7": {
+      "model": "regenerative_agriculture:block/mulched_farmland_moist"
+    }
+  }
+}

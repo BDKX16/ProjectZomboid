@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/dried",
+  "criteria": {
+    "malt": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:malt"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.malt.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:malt"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.malt"
+    }
+  },
+  "requirements": [
+    [
+      "malt"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

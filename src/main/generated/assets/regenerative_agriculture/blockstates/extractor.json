@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "regenerative_agriculture:block/extractor"
+    },
+    "active=true": {
+      "model": "regenerative_agriculture:block/extractor_active"
+    }
+  }
+}

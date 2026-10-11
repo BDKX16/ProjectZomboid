@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "regenerative_agriculture:thermos",
+    "minecraft:water_bucket"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:thermos_cold"
+  }
+}

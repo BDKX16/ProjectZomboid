@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/crop",
-  "textures": {
-    "crop": "projectzomboid_prd:block/arugula_crop_stage0"
-  }
-}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "regenerative_agriculture:block/weather_station_bottom",
+    "side": "regenerative_agriculture:block/weather_station_side",
+    "top": "regenerative_agriculture:block/weather_station_top"
+  }
+}

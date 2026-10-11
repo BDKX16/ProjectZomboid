@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "regenerative_agriculture:block/soybean_crop_stage2"
+  }
+}

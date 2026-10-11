@@ -1,0 +1,388 @@
+{
+  "textures": {
+    "glass": "regenerative_agriculture:item/model_glass",
+    "weight": "regenerative_agriculture:item/model_steel_dark",
+    "scale": "regenerative_agriculture:item/hydrometer_scale",
+    "particle": "regenerative_agriculture:item/model_glass"
+  },
+  "elements": [
+    {
+      "from": [
+        7,
+        0,
+        7
+      ],
+      "to": [
+        9,
+        4,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#glass",
+          "uv": [
+            7,
+            12,
+            9,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#glass",
+          "uv": [
+            7,
+            12,
+            9,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#glass",
+          "uv": [
+            7,
+            12,
+            9,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#glass",
+          "uv": [
+            7,
+            12,
+            9,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#glass",
+          "uv": [
+            7,
+            7,
+            9,
+            9
+          ]
+        },
+        "down": {
+          "texture": "#glass",
+          "uv": [
+            7,
+            7,
+            9,
+            9
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        0.5,
+        7.5
+      ],
+      "to": [
+        8.5,
+        2,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#weight",
+          "uv": [
+            7.5,
+            14,
+            8.5,
+            15.5
+          ]
+        },
+        "south": {
+          "texture": "#weight",
+          "uv": [
+            7.5,
+            14,
+            8.5,
+            15.5
+          ]
+        },
+        "west": {
+          "texture": "#weight",
+          "uv": [
+            7.5,
+            14,
+            8.5,
+            15.5
+          ]
+        },
+        "east": {
+          "texture": "#weight",
+          "uv": [
+            7.5,
+            14,
+            8.5,
+            15.5
+          ]
+        },
+        "up": {
+          "texture": "#weight",
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            8.5
+          ]
+        },
+        "down": {
+          "texture": "#weight",
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            8.5
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        4,
+        7.5
+      ],
+      "to": [
+        8.5,
+        15,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#scale",
+          "uv": [
+            7.5,
+            1,
+            8.5,
+            12
+          ]
+        },
+        "south": {
+          "texture": "#scale",
+          "uv": [
+            7.5,
+            1,
+            8.5,
+            12
+          ]
+        },
+        "west": {
+          "texture": "#scale",
+          "uv": [
+            7.5,
+            1,
+            8.5,
+            12
+          ]
+        },
+        "east": {
+          "texture": "#scale",
+          "uv": [
+            7.5,
+            1,
+            8.5,
+            12
+          ]
+        },
+        "up": {
+          "texture": "#scale",
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            8.5
+          ]
+        },
+        "down": {
+          "texture": "#scale",
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            8.5
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.25,
+        15,
+        7.25
+      ],
+      "to": [
+        8.75,
+        16,
+        8.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#glass",
+          "uv": [
+            7.25,
+            0,
+            8.75,
+            1
+          ]
+        },
+        "south": {
+          "texture": "#glass",
+          "uv": [
+            7.25,
+            0,
+            8.75,
+            1
+          ]
+        },
+        "west": {
+          "texture": "#glass",
+          "uv": [
+            7.25,
+            0,
+            8.75,
+            1
+          ]
+        },
+        "east": {
+          "texture": "#glass",
+          "uv": [
+            7.25,
+            0,
+            8.75,
+            1
+          ]
+        },
+        "up": {
+          "texture": "#glass",
+          "uv": [
+            7.25,
+            7.25,
+            8.75,
+            8.75
+          ]
+        },
+        "down": {
+          "texture": "#glass",
+          "uv": [
+            7.25,
+            7.25,
+            8.75,
+            8.75
+          ]
+        }
+      }
+    }
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        1
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        1
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -25,
+        0
+      ],
+      "translation": [
+        1.5,
+        3.5,
+        1
+      ],
+      "scale": [
+        0.45,
+        0.45,
+        0.45
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        -25,
+        0
+      ],
+      "translation": [
+        1.5,
+        3.5,
+        1
+      ],
+      "scale": [
+        0.45,
+        0.45,
+        0.45
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "gui": {
+      "rotation": [
+        25,
+        -30,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "fixed": {
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  }
+}

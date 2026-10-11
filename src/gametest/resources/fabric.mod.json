@@ -1,28 +1,28 @@
 {
   "schemaVersion": 1,
-  "id": "projectzomboid_prd_gametest",
+  "id": "regenerative_agriculture_gametest",
   "version": "1.0.0",
-  "name": "ProjectZomboid_PRD game tests",
+  "name": "Regenerative Agriculture game tests",
   "environment": "*",
   "entrypoints": {
     "fabric-gametest": [
-      "org.example.pz.projectzomboid_prd.gametest.SeasonalCropGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.ShelterGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.PruningShearsGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.EquipmentGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.VentilationGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.SoilGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.FoodGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.ProcessingGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.BreweryGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.RouteGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.TradesGameTest"
+      "io.github.bdkx16.regenerativeagriculture.gametest.SeasonalCropGameTest",
+      "io.github.bdkx16.regenerativeagriculture.gametest.ShelterGameTest",
+      "io.github.bdkx16.regenerativeagriculture.gametest.PruningShearsGameTest",
+      "io.github.bdkx16.regenerativeagriculture.gametest.EquipmentGameTest",
+      "io.github.bdkx16.regenerativeagriculture.gametest.VentilationGameTest",
+      "io.github.bdkx16.regenerativeagriculture.gametest.SoilGameTest",
+      "io.github.bdkx16.regenerativeagriculture.gametest.FoodGameTest",
+      "io.github.bdkx16.regenerativeagriculture.gametest.ProcessingGameTest",
+      "io.github.bdkx16.regenerativeagriculture.gametest.BreweryGameTest",
+      "io.github.bdkx16.regenerativeagriculture.gametest.RouteGameTest",
+      "io.github.bdkx16.regenerativeagriculture.gametest.TradesGameTest"
     ],
     "fabric-client-gametest": [
-      "org.example.pz.projectzomboid_prd.gametest.client.ScreenshotClientGameTest"
+      "io.github.bdkx16.regenerativeagriculture.gametest.client.ScreenshotClientGameTest"
     ]
   },
   "depends": {
-    "projectzomboid_prd": "*"
+    "regenerative_agriculture": "*"
   }
 }

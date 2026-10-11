@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "projectzomboid_prd:farmer/5/cured_tobacco_emerald",
-    "projectzomboid_prd:farmer/5/beer_emerald",
-    "projectzomboid_prd:farmer/5/yerba_emerald"
+    "regenerative_agriculture:farmer/5/cured_tobacco_emerald",
+    "regenerative_agriculture:farmer/5/beer_emerald",
+    "regenerative_agriculture:farmer/5/yerba_emerald"
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_coffee_cherries": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:coffee_cherries"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "regenerative_agriculture:coffee_seeds"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_coffee_cherries"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "regenerative_agriculture:coffee_seeds"
+    ]
+  }
+}

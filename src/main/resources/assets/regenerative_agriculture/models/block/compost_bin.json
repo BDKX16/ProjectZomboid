@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/composter",
+  "textures": {
+    "particle": "regenerative_agriculture:block/compost_bin_side",
+    "top": "regenerative_agriculture:block/compost_bin_top",
+    "bottom": "regenerative_agriculture:block/compost_bin_bottom",
+    "side": "regenerative_agriculture:block/compost_bin_side",
+    "inside": "regenerative_agriculture:block/compost_bin_bottom"
+  }
+}

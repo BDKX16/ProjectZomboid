@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "filled=false": {
+      "model": "regenerative_agriculture:block/curing_jar"
+    },
+    "filled=true": {
+      "model": "regenerative_agriculture:block/curing_jar"
+    }
+  }
+}

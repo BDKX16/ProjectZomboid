@@ -1,0 +1,31 @@
+{
+  "parent": "regenerative_agriculture:route/salad",
+  "criteria": {
+    "hamburger": {
+      "conditions": {
+        "item": {
+          "items": "regenerative_agriculture:hamburger"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.hamburger.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:hamburger"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.hamburger"
+    }
+  },
+  "requirements": [
+    [
+      "hamburger"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

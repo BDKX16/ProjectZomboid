@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/first_harvest",
+  "criteria": {
+    "drying_rack": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:drying_rack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.drying_rack.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:drying_rack"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.drying_rack"
+    }
+  },
+  "requirements": [
+    [
+      "drying_rack"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

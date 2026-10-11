@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "regenerative_agriculture:block/yerba_mate_crop_stage3"
+  }
+}

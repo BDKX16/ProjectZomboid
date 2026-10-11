@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "contents=dry,facing=east": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 90
+    },
+    "contents=dry,facing=north": {
+      "model": "regenerative_agriculture:block/drying_rack_empty"
+    },
+    "contents=dry,facing=south": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 180
+    },
+    "contents=dry,facing=west": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 270
+    },
+    "contents=empty,facing=east": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 90
+    },
+    "contents=empty,facing=north": {
+      "model": "regenerative_agriculture:block/drying_rack_empty"
+    },
+    "contents=empty,facing=south": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 180
+    },
+    "contents=empty,facing=west": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 270
+    },
+    "contents=fresh,facing=east": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 90
+    },
+    "contents=fresh,facing=north": {
+      "model": "regenerative_agriculture:block/drying_rack_empty"
+    },
+    "contents=fresh,facing=south": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 180
+    },
+    "contents=fresh,facing=west": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 270
+    },
+    "contents=spoiled,facing=east": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 90
+    },
+    "contents=spoiled,facing=north": {
+      "model": "regenerative_agriculture:block/drying_rack_empty"
+    },
+    "contents=spoiled,facing=south": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 180
+    },
+    "contents=spoiled,facing=west": {
+      "model": "regenerative_agriculture:block/drying_rack_empty",
+      "y": 270
+    }
+  }
+}

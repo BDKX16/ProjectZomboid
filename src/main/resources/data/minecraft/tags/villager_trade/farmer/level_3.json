@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "projectzomboid_prd:farmer/3/emerald_compost",
-    "projectzomboid_prd:farmer/3/emerald_straw_mulch",
-    "projectzomboid_prd:farmer/3/cured_garlic_emerald",
-    "projectzomboid_prd:farmer/3/dried_corn_emerald"
+    "regenerative_agriculture:farmer/3/emerald_compost",
+    "regenerative_agriculture:farmer/3/emerald_straw_mulch",
+    "regenerative_agriculture:farmer/3/cured_garlic_emerald",
+    "regenerative_agriculture:farmer/3/dried_corn_emerald"
   ]
 }

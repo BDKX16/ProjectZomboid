@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_soybeans": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:soybeans"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "regenerative_agriculture:soy_stew"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_soybeans"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "regenerative_agriculture:soy_stew"
+    ]
+  }
+}

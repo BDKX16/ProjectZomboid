@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "regenerative_agriculture:item/sunflower_seeds"
+  }
+}

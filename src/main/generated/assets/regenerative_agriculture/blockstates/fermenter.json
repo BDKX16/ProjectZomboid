@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,stage=done": {
+      "model": "regenerative_agriculture:block/fermenter_done",
+      "y": 90
+    },
+    "facing=east,stage=empty": {
+      "model": "regenerative_agriculture:block/fermenter_empty",
+      "y": 90
+    },
+    "facing=east,stage=filled": {
+      "model": "regenerative_agriculture:block/fermenter_filled",
+      "y": 90
+    },
+    "facing=east,stage=working": {
+      "model": "regenerative_agriculture:block/fermenter_working",
+      "y": 90
+    },
+    "facing=north,stage=done": {
+      "model": "regenerative_agriculture:block/fermenter_done"
+    },
+    "facing=north,stage=empty": {
+      "model": "regenerative_agriculture:block/fermenter_empty"
+    },
+    "facing=north,stage=filled": {
+      "model": "regenerative_agriculture:block/fermenter_filled"
+    },
+    "facing=north,stage=working": {
+      "model": "regenerative_agriculture:block/fermenter_working"
+    },
+    "facing=south,stage=done": {
+      "model": "regenerative_agriculture:block/fermenter_done",
+      "y": 180
+    },
+    "facing=south,stage=empty": {
+      "model": "regenerative_agriculture:block/fermenter_empty",
+      "y": 180
+    },
+    "facing=south,stage=filled": {
+      "model": "regenerative_agriculture:block/fermenter_filled",
+      "y": 180
+    },
+    "facing=south,stage=working": {
+      "model": "regenerative_agriculture:block/fermenter_working",
+      "y": 180
+    },
+    "facing=west,stage=done": {
+      "model": "regenerative_agriculture:block/fermenter_done",
+      "y": 270
+    },
+    "facing=west,stage=empty": {
+      "model": "regenerative_agriculture:block/fermenter_empty",
+      "y": 270
+    },
+    "facing=west,stage=filled": {
+      "model": "regenerative_agriculture:block/fermenter_filled",
+      "y": 270
+    },
+    "facing=west,stage=working": {
+      "model": "regenerative_agriculture:block/fermenter_working",
+      "y": 270
+    }
+  }
+}

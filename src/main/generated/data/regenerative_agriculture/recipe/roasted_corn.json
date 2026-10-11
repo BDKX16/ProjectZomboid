@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredient": "regenerative_agriculture:corn",
+  "result": {
+    "id": "regenerative_agriculture:roasted_corn"
+  }
+}

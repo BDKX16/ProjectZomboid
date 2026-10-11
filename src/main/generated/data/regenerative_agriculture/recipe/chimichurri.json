@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "regenerative_agriculture:cured_garlic",
+    "regenerative_agriculture:ground_chili",
+    "regenerative_agriculture:basil"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:chimichurri"
+  }
+}

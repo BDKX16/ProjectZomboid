@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "regenerative_agriculture:block/wild_corn"
+    }
+  }
+}

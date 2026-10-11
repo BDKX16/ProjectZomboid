@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bowl",
+    "regenerative_agriculture:lettuce",
+    "regenerative_agriculture:arugula",
+    "regenerative_agriculture:tomato"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:green_salad"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "G": "minecraft:glass_pane",
+    "I": "minecraft:iron_ingot",
+    "K": "minecraft:clock",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    "CKC",
+    "GRG",
+    "III"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:weather_station"
+  }
+}

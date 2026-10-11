@@ -1,30 +1,32 @@
 {
   "schemaVersion": 1,
-  "id": "projectzomboid_prd",
+  "id": "regenerative_agriculture",
   "version": "${version}",
-  "name": "ProjectZomboid_PRD",
-  "description": "",
-  "authors": [],
+  "name": "Regenerative Agriculture",
+  "description": "Seasons and climate by biome, greenhouses and grow rooms, living soil with crop rotation and companions, 18 crops, drying and curing, a microbrewery, mate, meals with effects and a farming manual with a route of milestones.",
+  "authors": [
+    "BDKX16"
+  ],
   "contact": {},
-  "license": "All-Rights-Reserved",
-  "icon": "assets/projectzomboid_prd/icon.png",
+  "license": "MIT",
+  "icon": "assets/regenerative_agriculture/icon.png",
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
-      "org.example.pz.projectzomboid_prd.client.Projectzomboid_prdDataGenerator"
+      "io.github.bdkx16.regenerativeagriculture.client.RegenerativeAgricultureDataGenerator"
     ],
     "client": [
-      "org.example.pz.projectzomboid_prd.client.Projectzomboid_prdClient"
+      "io.github.bdkx16.regenerativeagriculture.client.RegenerativeAgricultureClient"
     ],
     "main": [
-      "org.example.pz.projectzomboid_prd.Projectzomboid_prd"
+      "io.github.bdkx16.regenerativeagriculture.RegenerativeAgriculture"
     ]
   },
-  "accessWidener": "projectzomboid_prd.classtweaker",
+  "accessWidener": "regenerative_agriculture.classtweaker",
   "mixins": [
-    "projectzomboid_prd.mixins.json",
+    "regenerative_agriculture.mixins.json",
     {
-      "config": "projectzomboid_prd.client.mixins.json",
+      "config": "regenerative_agriculture.client.mixins.json",
       "environment": "client"
     }
   ],

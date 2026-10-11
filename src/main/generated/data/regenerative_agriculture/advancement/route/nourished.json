@@ -1,0 +1,32 @@
+{
+  "parent": "regenerative_agriculture:route/hamburger",
+  "criteria": {
+    "nourished": {
+      "conditions": {
+        "effects": {
+          "regenerative_agriculture:nourished": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.nourished.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "regenerative_agriculture:locro"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.nourished"
+    }
+  },
+  "requirements": [
+    [
+      "nourished"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

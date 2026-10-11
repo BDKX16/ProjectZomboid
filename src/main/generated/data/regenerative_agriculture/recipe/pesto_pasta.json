@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bowl",
+    "minecraft:wheat",
+    "minecraft:wheat",
+    "regenerative_agriculture:basil",
+    "regenerative_agriculture:basil",
+    "regenerative_agriculture:sunflower_head"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:pesto_pasta"
+  }
+}

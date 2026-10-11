@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/wild_seeds",
+  "criteria": {
+    "weather_station": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:weather_station"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.weather_station.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:weather_station"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.weather_station"
+    }
+  },
+  "requirements": [
+    [
+      "weather_station"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

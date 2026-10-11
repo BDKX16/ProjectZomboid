@@ -1,0 +1,31 @@
+{
+  "parent": "regenerative_agriculture:route/first_harvest",
+  "criteria": {
+    "salad": {
+      "conditions": {
+        "item": {
+          "items": "regenerative_agriculture:green_salad"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.salad.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:green_salad"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.salad"
+    }
+  },
+  "requirements": [
+    [
+      "salad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

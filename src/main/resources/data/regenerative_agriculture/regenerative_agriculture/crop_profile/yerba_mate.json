@@ -1,0 +1,19 @@
+{
+  "block": "regenerative_agriculture:yerba_mate_crop",
+  "family": "hollies",
+  "seasons": [
+    "spring",
+    "summer",
+    "autumn"
+  ],
+  "temperature": {
+    "min": 8,
+    "optimal_min": 20,
+    "optimal_max": 28,
+    "max": 33
+  },
+  "frost_tolerant": false,
+  "growth_rate": 0.35,
+  "regrow_age": 5,
+  "nitrogen": -6
+}

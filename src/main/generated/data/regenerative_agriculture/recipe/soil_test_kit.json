@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "minecraft:paper",
+    "minecraft:redstone"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:soil_test_kit"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bowl",
+    "regenerative_agriculture:soybeans",
+    "regenerative_agriculture:soybeans",
+    "minecraft:carrot",
+    "minecraft:potato"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:soy_stew"
+  }
+}

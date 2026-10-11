@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "regenerative_agriculture:yerba_leaves"
+  ],
+  "result": {
+    "count": 2,
+    "id": "regenerative_agriculture:yerba_mate_seeds"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "regenerative_agriculture:tomato",
+    "regenerative_agriculture:tomato"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:tomato_juice"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/first_harvest",
+  "criteria": {
+    "soil_test": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:soil_test_kit"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.soil_test.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:soil_test_kit"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.soil_test"
+    }
+  },
+  "requirements": [
+    [
+      "soil_test"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

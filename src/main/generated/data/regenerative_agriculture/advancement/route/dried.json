@@ -1,0 +1,45 @@
+{
+  "parent": "regenerative_agriculture:route/drying_rack",
+  "criteria": {
+    "dried": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "regenerative_agriculture:cured_garlic",
+              "regenerative_agriculture:cured_onion",
+              "regenerative_agriculture:dried_tobacco",
+              "regenerative_agriculture:dried_cannabis",
+              "regenerative_agriculture:dried_coffee",
+              "regenerative_agriculture:dried_chili",
+              "regenerative_agriculture:dried_hops",
+              "regenerative_agriculture:dried_yerba",
+              "regenerative_agriculture:dried_corn",
+              "regenerative_agriculture:malt",
+              "regenerative_agriculture:cured_gourd"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.dried.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:dried_tobacco"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.dried"
+    }
+  },
+  "requirements": [
+    [
+      "dried"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

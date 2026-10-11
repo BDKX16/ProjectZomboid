@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/thermohygrometer",
+  "criteria": {
+    "extractor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:extractor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.extractor.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:extractor"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.extractor"
+    }
+  },
+  "requirements": [
+    [
+      "extractor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

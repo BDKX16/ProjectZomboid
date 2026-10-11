@@ -1,0 +1,26 @@
+{
+  "block": "regenerative_agriculture:garlic_crop",
+  "family": "alliums",
+  "seasons": [
+    "autumn",
+    "winter"
+  ],
+  "temperature": {
+    "min": 0,
+    "optimal_min": 8,
+    "optimal_max": 20,
+    "max": 28
+  },
+  "frost_tolerant": true,
+  "growth_rate": 0.4,
+  "nitrogen": -5,
+  "companions": [
+    "regenerative_agriculture:tomato_crop",
+    "minecraft:beetroots",
+    "minecraft:carrots"
+  ],
+  "antagonists": [
+    "regenerative_agriculture:bean_crop",
+    "regenerative_agriculture:soybean_crop"
+  ]
+}

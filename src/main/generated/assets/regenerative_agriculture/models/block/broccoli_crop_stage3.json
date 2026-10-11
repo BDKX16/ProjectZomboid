@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "regenerative_agriculture:block/broccoli_crop_stage3"
+  }
+}

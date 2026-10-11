@@ -1,0 +1,24 @@
+{
+  "block": "regenerative_agriculture:squash_crop",
+  "family": "cucurbits",
+  "seasons": [
+    "spring",
+    "summer"
+  ],
+  "temperature": {
+    "min": 12,
+    "optimal_min": 20,
+    "optimal_max": 30,
+    "max": 36
+  },
+  "frost_tolerant": false,
+  "growth_rate": 0.5,
+  "regrow_age": 5,
+  "nitrogen": -14,
+  "companions": [
+    "regenerative_agriculture:soybean_crop",
+    "regenerative_agriculture:sunflower_crop",
+    "regenerative_agriculture:corn_crop",
+    "regenerative_agriculture:bean_crop"
+  ]
+}

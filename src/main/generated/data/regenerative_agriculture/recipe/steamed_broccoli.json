@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bowl",
+    "regenerative_agriculture:broccoli",
+    "regenerative_agriculture:broccoli",
+    "regenerative_agriculture:basil"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:steamed_broccoli"
+  }
+}

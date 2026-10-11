@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "regenerative_agriculture:roasted_coffee",
+    "regenerative_agriculture:roasted_coffee",
+    "minecraft:water_bucket"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:coffee"
+  }
+}

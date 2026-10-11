@@ -1,0 +1,52 @@
+{
+  "parent": "regenerative_agriculture:route/wild_seeds",
+  "criteria": {
+    "first_harvest": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "regenerative_agriculture:lettuce",
+              "regenerative_agriculture:tomato",
+              "regenerative_agriculture:arugula",
+              "regenerative_agriculture:broccoli",
+              "regenerative_agriculture:soybeans",
+              "regenerative_agriculture:sunflower_head",
+              "regenerative_agriculture:basil",
+              "regenerative_agriculture:squash",
+              "regenerative_agriculture:onion",
+              "regenerative_agriculture:garlic",
+              "regenerative_agriculture:cannabis_bud",
+              "regenerative_agriculture:tobacco_leaf",
+              "regenerative_agriculture:coffee_cherries",
+              "regenerative_agriculture:chili_pepper",
+              "regenerative_agriculture:hops",
+              "regenerative_agriculture:yerba_leaves",
+              "regenerative_agriculture:corn",
+              "regenerative_agriculture:beans"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.first_harvest.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:lettuce"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.first_harvest"
+    }
+  },
+  "requirements": [
+    [
+      "first_harvest"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

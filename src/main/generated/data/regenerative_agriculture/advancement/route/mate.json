@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/dried",
+  "criteria": {
+    "mate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:mate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.mate.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:mate"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.mate"
+    }
+  },
+  "requirements": [
+    [
+      "mate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,24 @@
+{
+  "block": "regenerative_agriculture:corn_crop",
+  "family": "grasses",
+  "seasons": [
+    "spring",
+    "summer"
+  ],
+  "temperature": {
+    "min": 10,
+    "optimal_min": 20,
+    "optimal_max": 30,
+    "max": 36
+  },
+  "frost_tolerant": false,
+  "growth_rate": 0.6,
+  "nitrogen": -16,
+  "companions": [
+    "regenerative_agriculture:bean_crop",
+    "regenerative_agriculture:squash_crop"
+  ],
+  "antagonists": [
+    "regenerative_agriculture:tomato_crop"
+  ]
+}

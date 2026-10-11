@@ -1,0 +1,22 @@
+{
+  "block": "regenerative_agriculture:coffee_crop",
+  "family": "madders",
+  "seasons": [
+    "spring",
+    "summer",
+    "autumn"
+  ],
+  "temperature": {
+    "min": 12,
+    "optimal_min": 18,
+    "optimal_max": 26,
+    "max": 30
+  },
+  "frost_tolerant": false,
+  "growth_rate": 0.35,
+  "regrow_age": 5,
+  "nitrogen": -8,
+  "companions": [
+    "regenerative_agriculture:bean_crop"
+  ]
+}

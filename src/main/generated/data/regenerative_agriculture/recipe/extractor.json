@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": "minecraft:iron_bars",
+    "C": "minecraft:copper_ingot",
+    "I": "minecraft:iron_ingot",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    "IBI",
+    "RCR",
+    "IBI"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:extractor"
+  }
+}

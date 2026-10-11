@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/soil_test",
+  "criteria": {
+    "mulch": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:straw_mulch"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.mulch.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:straw_mulch"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.mulch"
+    }
+  },
+  "requirements": [
+    [
+      "mulch"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

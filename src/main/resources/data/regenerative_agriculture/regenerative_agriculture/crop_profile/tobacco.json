@@ -1,0 +1,22 @@
+{
+  "block": "regenerative_agriculture:tobacco_crop",
+  "family": "nightshades",
+  "seasons": [
+    "spring",
+    "summer"
+  ],
+  "temperature": {
+    "min": 13,
+    "optimal_min": 20,
+    "optimal_max": 30,
+    "max": 35
+  },
+  "frost_tolerant": false,
+  "growth_rate": 0.5,
+  "nitrogen": -14,
+  "antagonists": [
+    "regenerative_agriculture:tomato_crop",
+    "minecraft:potatoes",
+    "regenerative_agriculture:chili_crop"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bowl",
+    "regenerative_agriculture:dried_corn",
+    "regenerative_agriculture:beans",
+    "regenerative_agriculture:squash",
+    "regenerative_agriculture:ground_chili",
+    "regenerative_agriculture:cured_onion"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:locro"
+  }
+}

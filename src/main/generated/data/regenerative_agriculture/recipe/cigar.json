@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "regenerative_agriculture:cured_tobacco",
+    "regenerative_agriculture:cured_tobacco"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:cigar"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "parent": "regenerative_agriculture:route/dried",
+  "criteria": {
+    "cured": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "regenerative_agriculture:cured_tobacco",
+              "regenerative_agriculture:cured_cannabis",
+              "regenerative_agriculture:yerba"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.cured.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "regenerative_agriculture:cured_tobacco"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.cured"
+    }
+  },
+  "requirements": [
+    [
+      "cured"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

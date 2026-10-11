@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:cooked_beef",
+    "minecraft:cooked_beef",
+    "regenerative_agriculture:chimichurri"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:asado"
+  }
+}

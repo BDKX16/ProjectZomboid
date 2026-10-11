@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/first_harvest",
+  "criteria": {
+    "pruning_shears": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:pruning_shears"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.pruning_shears.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:pruning_shears"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.pruning_shears"
+    }
+  },
+  "requirements": [
+    [
+      "pruning_shears"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

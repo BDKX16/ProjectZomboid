@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "regenerative_agriculture:yerba_mate_seeds"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_yerba_leaves": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:yerba_leaves"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_yerba_leaves"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "regenerative_agriculture:yerba_mate_seeds"
+    ]
+  }
+}

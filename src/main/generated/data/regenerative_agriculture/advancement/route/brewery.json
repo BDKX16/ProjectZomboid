@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/malt",
+  "criteria": {
+    "brewery": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:fermenter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.brewery.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:fermenter"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.brewery"
+    }
+  },
+  "requirements": [
+    [
+      "brewery"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

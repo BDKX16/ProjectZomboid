@@ -1,0 +1,25 @@
+{
+  "block": "regenerative_agriculture:broccoli_crop",
+  "family": "brassicas",
+  "seasons": [
+    "autumn",
+    "winter"
+  ],
+  "temperature": {
+    "min": 2,
+    "optimal_min": 10,
+    "optimal_max": 20,
+    "max": 26
+  },
+  "frost_tolerant": true,
+  "growth_rate": 0.6,
+  "regrow_age": 5,
+  "nitrogen": -14,
+  "companions": [
+    "regenerative_agriculture:lettuce_crop",
+    "minecraft:beetroots"
+  ],
+  "antagonists": [
+    "regenerative_agriculture:tomato_crop"
+  ]
+}

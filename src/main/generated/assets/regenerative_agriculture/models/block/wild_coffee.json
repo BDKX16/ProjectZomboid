@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "regenerative_agriculture:block/wild_coffee"
+  }
+}

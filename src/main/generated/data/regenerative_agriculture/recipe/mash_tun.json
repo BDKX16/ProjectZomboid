@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": "minecraft:barrel",
+    "I": "minecraft:iron_ingot"
+  },
+  "pattern": [
+    "I I",
+    "IBI",
+    "III"
+  ],
+  "result": {
+    "id": "regenerative_agriculture:mash_tun"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "parent": "regenerative_agriculture:route/thermohygrometer",
+  "criteria": {
+    "greenhouse": {
+      "trigger": "regenerative_agriculture:greenhouse_harvest"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.greenhouse.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "minecraft:glass"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.greenhouse"
+    }
+  },
+  "requirements": [
+    [
+      "greenhouse"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

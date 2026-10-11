@@ -1,0 +1,53 @@
+{
+  "criteria": {
+    "wild_seeds": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "regenerative_agriculture:lettuce_seeds",
+              "regenerative_agriculture:tomato_seeds",
+              "regenerative_agriculture:arugula_seeds",
+              "regenerative_agriculture:broccoli_seeds",
+              "regenerative_agriculture:soybean_seeds",
+              "regenerative_agriculture:sunflower_seeds",
+              "regenerative_agriculture:basil_seeds",
+              "regenerative_agriculture:squash_seeds",
+              "regenerative_agriculture:onion_seeds",
+              "regenerative_agriculture:garlic_seeds",
+              "regenerative_agriculture:cannabis_seeds",
+              "regenerative_agriculture:tobacco_seeds",
+              "regenerative_agriculture:coffee_seeds",
+              "regenerative_agriculture:chili_seeds",
+              "regenerative_agriculture:hop_seeds",
+              "regenerative_agriculture:yerba_mate_seeds",
+              "regenerative_agriculture:corn_seeds",
+              "regenerative_agriculture:bean_seeds"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:gui/advancements/backgrounds/husbandry",
+    "description": {
+      "translate": "route.regenerative_agriculture.wild_seeds.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:tomato_seeds"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "route.regenerative_agriculture.wild_seeds"
+    }
+  },
+  "requirements": [
+    [
+      "wild_seeds"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

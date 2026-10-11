@@ -1,7 +1,12 @@
-# ProjectZomboid PRD — Cultivo regenerativo
+# Regenerative Agriculture
 
-Mod de Fabric para Minecraft 26.3 que simula el cultivo regenerativo: estaciones, clima según el bioma,
-invernaderos, salud del suelo, policultivos, comidas con efectos y un manual con la ruta de cultivo.
+Mod de Fabric para Minecraft 26.3 que simula la agricultura regenerativa: estaciones, clima según el bioma,
+invernaderos, salud del suelo, policultivos, secado y curado, cerveza artesanal, mate, comidas con efectos y un
+manual con la ruta de logros.
+
+- **ID del mod:** `regenerative_agriculture`
+- **Requiere:** Minecraft 26.3, Fabric Loader 0.19.5+, Fabric API, Java 25
+- **Licencia:** MIT
 
 ## Desarrollo
 
@@ -48,7 +53,7 @@ Rangos: **Helada** (< 0 °C), **Frío** (0-10), **Templado** (10-24), **Cálido*
 | `/season` | Estación, día, fecha, hora y temperatura donde estás |
 | `/season forecast [días]` | Pronóstico (mín/máx, rango, aviso de helada); 7 días por defecto, hasta 30 |
 | `/season set <spring\|summer\|autumn\|winter>` | Avanza al inicio de esa estación (solo operadores) |
-| `/gamerule projectzomboid_prd:season_length <días>` | Cambia la duración de cada estación (1-120) |
+| `/gamerule regenerative_agriculture:season_length <días>` | Cambia la duración de cada estación (1-120) |
 
 **HUD.** Arriba a la izquierda: estación y día, fecha y hora, temperatura local. Se oculta con F1 y con F3.
 
@@ -81,7 +86,7 @@ los cultivos vanilla; los del mod (fase 3) usan el mismo sistema.
 el cultivo en esa posición y por qué (fuera de estación, frío, helada…).
 
 **Perfiles en JSON (modificables por datapack).** Están en
-`data/<namespace>/projectzomboid_prd/crop_profile/<nombre>.json`:
+`data/<namespace>/regenerative_agriculture/crop_profile/<nombre>.json`:
 
 ```json
 {
@@ -135,7 +140,7 @@ de crecer: en las tardes calurosas se marchita.
 Las texturas actuales son provisorias (pixel art generado); los modelos van en 4 etapas visuales para las 8 edades.
 
 **Código:** `block/` (`SeasonalCropBlock`, `WildPlantBlock`), `registry/ModCrops`, `worldgen/ModWorldGen`,
-datagen en `client/datagen/`, perfiles en `data/projectzomboid_prd/projectzomboid_prd/crop_profile/`.
+datagen en `client/datagen/`, perfiles en `data/regenerative_agriculture/regenerative_agriculture/crop_profile/`.
 Gametest en `src/gametest/` (perfiles cargados, features registradas, semillas solo en farmland y el mixin aplicado).
 
 ### Fase 4 — Invernaderos y salas de cultivo subterráneas ✅
@@ -145,7 +150,7 @@ lo muestra en la línea "Lugar".
 
 **Invernadero.** Tiene que cumplir dos condiciones:
 - **Techo de vidrio:** el primer bloque sobre el cultivo, hasta 12 bloques arriba, es vidrio o panel de vidrio
-  (tag `projectzomboid_prd:greenhouse_glass`). Las luces de cultivo no cuentan como techo.
+  (tag `regenerative_agriculture:greenhouse_glass`). Las luces de cultivo no cuentan como techo.
 - **Paredes:** en las 4 direcciones hay un bloque sólido (pared, vidrio, puerta…) a 8 bloques o menos.
 
 Efectos:
@@ -157,13 +162,13 @@ Efectos:
 - **Sin extractor** no hay tope de temperatura. Además, **en verano, fuera de los biomas nevados**, crece **a la
   mitad** ("ventilación insuficiente") y en las tardes de calor las plantas se pueden marchitar.
 - **En desiertos y badlands no funciona:** se sobrecalienta (+8 °C sin tope), no protege de las estaciones y
-  quema los cultivos. Tag de biomas: `projectzomboid_prd:greenhouse_overheats`.
+  quema los cultivos. Tag de biomas: `regenerative_agriculture:greenhouse_overheats`.
 
 **Sala de cultivo subterránea.** Es la forma de cultivar fuera de estación en el desierto. Necesita:
 1. **Estar bajo tierra:** sin cielo arriba, y con un techo que no sea de vidrio.
 2. **Luz de cultivo** a 2 bloques o menos hacia los costados y 1 a 5 bloques por encima del cultivo.
 3. **Extractor de aire** a 8 bloques o menos con un **respiradero**: la columna sobre el extractor tiene que estar
-   libre hasta la superficie. Puede ser aire, barrotes de hierro o trampillas (tag `projectzomboid_prd:vent_passable`).
+   libre hasta la superficie. Puede ser aire, barrotes de hierro o trampillas (tag `regenerative_agriculture:vent_passable`).
 
 Si cumple todo, mantiene **20 °C constantes** todo el año y en cualquier bioma. Sin un extractor que funcione el
 aire se vicia y **no crece nada**.
@@ -190,7 +195,7 @@ planta a mano sigue dando la cosecha normal. Se configura en el perfil de cada c
 (si falta, la planta se cosecha una sola vez).
 
 **Código:** `greenhouse/` (`Shelter`, `ShelterDetector`), `item/PruningShearsItem`, `registry/ModBlocks`, `registry/ModTags`, tags en
-`data/projectzomboid_prd/tags/`. Gametest `ShelterGameTest`: arma un invernadero, le agrega un extractor, lo
+`data/regenerative_agriculture/tags/`. Gametest `ShelterGameTest`: arma un invernadero, le agrega un extractor, lo
 convierte en sala subterránea y le tapa el respiradero, comprobando el resultado en cada paso.
 `PruningShearsGameTest`: cosecha un tomate con tijeras (rebrota) y comprueba que la soja no se puede.
 
@@ -265,8 +270,8 @@ la derecha, que se actualiza cada medio segundo, con los datos de donde estás p
 **Código:** `greenhouse/MicroClimate` (medición), `greenhouse/ClimateAdvice` (diagnóstico, con tests),
 `greenhouse/Mold` y `block/MoldyCropBlock` (hongos), `Shelter.Ventilation` (capacidad),
 `ClimateModel.humidityAt`, `block/GrowLightBlock`, `block/ExtractorBlock`, `client/hud/ThermohygrometerHud`. El
-modelo de la luz está hecho a mano en `assets/projectzomboid_prd/models/block/grow_light.json`. El `downfall` de los
-biomas se lee gracias a `projectzomboid_prd.classtweaker`. Gametest `EquipmentGameTest`: la luz se cae sin techo, y
+modelo de la luz está hecho a mano en `assets/regenerative_agriculture/models/block/grow_light.json`. El `downfall` de los
+biomas se lee gracias a `regenerative_agriculture.classtweaker`. Gametest `EquipmentGameTest`: la luz se cae sin techo, y
 el ventilador se prende y se apaga según el respiradero. `VentilationGameTest`: 25 cultivos necesitan 2
 extractores (con uno, 50 % de ventilación), y en una sala sin ventilación el tomate se cubre de moho. Las capturas del cliente incluyen una sala de cultivo con y
 sin ventilación.
@@ -575,7 +580,7 @@ invernadero o en una sala de cultivo. El resto se cumple consiguiendo o comiendo
 
 ### Fase 9 — Aldeanos y sonidos propios ✅
 
-**Intercambios** (data-driven, en `data/projectzomboid_prd/villager_trade/` más los tags
+**Intercambios** (data-driven, en `data/regenerative_agriculture/villager_trade/` más los tags
 `data/minecraft/tags/villager_trade/...`, que se suman a los de vanilla):
 
 | Quién | Nivel | Compra | Vende |
@@ -588,7 +593,7 @@ invernadero o en una sala de cultivo. El resto se cumple consiguiendo o comiendo
 | Comerciante errante | — | — | semillas raras: café, yerba mate, tabaco, cannabis, lúpulo, ají, ajo y maíz |
 
 **Sonidos propios.** El mod tiene 9 eventos de sonido. Por ahora suenan con sonidos parecidos de vanilla, configurados
-en `assets/projectzomboid_prd/sounds.json`:
+en `assets/regenerative_agriculture/sounds.json`:
 
 | Evento | Cuándo suena | Provisorio (vanilla) |
 |---|---|---|
@@ -609,7 +614,7 @@ en `assets/projectzomboid_prd/sounds.json`:
 2. **Convertí a OGG Vorbis, mono**, 44100 Hz. En Audacity: *Pistas → Mezclar → Mezclar estéreo a mono*, después
    *Archivo → Exportar → Exportar como OGG*, calidad 5. Tiene que ser **mono**: los sonidos en estéreo no se ubican
    en el espacio (se escuchan igual estés donde estés).
-3. **Copiá los archivos** a `src/main/resources/assets/projectzomboid_prd/sounds/`. Usá nombres en minúscula, sin
+3. **Copiá los archivos** a `src/main/resources/assets/regenerative_agriculture/sounds/`. Usá nombres en minúscula, sin
    espacios ni tildes. Conviene grabar 2 o 3 versiones de cada uno para que no suene siempre igual:
    ```
    sounds/mate/sip1.ogg  sounds/mate/sip2.ogg  sounds/mate/sip3.ogg
@@ -620,17 +625,17 @@ en `assets/projectzomboid_prd/sounds.json`:
    y **sin** la carpeta `sounds/`:
    ```json
    "item.mate.sip": {
-     "subtitle": "subtitles.projectzomboid_prd.item.mate.sip",
+     "subtitle": "subtitles.regenerative_agriculture.item.mate.sip",
      "sounds": [
-       "projectzomboid_prd:mate/sip1",
-       "projectzomboid_prd:mate/sip2",
-       { "name": "projectzomboid_prd:mate/sip3", "volume": 0.8, "pitch": 1.1 }
+       "regenerative_agriculture:mate/sip1",
+       "regenerative_agriculture:mate/sip2",
+       { "name": "regenerative_agriculture:mate/sip3", "volume": 0.8, "pitch": 1.1 }
      ]
    }
    ```
    Cuando hay varios, el juego elige uno al azar. `volume` (0–1) y `pitch` (0,5–2) son opcionales.
 5. **Probá** con `./gradlew runClient`. Con **F3 + T** se recargan los recursos sin cerrar el juego. Para escuchar un
-   sonido suelto: `/playsound projectzomboid_prd:item.mate.sip master @s`.
+   sonido suelto: `/playsound regenerative_agriculture:item.mate.sip master @s`.
 6. Si un archivo falta o tiene mal el nombre, el log dice `Unable to play unknown soundEvent` o
    `File ... does not exist`, y no suena nada (el juego no se rompe).
 
@@ -638,7 +643,7 @@ Para un sonido nuevo, uno que todavía no existe en el mod, hay que registrarlo 
 como las demás), agregarlo a `sounds.json` y reproducirlo desde el código.
 
 **Código:**
-- `registry/ModSounds` y `assets/projectzomboid_prd/sounds.json`.
+- `registry/ModSounds` y `assets/regenerative_agriculture/sounds.json`.
 - El mate suena a sorbos con `onUseTick`; al cebar y al terminar suenan el cebado y el ruidito final.
 - Fumar inhala mientras se usa y exhala al terminar (`PlaySoundConsumeEffect`).
 - La olla y el fermentador suenan de vez en cuando mientras trabajan.

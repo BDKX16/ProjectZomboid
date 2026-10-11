@@ -1,0 +1,33 @@
+{
+  "parent": "regenerative_agriculture:route/weather_station",
+  "criteria": {
+    "thermohygrometer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "regenerative_agriculture:thermohygrometer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.regenerative_agriculture.thermohygrometer.desc"
+    },
+    "icon": {
+      "id": "regenerative_agriculture:thermohygrometer"
+    },
+    "title": {
+      "translate": "route.regenerative_agriculture.thermohygrometer"
+    }
+  },
+  "requirements": [
+    [
+      "thermohygrometer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
