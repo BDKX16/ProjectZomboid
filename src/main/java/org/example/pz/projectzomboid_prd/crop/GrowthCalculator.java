@@ -3,7 +3,9 @@ package org.example.pz.projectzomboid_prd.crop;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
+import org.example.pz.projectzomboid_prd.greenhouse.Shelter;
 import org.example.pz.projectzomboid_prd.season.ClimateModel;
+import org.example.pz.projectzomboid_prd.season.Season;
 import org.example.pz.projectzomboid_prd.season.SeasonCalendar;
 
 import java.util.Locale;
@@ -16,13 +18,23 @@ public final class GrowthCalculator {
     private GrowthCalculator() {
     }
 
+    /** Outdoors. */
+    public static Growth evaluate(GrowthRequirements needs, ClimateModel climate, float biomeTemperature, int y, long ticks) {
+        return evaluate(needs, climate, biomeTemperature, y, ticks, Shelter.OPEN);
+    }
+
     /**
      * @param biomeTemperature Minecraft biome base temperature at the crop
      * @param y                height of the crop
      * @param ticks            overworld clock time
+     * @param shelter          greenhouse / grow room the crop is in, which changes the temperature it feels
      */
-    public static Growth evaluate(GrowthRequirements needs, ClimateModel climate, float biomeTemperature, int y, long ticks) {
-        double now = climate.temperatureAt(biomeTemperature, y, ticks);
+    public static Growth evaluate(GrowthRequirements needs, ClimateModel climate, float biomeTemperature, int y, long ticks, Shelter shelter) {
+        if (shelter.type() == Shelter.Type.GROW_ROOM_UNVENTILATED) {
+            return new Growth(0, Stress.NO_VENTILATION);
+        }
+
+        double now = shelter.adjust(climate.temperatureAt(biomeTemperature, y, ticks));
         if (now < 0 && !needs.frostTolerant()) {
             return new Growth(0, Stress.FROST);
         }
@@ -31,16 +43,23 @@ public final class GrowthCalculator {
         }
 
         SeasonCalendar.Date date = climate.calendar().dateAt(ticks);
-        if (!needs.growsIn(date.season())) {
+        if (!shelter.ignoresSeasons() && !needs.growsIn(date.season())) {
             return new Growth(0, Stress.OUT_OF_SEASON);
         }
 
-        double dayMean = climate.day(biomeTemperature, y, date.day()).mean();
+        double dayMean = shelter.adjust(climate.day(biomeTemperature, y, date.day()).mean());
         float temperatureFactor = needs.temperature().factor(dayMean);
         if (temperatureFactor <= 0) {
             return new Growth(0, dayMean < needs.temperature().min() ? Stress.TOO_COLD : Stress.TOO_HOT);
         }
-        return new Growth(temperatureFactor * needs.growthRate(), Stress.NONE);
+        float factor = temperatureFactor * needs.growthRate();
+
+        // A closed greenhouse in summer gets stuffy unless it has an extractor (snowy biomes stay cool enough).
+        if (shelter.type() == Shelter.Type.GREENHOUSE && !shelter.ventilated()
+                && date.season() == Season.SUMMER && biomeTemperature > Shelter.SNOWY_BIOME_TEMPERATURE) {
+            return new Growth(factor * Shelter.POOR_VENTILATION_FACTOR, Stress.POOR_VENTILATION);
+        }
+        return new Growth(factor, Stress.NONE);
     }
 
     /** @param factor 0-1 chance that a growth tick goes ahead */
@@ -55,6 +74,10 @@ public final class GrowthCalculator {
         OUT_OF_SEASON(false),
         TOO_COLD(false),
         TOO_HOT(false),
+        /** Greenhouse without extractor in summer: grows at half speed. */
+        POOR_VENTILATION(false),
+        /** Grow room without a working extractor: nothing grows. */
+        NO_VENTILATION(false),
         /** Night below 0 °C on a frost-sensitive plant. */
         FROST(true),
         /** Well above the plant's maximum temperature. */

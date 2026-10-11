@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.Block;
 import org.example.pz.projectzomboid_prd.Projectzomboid_prd;
 import org.example.pz.projectzomboid_prd.crop.CropClimate;
 import org.example.pz.projectzomboid_prd.crop.GrowthCalculator;
+import org.example.pz.projectzomboid_prd.greenhouse.ShelterDetector;
 import org.example.pz.projectzomboid_prd.season.ClimateModel;
 import org.example.pz.projectzomboid_prd.season.Season;
 import org.example.pz.projectzomboid_prd.season.SeasonCalendar;
@@ -114,6 +115,8 @@ public final class SeasonCommand {
                 block.getName(),
                 percent,
                 growth.stress().displayName()), false);
+        source.sendSuccess(() -> Component.translatable(KEY + "crop.shelter",
+                ShelterDetector.detect(source.getLevel(), pos).displayName()), false);
         return percent;
     }
 

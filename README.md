@@ -134,3 +134,44 @@ Las texturas actuales son provisorias (pixel art generado); los modelos van en 4
 **Código:** `block/` (`SeasonalCropBlock`, `WildPlantBlock`), `registry/ModCrops`, `worldgen/ModWorldGen`,
 datagen en `client/datagen/`, perfiles en `data/projectzomboid_prd/projectzomboid_prd/crop_profile/`.
 Gametest en `src/gametest/` (perfiles cargados, features registradas, semillas solo en farmland y el mixin aplicado).
+
+### Fase 4 — Invernaderos y salas de cultivo subterráneas ✅
+
+El mod mira los bloques alrededor de cada cultivo para saber **dónde está creciendo**. `/season crop <x y z>`
+lo muestra en la línea "Lugar".
+
+**Invernadero.** Tiene que cumplir dos condiciones:
+- **Techo de vidrio:** el primer bloque sobre el cultivo, hasta 12 bloques arriba, es vidrio o panel de vidrio
+  (tag `projectzomboid_prd:greenhouse_glass`). Las luces de cultivo no cuentan como techo.
+- **Paredes:** en las 4 direcciones hay un bloque sólido (pared, vidrio, puerta…) a 8 bloques o menos.
+
+Efectos:
+- Ignora las estaciones: solo importa la temperatura.
+- Adentro hace **+8 °C** que afuera.
+- Con una **fuente de calor** cerca (fogata, horno, ahumador, alto horno, magma o lava, a 4 bloques o menos) suma
+  **+6 °C** más. Sirve para no perder cultivos sensibles a la helada en invierno.
+- **Con extractor** (ver abajo) nunca pasa de **26 °C**.
+- **Sin extractor** no hay tope de temperatura. Además, **en verano, fuera de los biomas nevados**, crece **a la
+  mitad** ("ventilación insuficiente") y en las tardes de calor las plantas se pueden marchitar.
+- **En desiertos y badlands no funciona:** se sobrecalienta (+8 °C sin tope), no protege de las estaciones y
+  quema los cultivos. Tag de biomas: `projectzomboid_prd:greenhouse_overheats`.
+
+**Sala de cultivo subterránea.** Es la forma de cultivar fuera de estación en el desierto. Necesita:
+1. **Estar bajo tierra:** sin cielo arriba, y con un techo que no sea de vidrio.
+2. **Luz de cultivo** a 2 bloques o menos hacia los costados y 1 a 5 bloques por encima del cultivo.
+3. **Extractor de aire** a 8 bloques o menos con un **respiradero**: la columna sobre el extractor tiene que estar
+   libre hasta la superficie. Puede ser aire, barrotes de hierro o trampillas (tag `projectzomboid_prd:vent_passable`).
+
+Si cumple todo, mantiene **20 °C constantes** todo el año y en cualquier bioma. Sin un extractor que funcione el
+aire se vicia y **no crece nada**.
+
+**Bloques nuevos**
+
+| Bloque | Receta | Uso |
+|---|---|---|
+| Luz de cultivo | `IRI` / `GLG` — I hierro, R redstone, G panel de vidrio, L piedra luminosa | Luz 15; habilita la sala de cultivo |
+| Extractor de aire | `IBI` / `RCR` / `IBI` — I hierro, B barrotes de hierro, R redstone, C lingote de cobre | Ventila invernaderos y salas (necesita pico) |
+
+**Código:** `greenhouse/` (`Shelter`, `ShelterDetector`), `registry/ModBlocks`, `registry/ModTags`, tags en
+`data/projectzomboid_prd/tags/`. Gametest `ShelterGameTest`: arma un invernadero, le agrega un extractor, lo
+convierte en sala subterránea y le tapa el respiradero, comprobando el resultado en cada paso.

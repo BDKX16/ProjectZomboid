@@ -50,6 +50,9 @@ public final class ModCrops {
                 .title(Component.translatable("itemGroup." + Projectzomboid_prd.MOD_ID + ".crops"))
                 .icon(() -> new ItemStack(TOMATO.produce()))
                 .displayItems((parameters, output) -> {
+                    for (Block block : ModBlocks.ALL) {
+                        output.accept(block);
+                    }
                     for (Crop crop : ALL) {
                         output.accept(crop.seeds());
                         output.accept(crop.produce());

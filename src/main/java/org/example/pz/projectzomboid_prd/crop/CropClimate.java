@@ -6,6 +6,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.example.pz.projectzomboid_prd.greenhouse.ShelterDetector;
 import org.example.pz.projectzomboid_prd.season.SeasonManager;
 
 import java.util.Optional;
@@ -24,7 +25,8 @@ public final class CropClimate {
                 SeasonManager.climate(level.getServer()),
                 level.getBiome(pos).value().getBaseTemperature(),
                 pos.getY(),
-                SeasonManager.ticks(level.getServer())));
+                SeasonManager.ticks(level.getServer()),
+                ShelterDetector.detect(level, pos)));
     }
 
     /**

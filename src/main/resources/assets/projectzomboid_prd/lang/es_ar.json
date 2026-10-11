@@ -81,5 +81,17 @@
   "block.projectzomboid_prd.squash_crop": "Zapallo",
   "block.projectzomboid_prd.wild_squash": "Zapallo silvestre",
   "item.projectzomboid_prd.squash_seeds": "Semillas de zapallo",
-  "item.projectzomboid_prd.squash": "Zapallo"
+  "item.projectzomboid_prd.squash": "Zapallo",
+  "block.projectzomboid_prd.grow_light": "Luz de cultivo",
+  "block.projectzomboid_prd.extractor": "Extractor de aire",
+  "shelter.projectzomboid_prd.open": "al aire libre",
+  "shelter.projectzomboid_prd.greenhouse": "invernadero",
+  "shelter.projectzomboid_prd.greenhouse_overheated": "invernadero sobrecalentado (no sirve en desiertos ni badlands)",
+  "shelter.projectzomboid_prd.grow_room": "sala de cultivo subterránea ventilada",
+  "shelter.projectzomboid_prd.grow_room_unventilated": "sala de cultivo SIN ventilación (falta un extractor con respiradero a la superficie)",
+  "shelter.projectzomboid_prd.ventilated": ", con extractor",
+  "shelter.projectzomboid_prd.heated": ", calefaccionado",
+  "stress.projectzomboid_prd.poor_ventilation": "invernadero sin extractor en verano: crece a la mitad",
+  "stress.projectzomboid_prd.no_ventilation": "sin ventilación, el aire está viciado: no crece",
+  "commands.projectzomboid_prd.season.crop.shelter": "Lugar: %s"
 }

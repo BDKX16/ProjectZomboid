@@ -81,5 +81,17 @@
   "block.projectzomboid_prd.squash_crop": "Squash",
   "block.projectzomboid_prd.wild_squash": "Wild Squash",
   "item.projectzomboid_prd.squash_seeds": "Squash Seeds",
-  "item.projectzomboid_prd.squash": "Squash"
+  "item.projectzomboid_prd.squash": "Squash",
+  "block.projectzomboid_prd.grow_light": "Grow Light",
+  "block.projectzomboid_prd.extractor": "Air Extractor",
+  "shelter.projectzomboid_prd.open": "outdoors",
+  "shelter.projectzomboid_prd.greenhouse": "greenhouse",
+  "shelter.projectzomboid_prd.greenhouse_overheated": "overheated greenhouse (useless in deserts and badlands)",
+  "shelter.projectzomboid_prd.grow_room": "ventilated underground grow room",
+  "shelter.projectzomboid_prd.grow_room_unventilated": "grow room WITHOUT ventilation (needs an extractor with a vent shaft to the surface)",
+  "shelter.projectzomboid_prd.ventilated": ", with extractor",
+  "shelter.projectzomboid_prd.heated": ", heated",
+  "stress.projectzomboid_prd.poor_ventilation": "greenhouse without extractor in summer: half speed",
+  "stress.projectzomboid_prd.no_ventilation": "no ventilation, stale air: not growing",
+  "commands.projectzomboid_prd.season.crop.shelter": "Place: %s"
 }
