@@ -36,6 +36,8 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
 
     @Override
     public void runTest(ClientGameTestContext context) {
+        // Under 850 px wide for the CurseForge page; 480 px high keeps the GUI at scale 2
+        context.getInput().resizeWindow(840, 480);
         try (TestSingleplayerContext world = context.worldBuilder().create()) {
             world.getServer().runCommand("time set 6000");
             world.getServer().runCommand("season set winter");
