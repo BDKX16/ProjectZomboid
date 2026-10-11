@@ -14,7 +14,8 @@
       "org.example.pz.projectzomboid_prd.gametest.SoilGameTest",
       "org.example.pz.projectzomboid_prd.gametest.FoodGameTest",
       "org.example.pz.projectzomboid_prd.gametest.ProcessingGameTest",
-      "org.example.pz.projectzomboid_prd.gametest.BreweryGameTest"
+      "org.example.pz.projectzomboid_prd.gametest.BreweryGameTest",
+      "org.example.pz.projectzomboid_prd.gametest.RouteGameTest"
     ],
     "fabric-client-gametest": [
       "org.example.pz.projectzomboid_prd.gametest.client.ScreenshotClientGameTest"

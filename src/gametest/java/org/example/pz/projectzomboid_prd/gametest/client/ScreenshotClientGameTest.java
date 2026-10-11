@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import org.example.pz.projectzomboid_prd.client.screen.manual.ManualScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Direction;
@@ -42,6 +43,7 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
             food(context, world);
             processing(context, world);
             brewery(context, world);
+            manual(context, world);
         }
     }
 
@@ -132,6 +134,25 @@ public class ScreenshotClientGameTest implements FabricClientGameTest {
         world.getServer().runCommand("item replace entity @p hotbar.8 with projectzomboid_prd:fermenter");
         context.waitTicks(20);
         context.takeScreenshot("mate_in_hands");
+    }
+
+    /** The manual with part of the route done, and its other chapters. */
+    private static void manual(ClientGameTestContext context, TestSingleplayerContext world) {
+        world.getServer().runCommand("advancement grant @p until projectzomboid_prd:route/dried");
+        world.getServer().runCommand("advancement grant @p only projectzomboid_prd:route/weather_station");
+        context.waitTicks(20);
+        context.runOnClient(client -> client.gui.toastManager().clear());
+        String[][] shots = {{"ROUTE", "manual_route"}, {"SEASONS", "manual_seasons"}, {"KITCHEN", "manual_kitchen"},
+                {"SOIL", "manual_soil"}, {"BREWING", "manual_brewing"}};
+        for (String[] shot : shots) {
+            context.setScreen(() -> new ManualScreen().openTab(shot[0]));
+            context.waitTicks(5);
+            context.takeScreenshot(shot[1]);
+        }
+        context.setScreen(() -> new ManualScreen().selectCrop(ModCrops.TOMATO.block()));
+        context.waitTicks(5);
+        context.takeScreenshot("manual_crop_sheet");
+        context.setScreen(() -> null);
     }
 
     private static void run(TestSingleplayerContext world, String command) {

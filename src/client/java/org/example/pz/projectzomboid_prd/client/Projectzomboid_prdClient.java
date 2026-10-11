@@ -7,7 +7,9 @@ import org.example.pz.projectzomboid_prd.client.hud.SeasonHud;
 import org.example.pz.projectzomboid_prd.client.hud.ThermohygrometerHud;
 import org.example.pz.projectzomboid_prd.client.screen.WeatherStationScreen;
 import org.example.pz.projectzomboid_prd.client.season.ClientSeasonState;
+import org.example.pz.projectzomboid_prd.network.OpenManualPayload;
 import org.example.pz.projectzomboid_prd.network.OpenWeatherStationPayload;
+import org.example.pz.projectzomboid_prd.client.screen.manual.ManualScreen;
 
 public class Projectzomboid_prdClient implements ClientModInitializer {
 
@@ -17,6 +19,8 @@ public class Projectzomboid_prdClient implements ClientModInitializer {
         SeasonHud.init();
         ThermohygrometerHud.init();
         RelaxedHud.init();
+        ClientPlayNetworking.registerGlobalReceiver(OpenManualPayload.TYPE,
+                (payload, context) -> context.client().setScreenAndShow(new ManualScreen()));
         ClientPlayNetworking.registerGlobalReceiver(OpenWeatherStationPayload.TYPE,
                 (payload, context) -> context.client().setScreenAndShow(new WeatherStationScreen(payload.pos())));
     }

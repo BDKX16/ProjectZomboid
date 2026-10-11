@@ -1,0 +1,33 @@
+{
+  "parent": "projectzomboid_prd:route/soil_test",
+  "criteria": {
+    "compost": {
+      "conditions": {
+        "items": [
+          {
+            "items": "projectzomboid_prd:compost"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.projectzomboid_prd.compost.desc"
+    },
+    "icon": {
+      "id": "projectzomboid_prd:compost"
+    },
+    "title": {
+      "translate": "route.projectzomboid_prd.compost"
+    }
+  },
+  "requirements": [
+    [
+      "compost"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

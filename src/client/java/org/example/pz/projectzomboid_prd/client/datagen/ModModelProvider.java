@@ -108,6 +108,7 @@ public class ModModelProvider extends FabricModelProvider {
         for (ModCrops.Crop crop : ModCrops.ALL) {
             itemModelGenerators.generateFlatItem(crop.produce(), ModelTemplates.FLAT_ITEM);
         }
+        itemModelGenerators.generateFlatItem(ModItems.MANUAL, ModelTemplates.FLAT_ITEM);
         for (Item item : ModItems.PRODUCTS) {
             itemModelGenerators.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
         }

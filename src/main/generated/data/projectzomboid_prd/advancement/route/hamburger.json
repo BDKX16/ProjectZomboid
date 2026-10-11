@@ -1,0 +1,31 @@
+{
+  "parent": "projectzomboid_prd:route/salad",
+  "criteria": {
+    "hamburger": {
+      "conditions": {
+        "item": {
+          "items": "projectzomboid_prd:hamburger"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.projectzomboid_prd.hamburger.desc"
+    },
+    "icon": {
+      "id": "projectzomboid_prd:hamburger"
+    },
+    "title": {
+      "translate": "route.projectzomboid_prd.hamburger"
+    }
+  },
+  "requirements": [
+    [
+      "hamburger"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

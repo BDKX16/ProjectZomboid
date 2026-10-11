@@ -1,0 +1,32 @@
+{
+  "parent": "projectzomboid_prd:route/hamburger",
+  "criteria": {
+    "nourished": {
+      "conditions": {
+        "effects": {
+          "projectzomboid_prd:nourished": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.projectzomboid_prd.nourished.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "projectzomboid_prd:locro"
+    },
+    "title": {
+      "translate": "route.projectzomboid_prd.nourished"
+    }
+  },
+  "requirements": [
+    [
+      "nourished"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

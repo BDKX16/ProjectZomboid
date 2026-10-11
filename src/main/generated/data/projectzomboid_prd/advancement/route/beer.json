@@ -1,0 +1,34 @@
+{
+  "parent": "projectzomboid_prd:route/brewery",
+  "criteria": {
+    "beer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "projectzomboid_prd:beer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.projectzomboid_prd.beer.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "projectzomboid_prd:beer"
+    },
+    "title": {
+      "translate": "route.projectzomboid_prd.beer"
+    }
+  },
+  "requirements": [
+    [
+      "beer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

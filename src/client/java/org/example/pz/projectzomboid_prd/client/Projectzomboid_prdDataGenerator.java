@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import org.example.pz.projectzomboid_prd.client.datagen.ModAdvancementProvider;
 import org.example.pz.projectzomboid_prd.client.datagen.ModBlockLootProvider;
 import org.example.pz.projectzomboid_prd.client.datagen.ModModelProvider;
 import org.example.pz.projectzomboid_prd.client.datagen.ModRecipeProvider;
@@ -18,6 +19,7 @@ public class Projectzomboid_prdDataGenerator implements DataGeneratorEntrypoint 
         pack.addProvider(ModModelProvider::new);
         pack.addProvider(ModBlockLootProvider::new);
         pack.addProvider(ModRecipeProvider::new);
+        pack.addProvider(ModAdvancementProvider::new);
         pack.addProvider(ModWorldGenProvider::new);
     }
 

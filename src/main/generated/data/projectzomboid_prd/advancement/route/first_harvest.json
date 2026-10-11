@@ -1,0 +1,52 @@
+{
+  "parent": "projectzomboid_prd:route/wild_seeds",
+  "criteria": {
+    "first_harvest": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "projectzomboid_prd:lettuce",
+              "projectzomboid_prd:tomato",
+              "projectzomboid_prd:arugula",
+              "projectzomboid_prd:broccoli",
+              "projectzomboid_prd:soybeans",
+              "projectzomboid_prd:sunflower_head",
+              "projectzomboid_prd:basil",
+              "projectzomboid_prd:squash",
+              "projectzomboid_prd:onion",
+              "projectzomboid_prd:garlic",
+              "projectzomboid_prd:cannabis_bud",
+              "projectzomboid_prd:tobacco_leaf",
+              "projectzomboid_prd:coffee_cherries",
+              "projectzomboid_prd:chili_pepper",
+              "projectzomboid_prd:hops",
+              "projectzomboid_prd:yerba_leaves",
+              "projectzomboid_prd:corn",
+              "projectzomboid_prd:beans"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.projectzomboid_prd.first_harvest.desc"
+    },
+    "icon": {
+      "id": "projectzomboid_prd:lettuce"
+    },
+    "title": {
+      "translate": "route.projectzomboid_prd.first_harvest"
+    }
+  },
+  "requirements": [
+    [
+      "first_harvest"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

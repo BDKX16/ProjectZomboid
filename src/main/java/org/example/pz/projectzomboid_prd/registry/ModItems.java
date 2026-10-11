@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.ItemStack;
 import org.example.pz.projectzomboid_prd.item.DescribedItem;
 import org.example.pz.projectzomboid_prd.item.HydrometerItem;
+import org.example.pz.projectzomboid_prd.item.ManualItem;
 import org.example.pz.projectzomboid_prd.item.MateItem;
 import org.example.pz.projectzomboid_prd.item.ThermosItem;
 import org.example.pz.projectzomboid_prd.item.PruningShearsItem;
@@ -21,6 +22,8 @@ import java.util.List;
 
 /** Tools and other items that are not crops. */
 public final class ModItems {
+    /** The farming manual: route of milestones, seasons, crop sheets and guides. */
+    public static final Item MANUAL = ModCrops.registerItem("manual", ManualItem::new, new Item.Properties().stacksTo(1));
     public static final Item PRUNING_SHEARS = ModCrops.registerItem("pruning_shears", PruningShearsItem::new,
             new Item.Properties().durability(238));
     public static final Item THERMOHYGROMETER = ModCrops.registerItem("thermohygrometer", ThermohygrometerItem::new,

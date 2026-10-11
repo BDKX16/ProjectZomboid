@@ -516,3 +516,59 @@ Se sacaron el mosto en frasco y la receta vieja del mate: la cerveza ahora sale 
 - Los modelos 3D están en `models/block` y `models/item`.
 - Gametest `BreweryGameTest`: de la malta a la cerveza ★★★, la máquina sola no funciona, la olla necesita fuego y
   el mate con termo.
+
+### Fase 8 — Manual con ruta de logros ✅
+
+**Manual de agricultura regenerativa.** Cada jugador lo recibe la primera vez que entra al mundo. También se fabrica
+con libro + semillas de trigo. Click derecho lo abre: es un **libro abierto de dos páginas** con **marcadores de
+colores** al costado, uno por capítulo.
+
+| Marcador | Qué tiene |
+|---|---|
+| **Ruta** | Mapa de **nodos unidos**, estilo árbol de habilidades (Path of Exile o Thaumcraft) o pantalla de logros. Se arrastra con el mouse o la rueda |
+| **Estaciones** | Fecha de hoy, días por estación y qué cultivos crecen en cada estación |
+| **Cultivos** | Todos los cultivos (del mod y vanilla). Click en uno abre su ficha: familia, estaciones, temperatura óptima y rango, heladas, velocidad, si rebrota con tijeras, nitrógeno, compañeras, antagonistas y en qué se convierte en el secadero |
+| **Suelo** | Fertilidad, rotación, asociación, compost y mulch |
+| **Clima e invernaderos** | Invernaderos, salas de cultivo, extractores y hongos |
+| **Secado y curado** | Secadero, humedad, moho, frasco y calidad |
+| **Cocina** | Todas las comidas: efecto, hambre y verduras que cuentan para la dieta |
+| **Cervecería y mate** | Los tres pasos de la cerveza, el densímetro, el mate y el termo |
+
+Las fichas, las estaciones y la cocina salen de los datos del juego (perfiles de cultivo y comidas), así que siempre
+están al día. Los capítulos de texto tienen páginas: se pasan con las flechas o la rueda del mouse.
+
+**Ruta (23 nodos).** Cada nodo es un **logro real de Minecraft**, así que:
+- el progreso se guarda con el jugador;
+- avisa con la notificación de logro;
+- también aparece una pestaña nueva en la pantalla de logros (L).
+
+En el libro, un nodo **completo** se ve dorado con ✔, uno **disponible** (sus anteriores ya están) blanco, y uno
+**bloqueado** gris. Pasando el mouse se ve qué hay que hacer o qué falta antes. Los objetivos tienen marco verde y
+los desafíos violeta.
+
+```
+Semillas silvestres ─┬─ Primera cosecha ─┬─ Tijeras de poda
+                     │                   ├─ Leer el suelo ─┬─ Compost
+                     │                   │                 └─ Cobertura (mulch)
+                     │                   ├─ Ensalada verde ── Hamburguesa ── Bien nutrido
+                     │                   └─ Secadero ── Al aire ─┬─ Paciencia (curado)
+                     │                                           ├─ Un mate ── Agua a 85 °C
+                     │                                           └─ Malta ── Microcervecería ── Cerveza artesanal
+                     └─ Mirar el cielo ── Medir el aire ─┬─ Bajo vidrio (cosechar en invernadero)
+                                                         ├─ Ventilación ─┐
+                                                         └─ Luz de cultivo ┴─ Sala de cultivo
+```
+
+"Bajo vidrio" y "Sala de cultivo" usan triggers propios, que se activan al cosechar un cultivo maduro en un
+invernadero o en una sala de cultivo. El resto se cumple consiguiendo o comiendo cosas.
+
+**Código:**
+- `guide/RouteNodes` es la única definición de la ruta: posición, ícono y padres de cada nodo.
+- `guide/Guide`: triggers, manual al entrar y apertura.
+- `item/ManualItem`.
+- Cliente: `screen/manual/ManualScreen` (libro, marcadores y capítulos) y `RouteMap` (mapa de nodos).
+- Datagen: `ModAdvancementProvider` genera los logros desde `RouteNodes`.
+- Tests:
+  - `RouteGameTest`: todos los nodos son logros cargados con el padre correcto, y los triggers de invernadero y sala
+    de cultivo funcionan.
+  - `RouteLangTest`: cada nodo y capítulo tiene texto en los 4 idiomas.

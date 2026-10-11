@@ -1,0 +1,33 @@
+{
+  "parent": "projectzomboid_prd:route/soil_test",
+  "criteria": {
+    "mulch": {
+      "conditions": {
+        "items": [
+          {
+            "items": "projectzomboid_prd:straw_mulch"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.projectzomboid_prd.mulch.desc"
+    },
+    "icon": {
+      "id": "projectzomboid_prd:straw_mulch"
+    },
+    "title": {
+      "translate": "route.projectzomboid_prd.mulch"
+    }
+  },
+  "requirements": [
+    [
+      "mulch"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,27 @@
+{
+  "parent": "projectzomboid_prd:route/grow_light",
+  "criteria": {
+    "grow_room": {
+      "trigger": "projectzomboid_prd:grow_room_harvest"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.projectzomboid_prd.grow_room.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "projectzomboid_prd:basil"
+    },
+    "title": {
+      "translate": "route.projectzomboid_prd.grow_room"
+    }
+  },
+  "requirements": [
+    [
+      "grow_room"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

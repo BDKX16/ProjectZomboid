@@ -1,0 +1,33 @@
+{
+  "parent": "projectzomboid_prd:route/first_harvest",
+  "criteria": {
+    "drying_rack": {
+      "conditions": {
+        "items": [
+          {
+            "items": "projectzomboid_prd:drying_rack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "route.projectzomboid_prd.drying_rack.desc"
+    },
+    "icon": {
+      "id": "projectzomboid_prd:drying_rack"
+    },
+    "title": {
+      "translate": "route.projectzomboid_prd.drying_rack"
+    }
+  },
+  "requirements": [
+    [
+      "drying_rack"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

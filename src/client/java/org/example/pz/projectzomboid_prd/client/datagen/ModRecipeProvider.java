@@ -312,6 +312,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 roast(ModItems.DRIED_COFFEE, ModItems.ROASTED_COFFEE);
                 brewery();
                 mate();
+                shapeless(RecipeCategory.MISC, ModItems.MANUAL)
+                        .requires(Items.BOOK)
+                        .requires(Items.WHEAT_SEEDS)
+                        .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
+                        .save(output);
                 roast(ModCrops.CORN.produce(), ModFoods.ROASTED_CORN.item());
             }
 

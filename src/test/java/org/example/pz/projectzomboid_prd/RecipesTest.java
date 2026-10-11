@@ -18,7 +18,7 @@ class RecipesTest {
             "roasted_sunflower_seeds", "roasted_sunflower_seeds_from_smoking", "roasted_sunflower_seeds_from_campfire_cooking",
             "drying_rack", "curing_jar", "mate", "coffee", "ground_chili", "chimichurri", "asado",
             "locro", "joint", "brownie", "cigar", "roasted_coffee", "roasted_corn",
-            "mash_tun", "brew_kettle", "fermenter", "yeast", "hydrometer", "thermos", "thermos_cold", "thermos_hot");
+            "mash_tun", "brew_kettle", "fermenter", "yeast", "hydrometer", "thermos", "thermos_cold", "thermos_hot", "manual");
 
     @Test
     void craftableThingsHaveRecipes() {

@@ -6,6 +6,7 @@ import org.example.pz.projectzomboid_prd.command.SeasonCommand;
 import org.example.pz.projectzomboid_prd.crop.CropProfiles;
 import org.example.pz.projectzomboid_prd.effect.ModEffects;
 import org.example.pz.projectzomboid_prd.food.DietTracker;
+import org.example.pz.projectzomboid_prd.guide.Guide;
 import org.example.pz.projectzomboid_prd.registry.ModBlockEntities;
 import org.example.pz.projectzomboid_prd.registry.ModBlocks;
 import org.example.pz.projectzomboid_prd.registry.ModComponents;
@@ -43,5 +44,6 @@ public class Projectzomboid_prd implements ModInitializer {
         DietTracker.init();
         ModWorldGen.init();
         SoilManager.init();
+        Guide.init();
     }
 }
