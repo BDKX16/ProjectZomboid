@@ -1,0 +1,16 @@
+{
+  "block": "projectzomboid_prd:broccoli_crop",
+  "family": "brassicas",
+  "seasons": [
+    "autumn",
+    "winter"
+  ],
+  "temperature": {
+    "min": 2,
+    "optimal_min": 10,
+    "optimal_max": 20,
+    "max": 26
+  },
+  "frost_tolerant": true,
+  "growth_rate": 0.6
+}

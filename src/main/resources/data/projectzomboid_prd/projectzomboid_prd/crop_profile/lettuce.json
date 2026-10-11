@@ -1,0 +1,17 @@
+{
+  "block": "projectzomboid_prd:lettuce_crop",
+  "family": "composites",
+  "seasons": [
+    "autumn",
+    "winter",
+    "spring"
+  ],
+  "temperature": {
+    "min": 2,
+    "optimal_min": 10,
+    "optimal_max": 20,
+    "max": 26
+  },
+  "frost_tolerant": true,
+  "growth_rate": 1.0
+}

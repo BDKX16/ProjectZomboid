@@ -25,6 +25,14 @@ fabricApi {
     configureDataGeneration {
         client = true
     }
+    // Headless server game tests in src/gametest (./gradlew runGameTest)
+    configureTests {
+        createSourceSet = true
+        modId = "projectzomboid_prd_gametest"
+        enableGameTests = true
+        enableClientGameTests = false
+        eula = true
+    }
 }
 
 repositories {

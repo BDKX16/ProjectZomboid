@@ -1,0 +1,16 @@
+{
+  "block": "projectzomboid_prd:basil_crop",
+  "family": "mints",
+  "seasons": [
+    "spring",
+    "summer"
+  ],
+  "temperature": {
+    "min": 12,
+    "optimal_min": 20,
+    "optimal_max": 30,
+    "max": 36
+  },
+  "frost_tolerant": false,
+  "growth_rate": 0.8
+}

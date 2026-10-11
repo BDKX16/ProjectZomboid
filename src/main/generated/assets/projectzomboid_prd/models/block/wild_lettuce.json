@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "projectzomboid_prd:block/wild_lettuce"
+  }
+}

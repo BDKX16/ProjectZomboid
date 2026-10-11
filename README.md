@@ -13,7 +13,11 @@ Requisitos: JDK 25 (Gradle lo busca solo; ver `gradle/gradle-daemon-jvm.properti
 | `./gradlew runServer` | Servidor dedicado de prueba |
 | `./gradlew build` | Compila, corre los tests y genera el jar en `build/libs/` |
 | `./gradlew test` | Solo los tests unitarios |
-| `./gradlew runDatagen` | Regenera recursos (modelos, recetas, idiomas) |
+| `./gradlew runGameTest` | Tests en un servidor real sin ventana (registros, datos, mixins) |
+| `./gradlew runDatagen` | Regenera modelos, loot tables, recetas y features en `src/main/generated/` |
+
+Los gametests aceptan automáticamente el EULA de Minecraft solo para esa ejecución de prueba (`eula = true` en
+`build.gradle`).
 
 ## Fases
 
@@ -93,3 +97,40 @@ el cultivo en esa posición y por qué (fuera de estación, frío, helada…).
 `legumes`, `umbellifers`, `amaranths`, `composites`, `cucurbits`, `alliums`, `mints` (se usan para la rotación de la fase 6).
 
 **Código:** `crop/` (`CropProfile`, `CropProfiles`, `GrowthCalculator`, `CropClimate`) y `mixin/CropBlockMixin`.
+
+### Fase 3 — Cultivos nuevos y plantas silvestres ✅
+
+**8 cultivos nuevos.** Cada uno tiene semillas, producto cosechado y una versión silvestre.
+
+| Cultivo | Producto | Familia | Estaciones | Temp. (mín / óptima / máx) | Helada | Velocidad | Silvestre en |
+|---|---|---|---|---|---|---|---|
+| Lechuga | Lechuga (comida) | Compuestas | otoño, invierno, primavera | 2 / 10-20 / 26 °C | tolera | 100 % | bosques |
+| Rúcula | Rúcula (comida) | Brásicas | otoño, invierno, primavera | 0 / 8-20 / 27 °C | tolera | 100 % | llanuras, praderas |
+| Brócoli | Brócoli (comida) | Brásicas | otoño, invierno | 2 / 10-20 / 26 °C | tolera | 60 % | taigas |
+| Tomate | Tomate (comida) | Solanáceas | primavera, verano | 10 / 18-28 / 35 °C | no | 60 % | sabanas, junglas |
+| Soja | Porotos de soja (comida) | Leguminosas | primavera, verano | 10 / 20-30 / 36 °C | no | 70 % | llanuras, sabanas |
+| Girasol | Cabeza de girasol | Compuestas | primavera, verano | 8 / 18-30 / 38 °C | no | 70 % | llanuras (y de girasoles) |
+| Albahaca | Albahaca (comida) | Lamiáceas | primavera, verano | 12 / 20-30 / 36 °C | no | 80 % | junglas |
+| Zapallo | Zapallo (comida) | Cucurbitáceas | primavera, verano | 12 / 20-30 / 36 °C | no | 50 % | junglas, bosques |
+
+La regla general: los de **estación fría** (lechuga, rúcula, brócoli) se siembran en otoño-invierno, y los de
+**estación cálida** (tomate, soja, girasol, albahaca, zapallo) en primavera-verano. En verano la lechuga no solo deja
+de crecer: en las tardes calurosas se marchita.
+
+**Cómo se consiguen las semillas**
+
+- **Plantas silvestres:** aparecen solas al generar el mundo, en parches, según el bioma de la tabla. Al romperlas
+  dan semillas. No se pueden colocar a mano (no tienen ítem).
+- **Cosechando:** un cultivo maduro da el producto y semillas (Fortuna aumenta las semillas); uno sin madurar
+  devuelve la semilla.
+- **Crafteo:** 1 producto → semillas (2 en general, 3 de tomate y zapallo, 4 de girasol).
+
+**Solo en tierra preparada.** Las semillas únicamente se plantan en tierra arada (farmland), como el trigo.
+
+**Pestaña creativa** "Cultivo regenerativo" con todas las semillas y productos.
+
+Las texturas actuales son provisorias (pixel art generado); los modelos van en 4 etapas visuales para las 8 edades.
+
+**Código:** `block/` (`SeasonalCropBlock`, `WildPlantBlock`), `registry/ModCrops`, `worldgen/ModWorldGen`,
+datagen en `client/datagen/`, perfiles en `data/projectzomboid_prd/projectzomboid_prd/crop_profile/`.
+Gametest en `src/gametest/` (perfiles cargados, features registradas, semillas solo en farmland y el mixin aplicado).

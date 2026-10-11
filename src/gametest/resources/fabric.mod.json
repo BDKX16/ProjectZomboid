@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "projectzomboid_prd_gametest",
+  "version": "1.0.0",
+  "name": "ProjectZomboid_PRD game tests",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": [
+      "org.example.pz.projectzomboid_prd.gametest.SeasonalCropGameTest"
+    ]
+  },
+  "depends": {
+    "projectzomboid_prd": "*"
+  }
+}

@@ -19,7 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** Every crop profile JSON shipped with the mod must decode and be internally consistent. */
+/**
+ * Every crop profile JSON shipped with the mod must decode and be internally consistent.
+ * Mod blocks are not registered in unit tests, so for those only the growth fields are decoded here;
+ * the game test checks that they load in a real server.
+ */
 class CropProfileJsonTest {
     private static final Path DATA = Path.of("src/main/resources/data");
 
@@ -41,14 +45,24 @@ class CropProfileJsonTest {
 
         for (Path file : files) {
             JsonElement json = JsonParser.parseString(Files.readString(file));
-            CropProfile profile = CropProfile.CODEC.parse(JsonOps.INSTANCE, json)
-                    .getOrThrow(error -> new AssertionError(file + ": " + error));
-            assertNotEquals(Blocks.AIR, profile.block(), file + ": unknown block");
+            String block = json.getAsJsonObject().get("block").getAsString();
+            GrowthRequirements requirements;
+            if (block.startsWith("minecraft:")) {
+                CropProfile profile = CropProfile.CODEC.parse(JsonOps.INSTANCE, json)
+                        .getOrThrow(error -> new AssertionError(file + ": " + error));
+                assertNotEquals(Blocks.AIR, profile.block(), file + ": unknown block");
+                requirements = profile.requirements();
+            } else {
+                PlantFamily.CODEC.parse(JsonOps.INSTANCE, json.getAsJsonObject().get("family"))
+                        .getOrThrow(error -> new AssertionError(file + ": " + error));
+                requirements = GrowthRequirements.MAP_CODEC.codec().parse(JsonOps.INSTANCE, json)
+                        .getOrThrow(error -> new AssertionError(file + ": " + error));
+            }
 
-            GrowthRequirements.TemperatureRange t = profile.requirements().temperature();
+            GrowthRequirements.TemperatureRange t = requirements.temperature();
             assertTrue(t.min() < t.optimalMin() && t.optimalMin() <= t.optimalMax() && t.optimalMax() < t.max(),
                     file + ": temperatures must be min < optimal_min <= optimal_max < max");
-            assertFalse(profile.requirements().seasons().isEmpty(), file + ": no seasons");
+            assertFalse(requirements.seasons().isEmpty(), file + ": no seasons");
         }
     }
 }
