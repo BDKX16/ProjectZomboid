@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "projectzomboid_prd:farmer/1/lettuce_emerald",
+    "projectzomboid_prd:farmer/1/tomato_emerald",
+    "projectzomboid_prd:farmer/1/soybeans_emerald",
+    "projectzomboid_prd:farmer/1/corn_emerald",
+    "projectzomboid_prd:farmer/1/onion_emerald"
+  ]
+}

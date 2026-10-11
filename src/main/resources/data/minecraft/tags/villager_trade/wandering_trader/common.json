@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "projectzomboid_prd:wandering_trader/emerald_coffee_seeds",
+    "projectzomboid_prd:wandering_trader/emerald_yerba_mate_seeds",
+    "projectzomboid_prd:wandering_trader/emerald_tobacco_seeds",
+    "projectzomboid_prd:wandering_trader/emerald_cannabis_seeds",
+    "projectzomboid_prd:wandering_trader/emerald_hop_seeds",
+    "projectzomboid_prd:wandering_trader/emerald_chili_seeds",
+    "projectzomboid_prd:wandering_trader/emerald_garlic_seeds",
+    "projectzomboid_prd:wandering_trader/emerald_corn_seeds"
+  ]
+}

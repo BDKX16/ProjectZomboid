@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "projectzomboid_prd:farmer/2/emerald_lettuce_seeds",
+    "projectzomboid_prd:farmer/2/emerald_tomato_seeds",
+    "projectzomboid_prd:farmer/2/emerald_basil_seeds",
+    "projectzomboid_prd:farmer/2/emerald_arugula_seeds",
+    "projectzomboid_prd:farmer/2/emerald_bean_seeds",
+    "projectzomboid_prd:farmer/2/squash_emerald"
+  ]
+}

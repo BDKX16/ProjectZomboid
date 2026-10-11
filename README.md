@@ -572,3 +572,74 @@ invernadero o en una sala de cultivo. El resto se cumple consiguiendo o comiendo
   - `RouteGameTest`: todos los nodos son logros cargados con el padre correcto, y los triggers de invernadero y sala
     de cultivo funcionan.
   - `RouteLangTest`: cada nodo y capítulo tiene texto en los 4 idiomas.
+
+### Fase 9 — Aldeanos y sonidos propios ✅
+
+**Intercambios** (data-driven, en `data/projectzomboid_prd/villager_trade/` más los tags
+`data/minecraft/tags/villager_trade/...`, que se suman a los de vanilla):
+
+| Quién | Nivel | Compra | Vende |
+|---|---|---|---|
+| Granjero | 1 Novato | lechuga, tomate, soja, choclo, cebolla → esmeralda | — |
+| Granjero | 2 Aprendiz | zapallo | semillas de lechuga, tomate, albahaca, rúcula y poroto |
+| Granjero | 3 Oficial | ajo curado, maíz seco | compost, mulch de paja |
+| Granjero | 4 Experto | — | kit de suelo, tijeras de poda, termohigrómetro |
+| Granjero | 5 Maestro | tabaco curado, cerveza, yerba estacionada | — |
+| Comerciante errante | — | — | semillas raras: café, yerba mate, tabaco, cannabis, lúpulo, ají, ajo y maíz |
+
+**Sonidos propios.** El mod tiene 9 eventos de sonido. Por ahora suenan con sonidos parecidos de vanilla, configurados
+en `assets/projectzomboid_prd/sounds.json`:
+
+| Evento | Cuándo suena | Provisorio (vanilla) |
+|---|---|---|
+| `item.mate.sip` | cada sorbo mientras tomás mate | beber, más agudo |
+| `item.mate.slurp` | el ruidito del final del mate | beber miel, más grave |
+| `item.mate.pour` | cebar con el termo | vaciar botella |
+| `item.mate.load` | cargar yerba | compostador |
+| `item.thermos.fill` | llenar el termo en el agua | llenar botella |
+| `item.smoke.inhale` | mientras fumás (porro o cigarro) | inhalación del breeze |
+| `item.smoke.exhale` | al terminar de fumar | fuego que se apaga, suave |
+| `block.brew_kettle.boil` | la olla hirviendo | columna de burbujas |
+| `block.fermenter.bubble` | el airlock del fermentador | burbuja |
+
+#### Cómo poner tus grabaciones
+
+1. **Grabá** cada sonido (el celular o Audacity alcanzan). Que sea corto: entre 0,3 y 2 segundos (la pitada hasta
+   2 s), sin silencio al principio ni al final.
+2. **Convertí a OGG Vorbis, mono**, 44100 Hz. En Audacity: *Pistas → Mezclar → Mezclar estéreo a mono*, después
+   *Archivo → Exportar → Exportar como OGG*, calidad 5. Tiene que ser **mono**: los sonidos en estéreo no se ubican
+   en el espacio (se escuchan igual estés donde estés).
+3. **Copiá los archivos** a `src/main/resources/assets/projectzomboid_prd/sounds/`. Usá nombres en minúscula, sin
+   espacios ni tildes. Conviene grabar 2 o 3 versiones de cada uno para que no suene siempre igual:
+   ```
+   sounds/mate/sip1.ogg  sounds/mate/sip2.ogg  sounds/mate/sip3.ogg
+   sounds/mate/slurp1.ogg
+   sounds/smoke/inhale1.ogg  sounds/smoke/exhale1.ogg ...
+   ```
+4. **En `sounds.json`** reemplazá la entrada provisoria de ese evento por tus archivos. El nombre va **sin** `.ogg`
+   y **sin** la carpeta `sounds/`:
+   ```json
+   "item.mate.sip": {
+     "subtitle": "subtitles.projectzomboid_prd.item.mate.sip",
+     "sounds": [
+       "projectzomboid_prd:mate/sip1",
+       "projectzomboid_prd:mate/sip2",
+       { "name": "projectzomboid_prd:mate/sip3", "volume": 0.8, "pitch": 1.1 }
+     ]
+   }
+   ```
+   Cuando hay varios, el juego elige uno al azar. `volume` (0–1) y `pitch` (0,5–2) son opcionales.
+5. **Probá** con `./gradlew runClient`. Con **F3 + T** se recargan los recursos sin cerrar el juego. Para escuchar un
+   sonido suelto: `/playsound projectzomboid_prd:item.mate.sip master @s`.
+6. Si un archivo falta o tiene mal el nombre, el log dice `Unable to play unknown soundEvent` o
+   `File ... does not exist`, y no suena nada (el juego no se rompe).
+
+Para un sonido nuevo, uno que todavía no existe en el mod, hay que registrarlo en `registry/ModSounds.java` (una línea
+como las demás), agregarlo a `sounds.json` y reproducirlo desde el código.
+
+**Código:**
+- `registry/ModSounds` y `assets/projectzomboid_prd/sounds.json`.
+- El mate suena a sorbos con `onUseTick`; al cebar y al terminar suenan el cebado y el ruidito final.
+- Fumar inhala mientras se usa y exhala al terminar (`PlaySoundConsumeEffect`).
+- La olla y el fermentador suenan de vez en cuando mientras trabajan.
+- Gametest `TradesGameTest`: los intercambios cargan y están en los pools del granjero y del comerciante errante.

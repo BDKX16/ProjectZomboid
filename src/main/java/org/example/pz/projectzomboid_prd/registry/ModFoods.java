@@ -2,8 +2,6 @@ package org.example.pz.projectzomboid_prd.registry;
 
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -13,6 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+import net.minecraft.world.item.consume_effects.PlaySoundConsumeEffect;
 import net.minecraft.world.item.consume_effects.RemoveStatusEffectsConsumeEffect;
 import org.example.pz.projectzomboid_prd.effect.ModEffects;
 import org.example.pz.projectzomboid_prd.item.DescribedItem;
@@ -129,13 +128,14 @@ public final class ModFoods {
         return new FoodProperties.Builder().nutrition(nutrition).saturationModifier(saturation).alwaysEdible().build();
     }
 
-    /** Held to the mouth like a horn, with a slow breath in. */
+    /** Held to the mouth like a horn: breathing in while in use, out when done. */
     private static Consumable.Builder smoke() {
         return Consumable.builder()
                 .consumeSeconds(2.0f)
                 .animation(ItemUseAnimation.TOOT_HORN)
-                .sound(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.BREEZE_INHALE))
-                .hasConsumeParticles(false);
+                .sound(ModSounds.SMOKE_INHALE)
+                .hasConsumeParticles(false)
+                .onConsume(new PlaySoundConsumeEffect(ModSounds.SMOKE_EXHALE));
     }
 
     /** A meal with at most one effect. */

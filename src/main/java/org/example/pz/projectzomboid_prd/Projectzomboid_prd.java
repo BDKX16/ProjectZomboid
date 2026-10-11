@@ -14,6 +14,7 @@ import org.example.pz.projectzomboid_prd.registry.ModCrops;
 import org.example.pz.projectzomboid_prd.registry.ModFoods;
 import org.example.pz.projectzomboid_prd.registry.ModGameRules;
 import org.example.pz.projectzomboid_prd.registry.ModItems;
+import org.example.pz.projectzomboid_prd.registry.ModSounds;
 import org.example.pz.projectzomboid_prd.season.SeasonManager;
 import org.example.pz.projectzomboid_prd.soil.SoilManager;
 import org.example.pz.projectzomboid_prd.worldgen.ModWorldGen;
@@ -35,6 +36,7 @@ public class Projectzomboid_prd implements ModInitializer {
         SeasonCommand.init();
         CropProfiles.init();
         ModComponents.init();
+        ModSounds.init();
         ModBlocks.init();
         ModCrops.init();
         ModItems.init();

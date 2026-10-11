@@ -418,5 +418,14 @@
   "route.projectzomboid_prd.grow_light": "Luz de cultivo",
   "route.projectzomboid_prd.grow_light.desc": "Fabricá una luz de cultivo.",
   "route.projectzomboid_prd.grow_room": "Sala de cultivo",
-  "route.projectzomboid_prd.grow_room.desc": "Cosechá en una sala subterránea con luz y extractor."
+  "route.projectzomboid_prd.grow_room.desc": "Cosechá en una sala subterránea con luz y extractor.",
+  "subtitles.projectzomboid_prd.item.mate.sip": "Sorbo de mate",
+  "subtitles.projectzomboid_prd.item.mate.slurp": "Ruidito del mate",
+  "subtitles.projectzomboid_prd.item.mate.pour": "Ceban un mate",
+  "subtitles.projectzomboid_prd.item.mate.load": "Cargan yerba",
+  "subtitles.projectzomboid_prd.item.thermos.fill": "Llenan el termo",
+  "subtitles.projectzomboid_prd.item.smoke.inhale": "Pitada",
+  "subtitles.projectzomboid_prd.item.smoke.exhale": "Exhalan humo",
+  "subtitles.projectzomboid_prd.block.brew_kettle.boil": "Hierve la olla",
+  "subtitles.projectzomboid_prd.block.fermenter.bubble": "Burbujea el fermentador"
 }

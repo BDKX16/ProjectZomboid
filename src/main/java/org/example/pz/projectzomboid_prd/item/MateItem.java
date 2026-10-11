@@ -3,7 +3,6 @@ package org.example.pz.projectzomboid_prd.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
@@ -20,6 +19,7 @@ import net.minecraft.world.level.Level;
 import org.example.pz.projectzomboid_prd.processing.Quality;
 import org.example.pz.projectzomboid_prd.registry.ModComponents;
 import org.example.pz.projectzomboid_prd.registry.ModItems;
+import org.example.pz.projectzomboid_prd.registry.ModSounds;
 
 import java.util.function.Consumer;
 
@@ -39,6 +39,7 @@ public class MateItem extends DescribedItem {
     public static final int SERVINGS_PER_LOAD = 10;
     private static final int HASTE_TICKS = 2 * 60 * 20;
     private static final int DRINK_TICKS = 32;
+    private static final int SIP_EVERY = 8;
 
     public MateItem(Properties properties) {
         super(properties);
@@ -71,7 +72,7 @@ public class MateItem extends DescribedItem {
                 mate.remove(ModComponents.QUALITY);
             }
             other.consume(1, player);
-            level.playSound(player, player.blockPosition(), SoundEvents.COMPOSTER_FILL, SoundSource.PLAYERS, 1.0f, 1.2f);
+            level.playSound(player, player.blockPosition(), ModSounds.MATE_LOAD.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
             return InteractionResult.SUCCESS;
         }
         if (!served(mate)) {
@@ -90,6 +91,7 @@ public class MateItem extends DescribedItem {
         if (!served(mate)) {
             return mate;
         }
+        level.playSound(null, entity.blockPosition(), ModSounds.MATE_SLURP.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
         float multiplier = Quality.durationMultiplier(Quality.of(mate));
         entity.addEffect(new MobEffectInstance(MobEffects.HASTE, Math.round(HASTE_TICKS * multiplier)));
         mate.remove(ModComponents.MATE_SERVED);
@@ -119,7 +121,7 @@ public class MateItem extends DescribedItem {
     private static void serve(Player player, ItemStack mate, InteractionHand thermosHand) {
         player.setItemInHand(thermosHand, ThermosItem.pour(player.getItemInHand(thermosHand)));
         mate.set(ModComponents.MATE_SERVED, Unit.INSTANCE);
-        player.level().playSound(player, player.blockPosition(), SoundEvents.BOTTLE_EMPTY, SoundSource.PLAYERS, 0.8f, 1.3f);
+        player.level().playSound(player, player.blockPosition(), ModSounds.MATE_POUR.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
     }
 
     private static InteractionHand other(InteractionHand hand) {
@@ -129,6 +131,15 @@ public class MateItem extends DescribedItem {
     private static void hint(Player player, String key) {
         if (player instanceof ServerPlayer serverPlayer) {
             serverPlayer.sendSystemMessage(Component.translatable(key), true);
+        }
+    }
+
+    /** A sip through the straw every few ticks while drinking. */
+    @Override
+    public void onUseTick(Level level, LivingEntity entity, ItemStack mate, int ticksLeft) {
+        if (!level.isClientSide() && ticksLeft % SIP_EVERY == 0 && ticksLeft > SIP_EVERY) {
+            level.playSound(null, entity.blockPosition(), ModSounds.MATE_SIP.value(), SoundSource.PLAYERS,
+                    1.0f, 0.9f + level.getRandom().nextFloat() * 0.2f);
         }
     }
 

@@ -418,5 +418,14 @@
   "route.projectzomboid_prd.grow_light": "Grow Light",
   "route.projectzomboid_prd.grow_light.desc": "Craft a grow light.",
   "route.projectzomboid_prd.grow_room": "Grow Room",
-  "route.projectzomboid_prd.grow_room.desc": "Harvest in an underground room with light and an extractor."
+  "route.projectzomboid_prd.grow_room.desc": "Harvest in an underground room with light and an extractor.",
+  "subtitles.projectzomboid_prd.item.mate.sip": "Mate sip",
+  "subtitles.projectzomboid_prd.item.mate.slurp": "Mate gurgles",
+  "subtitles.projectzomboid_prd.item.mate.pour": "Mate served",
+  "subtitles.projectzomboid_prd.item.mate.load": "Yerba loaded",
+  "subtitles.projectzomboid_prd.item.thermos.fill": "Thermos filled",
+  "subtitles.projectzomboid_prd.item.smoke.inhale": "Puff",
+  "subtitles.projectzomboid_prd.item.smoke.exhale": "Smoke exhaled",
+  "subtitles.projectzomboid_prd.block.brew_kettle.boil": "Kettle boils",
+  "subtitles.projectzomboid_prd.block.fermenter.bubble": "Fermenter bubbles"
 }

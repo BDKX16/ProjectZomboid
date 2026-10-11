@@ -3,7 +3,6 @@ package org.example.pz.projectzomboid_prd.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
@@ -22,6 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.example.pz.projectzomboid_prd.registry.ModComponents;
 import org.example.pz.projectzomboid_prd.registry.ModItems;
+import org.example.pz.projectzomboid_prd.registry.ModSounds;
 
 import java.util.function.Consumer;
 
@@ -80,7 +80,7 @@ public class ThermosItem extends DescribedItem {
     }
 
     private static InteractionResult fill(Level level, Player player, InteractionHand hand, ItemStack stack, BlockPos at) {
-        level.playSound(player, at, SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0f, 0.9f);
+        level.playSound(player, at, ModSounds.THERMOS_FILL.value(), SoundSource.NEUTRAL, 1.0f, 1.0f);
         player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(ModItems.THERMOS_COLD)));
         return InteractionResult.SUCCESS;
     }
