@@ -29,6 +29,7 @@ import io.github.bdkx16.regenerativeagriculture.registry.ModItems;
 import io.github.bdkx16.regenerativeagriculture.season.ClimateModel;
 import io.github.bdkx16.regenerativeagriculture.season.Season;
 import io.github.bdkx16.regenerativeagriculture.season.SeasonText;
+import io.github.bdkx16.regenerativeagriculture.worldgen.ModWorldGen;
 import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -264,7 +265,25 @@ public class ManualScreen extends Screen {
             return;
         }
         CropProfile crop = crops.get(Math.min(selectedCrop, crops.size() - 1));
+        drawHabitats(graphics, crop, lx, top + PAGE_Y + 16 + ((crops.size() + 6) / 7) * 17 + 6);
         drawCropSheet(graphics, crop, left + RIGHT_PAGE_X, top + PAGE_Y, mouseX, mouseY);
+    }
+
+    /** Under the crop grid: the biomes where the selected crop's wild plant (and so its first seeds) can be found. */
+    private void drawHabitats(GuiGraphicsExtractor graphics, CropProfile crop, int x, int y) {
+        Optional<ModCrops.Crop> modCrop = ModCrops.ALL.stream().filter(candidate -> candidate.block() == crop.block()).findFirst();
+        if (modCrop.isEmpty() || ModWorldGen.habitats(modCrop.get()).isEmpty()) {
+            return;
+        }
+        MutableComponent biomes = Component.empty();
+        for (ModWorldGen.Habitat habitat : ModWorldGen.habitats(modCrop.get())) {
+            if (!biomes.getSiblings().isEmpty()) {
+                biomes.append(", ");
+            }
+            biomes.append(habitat.name());
+        }
+        y = paragraph(graphics, Component.translatable(KEY + "crops.wild", modCrop.get().wildPlant().getName()), x, y, INK);
+        paragraph(graphics, biomes, x, y, MUTED);
     }
 
     private void drawCropSheet(GuiGraphicsExtractor graphics, CropProfile crop, int x, int y, int mouseX, int mouseY) {

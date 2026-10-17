@@ -7,8 +7,12 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Util;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -25,6 +29,9 @@ import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import io.github.bdkx16.regenerativeagriculture.RegenerativeAgriculture;
 import io.github.bdkx16.regenerativeagriculture.registry.ModCrops;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -39,29 +46,67 @@ public final class ModWorldGen {
     private ModWorldGen() {
     }
 
+    private static final Habitat FORESTS = Habitat.tag(BiomeTags.IS_FOREST, "forests");
+    private static final Habitat SAVANNAS = Habitat.tag(BiomeTags.IS_SAVANNA, "savannas");
+    private static final Habitat JUNGLES = Habitat.tag(BiomeTags.IS_JUNGLE, "jungles");
+    private static final Habitat TAIGAS = Habitat.tag(BiomeTags.IS_TAIGA, "taigas");
+    private static final Habitat BADLANDS = Habitat.tag(BiomeTags.IS_BADLANDS, "badlands");
+    private static final Habitat PLAINS = Habitat.biome(Biomes.PLAINS);
+    private static final Habitat SUNFLOWER_PLAINS = Habitat.biome(Biomes.SUNFLOWER_PLAINS);
+    private static final Habitat MEADOW = Habitat.biome(Biomes.MEADOW);
+    private static final Habitat WINDSWEPT_HILLS = Habitat.biome(Biomes.WINDSWEPT_HILLS);
+    private static final Habitat CHERRY_GROVE = Habitat.biome(Biomes.CHERRY_GROVE);
+    private static final Habitat FOREST = Habitat.biome(Biomes.FOREST);
+    private static final Habitat BIRCH_FOREST = Habitat.biome(Biomes.BIRCH_FOREST);
+    private static final Habitat DARK_FOREST = Habitat.biome(Biomes.DARK_FOREST);
+    private static final Habitat FLOWER_FOREST = Habitat.biome(Biomes.FLOWER_FOREST);
+
+    private static final Map<ModCrops.Crop, List<Habitat>> HABITATS = new LinkedHashMap<>();
+
     public static void init() {
-        addWildPlant(ModCrops.LETTUCE, BiomeSelectors.tag(BiomeTags.IS_FOREST));
-        addWildPlant(ModCrops.TOMATO, BiomeSelectors.tag(BiomeTags.IS_SAVANNA).or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE)));
-        addWildPlant(ModCrops.ARUGULA, BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.MEADOW));
-        addWildPlant(ModCrops.BROCCOLI, BiomeSelectors.tag(BiomeTags.IS_TAIGA));
-        addWildPlant(ModCrops.SOYBEAN, BiomeSelectors.includeByKey(Biomes.PLAINS).or(BiomeSelectors.tag(BiomeTags.IS_SAVANNA)));
-        addWildPlant(ModCrops.SUNFLOWER, BiomeSelectors.includeByKey(Biomes.SUNFLOWER_PLAINS, Biomes.PLAINS));
-        addWildPlant(ModCrops.BASIL, BiomeSelectors.tag(BiomeTags.IS_JUNGLE));
-        addWildPlant(ModCrops.SQUASH, BiomeSelectors.tag(BiomeTags.IS_JUNGLE).or(BiomeSelectors.tag(BiomeTags.IS_FOREST)));
-        addWildPlant(ModCrops.ONION, BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.MEADOW));
-        addWildPlant(ModCrops.GARLIC, BiomeSelectors.includeByKey(Biomes.MEADOW, Biomes.WINDSWEPT_HILLS, Biomes.CHERRY_GROVE));
-        addWildPlant(ModCrops.CANNABIS, BiomeSelectors.tag(BiomeTags.IS_SAVANNA).or(BiomeSelectors.includeByKey(Biomes.MEADOW)));
-        addWildPlant(ModCrops.TOBACCO, BiomeSelectors.tag(BiomeTags.IS_JUNGLE).or(BiomeSelectors.tag(BiomeTags.IS_SAVANNA)));
-        addWildPlant(ModCrops.COFFEE, BiomeSelectors.tag(BiomeTags.IS_JUNGLE));
-        addWildPlant(ModCrops.CHILI, BiomeSelectors.tag(BiomeTags.IS_SAVANNA).or(BiomeSelectors.tag(BiomeTags.IS_BADLANDS)));
-        addWildPlant(ModCrops.HOP, BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST));
-        addWildPlant(ModCrops.YERBA_MATE, BiomeSelectors.tag(BiomeTags.IS_JUNGLE).or(BiomeSelectors.includeByKey(Biomes.FOREST)));
-        addWildPlant(ModCrops.CORN, BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS).or(BiomeSelectors.tag(BiomeTags.IS_SAVANNA)));
-        addWildPlant(ModCrops.BEAN, BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.FOREST, Biomes.FLOWER_FOREST));
+        addWildPlant(ModCrops.LETTUCE, FORESTS);
+        addWildPlant(ModCrops.TOMATO, SAVANNAS, JUNGLES);
+        addWildPlant(ModCrops.ARUGULA, PLAINS, MEADOW);
+        addWildPlant(ModCrops.BROCCOLI, TAIGAS);
+        addWildPlant(ModCrops.SOYBEAN, PLAINS, SAVANNAS);
+        addWildPlant(ModCrops.SUNFLOWER, SUNFLOWER_PLAINS, PLAINS);
+        addWildPlant(ModCrops.BASIL, JUNGLES);
+        addWildPlant(ModCrops.SQUASH, JUNGLES, FORESTS);
+        addWildPlant(ModCrops.ONION, PLAINS, MEADOW);
+        addWildPlant(ModCrops.GARLIC, MEADOW, WINDSWEPT_HILLS, CHERRY_GROVE);
+        addWildPlant(ModCrops.CANNABIS, SAVANNAS, MEADOW);
+        addWildPlant(ModCrops.TOBACCO, JUNGLES, SAVANNAS);
+        addWildPlant(ModCrops.COFFEE, JUNGLES);
+        addWildPlant(ModCrops.CHILI, SAVANNAS, BADLANDS);
+        addWildPlant(ModCrops.HOP, FOREST, BIRCH_FOREST, DARK_FOREST);
+        addWildPlant(ModCrops.YERBA_MATE, JUNGLES, FOREST);
+        addWildPlant(ModCrops.CORN, PLAINS, SUNFLOWER_PLAINS, SAVANNAS);
+        addWildPlant(ModCrops.BEAN, PLAINS, FOREST, FLOWER_FOREST);
     }
 
-    private static void addWildPlant(ModCrops.Crop crop, Predicate<BiomeSelectionContext> biomes) {
+    private static void addWildPlant(ModCrops.Crop crop, Habitat... habitats) {
+        HABITATS.put(crop, List.of(habitats));
+        Predicate<BiomeSelectionContext> biomes = habitats[0].biomes();
+        for (int i = 1; i < habitats.length; i++) {
+            biomes = biomes.or(habitats[i].biomes());
+        }
         BiomeModifications.addFeature(biomes, GenerationStep.Decoration.VEGETAL_DECORATION, placedKey(crop));
+    }
+
+    /** Where the wild plant of {@code crop} grows, for the manual; empty if it has no wild patches. */
+    public static List<Habitat> habitats(ModCrops.Crop crop) {
+        return HABITATS.getOrDefault(crop, List.of());
+    }
+
+    /** A biome or group of biomes wild plants grow in, with the name the manual shows for it. */
+    public record Habitat(Predicate<BiomeSelectionContext> biomes, Component name) {
+        static Habitat tag(TagKey<Biome> tag, String name) {
+            return new Habitat(BiomeSelectors.tag(tag), Component.translatable("habitat." + RegenerativeAgriculture.MOD_ID + "." + name));
+        }
+
+        static Habitat biome(ResourceKey<Biome> biome) {
+            return new Habitat(BiomeSelectors.includeByKey(biome), Component.translatable(Util.makeDescriptionId("biome", biome.identifier())));
+        }
     }
 
     public static ResourceKey<Feature> featureKey(ModCrops.Crop crop) {

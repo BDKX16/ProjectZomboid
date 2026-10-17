@@ -532,7 +532,7 @@ colores** al costado, uno por capítulo.
 |---|---|
 | **Ruta** | Mapa de **nodos unidos**, estilo árbol de habilidades (Path of Exile o Thaumcraft) o pantalla de logros. Se arrastra con el mouse o la rueda |
 | **Estaciones** | Fecha de hoy, días por estación y qué cultivos crecen en cada estación |
-| **Cultivos** | Todos los cultivos (del mod y vanilla). Click en uno abre su ficha: familia, estaciones, temperatura óptima y rango, heladas, velocidad, si rebrota con tijeras, nitrógeno, compañeras, antagonistas y en qué se convierte en el secadero |
+| **Cultivos** | Todos los cultivos (del mod y vanilla). Click en uno muestra debajo de la grilla en qué biomas crece su planta silvestre (de dónde sacar las primeras semillas) y abre su ficha: familia, estaciones, temperatura óptima y rango, heladas, velocidad, si rebrota con tijeras, nitrógeno, compañeras, antagonistas y en qué se convierte en el secadero |
 | **Suelo** | Fertilidad, rotación, asociación, compost y mulch |
 | **Clima e invernaderos** | Invernaderos, salas de cultivo, extractores y hongos |
 | **Secado y curado** | Secadero, humedad, moho, frasco y calidad |
